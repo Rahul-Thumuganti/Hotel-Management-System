@@ -1,0 +1,645 @@
+{% extends 'user_base.html' %}
+
+{% block content %}
+<!-- main header -->
+<!-- Header Video -->
+<header class="header">
+    <div class="video-fullscreen-wrap">
+        <!-- The opacity on the image is made with "data-overlay-dark="number". You can change it using the numbers 0-9. -->
+        <div class="video-fullscreen-video" data-overlay-dark="5">
+            <video autoplay="" loop="" muted="" playsinline="">
+                <source
+                        autoplay=""
+                        loop=""
+                        muted=""
+                        src="https://duruthemes.com/demo/html/patara/hotel.mp4"
+                        type="video/mp4"
+                />
+                <source
+                        autoplay=""
+                        loop=""
+                        muted=""
+                        src="https://duruthemes.com/demo/html/patara/hotel.webm"
+                        type="video/webm"
+                />
+            </video>
+        </div>
+        <div class="v-middle caption overlay">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-7">
+                <span>
+                  <i class="star-rating"></i>
+                  <i class="star-rating"></i>
+                  <i class="star-rating"></i>
+                  <i class="star-rating"></i>
+                  <i class="star-rating"></i>
+                </span>
+                        <h4>Best Five-Star Hotel</h4>
+                        <h1>Raj Hotel</h1>
+                        <div class="butn-light mt-30 mb-30">
+                            <a href="{% url 'rooms_view' %}"><span>Rooms &amp; Suites</span></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<!-- Booking Search -->
+<div class="booking-wrapper">
+    <div class="container">
+        <div class="booking-inner clearfix">
+            <form action="#" class="form1 clearfix">
+                  <div class="col2 c1">
+                    <div class="select1_wrapper border-l border-b border-t border-r">
+                        <label>Children</label>
+                        <div class="select1_inner">
+                            <select class="select2 select" style="width: 100%">
+                               <option value="Select Type"  selected>Location</option>
+                               {% for a in city %}
+                            <option value="{{ a.pk }}">{{ a.city }}</option>
+                            {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col1 c2">
+                    <div class="input1_wrapper border-l border-b border-t border-r">
+                        <label>Check in</label>
+                        <div class="row">
+                            <div  class="col-md-6">
+                                 <option value="Select Type"  selected style="margin-top:15px;margin-left:10px;color:white;">Check In </option>
+                            </div>
+                        <div  class="col-md-6" style="margin-top:10px;">
+
+                            <input class="form-control input datepicker" placeholder="Check in" type="date" style="background-color:#6b6866;color:white;width:130px;margin-left:-40px;"
+                   id="checkInDate" />
+                        </div>
+                        </div></div>
+                </div>
+
+                <div class="col1 c3">
+                    <div class="input1_wrapper border-l border-b border-t border-r">
+                        <label>Check out</label>
+                       <div class="row">
+                            <div  class="col-md-6">
+                                 <option value="Select Type"  selected style="margin-top:15px;margin-left:5px;color:white;">Check Out </option>
+                            </div>
+                        <div  class="col-md-6" style="margin-top:10px;">
+                           <input class="form-control input datepicker" placeholder="Check Out" type="date"  style="background-color:#6b6866;color:white;width:130px;margin-left:-40px;margin-top:px;"
+                   id="checkOutDate" />
+                        </div></div>
+                    </div>
+                </div>
+                <div class="col2 c4">
+                    <div class="select1_wrapper border-l border-b border-t border-r">
+                        <label>Persons</label>
+                        <div class="select1_inner">
+                            <select class="select2 select" style="width: 100%">
+                                 <option value="Select Type"  selected>persons</option>
+                                 <option value="1">1</option>
+                                <option value="2">2 </option>
+                                <option value="3">3 </option>
+                                <option value="4">4 </option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col2 c5">
+                    <div class="select1_wrapper border-l border-b border-t border-r">
+                        <label>Type</label>
+                        <div class="select1_inner">
+                            <select class="select2 select" style="width: 100%">
+                                 <option value="Select Type"  selected>Type</option>
+                               {% for a in room_type %}
+                                    <option value="{{ a.pk }}">{{ a.room_type }}</option>
+                                    {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col3 c6">
+                    <button class="btn-form1-submit" type="submit">Check Now</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- About -->
+<section class="about section-padding bg-white">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="sub-title border-bot-light">Welcome to</div>
+            </div>
+            <div class="col-md-9">
+                <div class="section-title">Raj Hotel</div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <p>
+                            Welcome to the best five-star deluxe hotel in India. Raj Hotel is a family-friendly hotel
+                            that offers
+                            a wide range of accommodation types, from rooms to suites.
+                            All this in the peaceful surroundings of our beautiful gardens, will make your time at
+                            an unforgettable holiday.
+                        </p>
+                        <p>
+                            Raj hotel offers you a privileged experience combining comfort and conviviality.
+                            Whether you are a backpacker, a solo traveler or with your family,
+                            our hotel with top-of-the-range service will meet all your
+                            expectations. More than just a hotel, This hotel offers you a place to live and meet people.
+                        </p>
+                        <p>
+                            The Raj hotel offers a complete experience with common areas that allow you to meet
+                            new people in a unique atmosphere. Lounge area, Ping Pong table,
+                            table soccer, darts & Boiler room: we told you, it’s not a hotel like the others, it’s a
+                            sharing hotel.
+                        </p>
+                        <!-- Rating -->
+                        <div class="ratting-point mt-30 mb-30">
+                            <div class="features-ratting">
+                                <h3>4.9</h3>
+                            </div>
+                            <div class="features-caption">
+                                <h3>Rating based on 2500+ reviews</h3>
+                                <div class="rating">
+                      <span>
+                        <i class="star-rating"></i>
+                        <i class="star-rating"></i>
+                        <i class="star-rating"></i>
+                        <i class="star-rating"></i>
+                        <i class="star-rating"></i>
+                      </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="row g-3">
+                            <div class="col-6 text-end">
+                                <img
+                                        class="img-fluid rounded w-75 wow zoomIn"
+                                        data-wow-delay="0.1s"
+                                        src="/static/userassets/img/about-1.jpg"
+                                        style="margin-top: 25%"
+                                />
+                            </div>
+                            <div class="col-6 text-start">
+                                <img
+                                        class="img-fluid rounded w-100 wow zoomIn"
+                                        data-wow-delay="0.3s"
+                                        src="/static/userassets/img/about-2.jpg"
+                                />
+                            </div>
+                            <div class="col-6 text-end">
+                                <img
+                                        class="img-fluid rounded w-50 wow zoomIn"
+                                        data-wow-delay="0.5s"
+                                        src="/static/userassets/img/about-3.jpg"
+                                />
+                            </div>
+                            <div class="col-6 text-start">
+                                <img
+                                        class="img-fluid rounded w-75 wow zoomIn"
+                                        data-wow-delay="0.7s"
+                                        src="/static/userassets/img/about-4.jpg"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Rooms -->
+ <section class="rooms1 section-padding pb-60" data-scroll-index="1">
+      <div class="container">
+        <div class="row">
+           {% for a in ad_a %}
+          <div class="col-md-6 mb-60">
+            <div class="rooms1-single">
+              <div class="rooms1-img">
+                <img src="{{ a.Room_image.url }}" alt="" />
+              </div>
+              <div class="rooms1-content active">
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="rooms1-title"><a href="#">{{a.room_type}}</a></div>
+                    <div class="rooms1-tagline">
+                      30 m<sup>2</sup> / 2 adults 1 children
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="book">
+                      <div>
+                        <a href="{% url 'rooms_view' %}" class="butn-dark2"
+                          ><span>Book</span></a
+                        >
+                      </div>
+                      <div>
+                        <span>from</span><span class="price">₹{{a.Price}}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+           {% endfor %}
+
+        </div>
+      </div>
+    </section>
+<!-- Promo Video -->
+<section
+        class="video-wrapper video section-padding bg-img bg-fixed"
+        data-background="/static/userassets/img/slider/1.jpg"
+        data-overlay-dark="5"
+>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 offset-md-2 text-center">
+            <span
+            ><i class="star-rating"></i><i class="star-rating"></i
+            ><i class="star-rating"></i><i class="star-rating"></i
+            ><i class="star-rating"></i
+            ></span>
+                <div class="section-subtitle">
+                    <span>Patara Resort & Spa Hotel</span>
+                </div>
+                <div class="section-title">
+                    <span>Hotel Promotional Video</span>
+                </div>
+            </div>
+        </div>
+    <!--        <div class="row">-->
+    <!--            <div class="text-center col-md-12">-->
+    <!--                <a class="vid" href="https://youtu.be/QTwg1l8FqXw">-->
+    <!--                    <div class="vid-butn">-->
+    <!--                <span class="icon">-->
+    <!--                  <i class="ti-control-play"></i>-->
+    <!--                </span>-->
+    <!--                    </div>-->
+    <!--                </a>-->
+    <!--            </div>-->
+    <!--        </div>-->
+    </div>
+</section>
+<!-- Amenities -->
+<section class="amenities section-padding">
+    <div class="container">
+        <div class="row mb-30">
+            <div class="col-md-3">
+                <div class="sub-title border-bot-light">Our Amenities</div>
+            </div>
+            <div class="col-md-9">
+                <div class="section-title">Hotel Amenities</div>
+                <p>
+                    At Raj Hotel, indulge in a wealth of amenities designed to enhance your stay,
+                    from lavish accommodations to a host of services ensuring a truly enriching and comfortable
+                    experience.
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+
+                <div class="owl-carousel owl-theme">
+                    {% for m in eme_a %}
+                    <div class="item">
+                        <span class="number">{{ forloop.counter }}</span>
+                        <div class="icon"><img alt="" class="rounded-rectangle"
+                                               src="{{ m.image.url }}" style="height:50px;width:50px;"></div>
+
+                        <h5><a href="#">{{m.amenitie}}</a></h5>
+
+                        <p>
+                           {{m.Ame_description}}
+                        </p>
+                    </div>
+
+
+                    {% endfor %}
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Testiominals -->
+<section class="testimonials">
+    <div
+            class="background bg-img bg-fixed section-padding pb-0"
+            data-background="/static/userassets/img/rooms/18.jpg"
+            data-overlay-dark="4"
+    >
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <h3 class="sub-title border-bot-dark">Testiominals</h3>
+                </div>
+                <div class="col-md-8">
+                    <div class="section-title whte">What Client's Say?</div>
+                    <div class="testimonials-box">
+                        <div class="owl-carousel owl-theme">
+                            <div class="item">
+                    <span>
+                      <i class="star-rating"></i>
+                      <i class="star-rating"></i>
+                      <i class="star-rating"></i>
+                      <i class="star-rating"></i>
+                      <i class="star-rating"></i>
+                    </span>
+                                <h5>
+                                    "Hotel was great. Location was excellent in that it was
+                                    close to everywhere I wanted to go. The staff was
+                                    incredible. At my every beckoning and call. Room was
+                                    smaller than I'd like but this was NY so to be expected. A
+                                    great experience all around!"
+                                </h5>
+                                <div class="info">
+                                    <div class="author-img">
+                                        <img alt="" src="/static/userassets/img/team/1.jpg"/>
+                                    </div>
+                                    <div class="cont">
+                                        <h6>Sai Praneeth.</h6>
+                                        <span>Customer Review</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="item">
+                    <span>
+                      <i class="star-rating"></i>
+                      <i class="star-rating"></i>
+                      <i class="star-rating"></i>
+                      <i class="star-rating"></i>
+                      <i class="star-rating"></i>
+                    </span>
+                                <h5>
+                                    "Great space for events. They were able to cater to the
+                                    event I was working while simultaneously having an event
+                                    and a wedding on separate floors. Hotel is massive.
+                                    Employees are very friendly and always willing to help if
+                                    need be. Will definitely be having more events here in the
+                                    future."
+                                </h5>
+                                <div class="info">
+                                    <div class="author-img">
+                                        <img alt="" src="/static/userassets/img/team/3.jpg"/>
+                                    </div>
+                                    <div class="cont">
+                                        <h6>Ray Smith</h6>
+                                        <span>Customer Review</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Services -->
+<section class="services section-padding">
+    <div class="container">
+        <div class="row mb-30">
+            <div class="col-md-3">
+                <div class="sub-title border-bot-light">Discover</div>
+            </div>
+            <div class="col-md-9">
+                <div class="section-title">Our Services</div>
+                <p>
+                    Hotel ut nisl quam nestibulum ac quam nec odio elementum sceisue
+                    the aucan ligula. Orci varius natoque penatibus et magnis dis
+                    parturient monte nascete ridiculus mus nellentesque habitant
+                    morbine.
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            {% for u in ser_a %}
+            <div class="col-md-4">
+
+                <div class="item">
+
+                    <div class="item-wrap">
+
+                        <div class="img"><img alt="" src="{{ u.image.url }}"></div>
+                        <div class="con">
+                            <div class="title-box">
+
+                                <h3><a href="#">{{ u.Service }}</a></h3>
+
+                            </div>
+                            <div class="arrow">
+                                <a href="#"><span class="ti-arrow-right"></span></a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+            {% endfor %}
+            <!--          <div class="col-md-4">-->
+            <!--            <div class="item">-->
+            <!--              <div class="item-wrap">-->
+            <!--                <div class="img"><img src="/static/userassets/img/news/2.jpg" alt="" /></div>-->
+            <!--                <div class="con">-->
+            <!--                  <div class="title-box">-->
+            <!--                    <h3><a href="#">Spa & Wellness</a></h3>-->
+            <!--                  </div>-->
+            <!--                  <div class="arrow">-->
+            <!--                    <a href="#"><span class="ti-arrow-right"></span></a>-->
+            <!--                  </div>-->
+            <!--                </div>-->
+            <!--              </div>-->
+            <!--            </div>-->
+            <!--          </div>-->
+            <!--          <div class="col-md-4">-->
+            <!--            <div class="item">-->
+            <!--              <div class="item-wrap">-->
+            <!--                <div class="img"><img src="/static/userassets/img/news/5.jpg" alt="" /></div>-->
+            <!--                <div class="con">-->
+            <!--                  <div class="title-box">-->
+            <!--                    <h3><a href="#">Events & Meetings</a></h3>-->
+            <!--                  </div>-->
+            <!--                  <div class="arrow">-->
+            <!--                    <a href="#"><span class="ti-arrow-right"></span></a>-->
+            <!--                  </div>-->
+            <!--                </div>-->
+            <!--              </div>-->
+            <!--            </div>-->
+            <!--          </div>-->
+        </div>
+    </div>
+</section>
+<!-- Booking Search -->
+
+<!-- Blog Home -->
+<section class="blog-home section-padding">
+    <!--      <div class="container">-->
+    <!--        <div class="row mb-30">-->
+    <!--          <div class="col-md-3">-->
+    <!--            <div class="sub-title border-bot-light">Our Blog</div>-->
+    <!--          </div>-->
+    <!--          <div class="col-md-9">-->
+    <!--            <div class="section-title">Latest News</div>-->
+    <!--            <p>-->
+    <!--              Hotel ut nisl quam nestibulum ac quam nec odio elementum sceisue-->
+    <!--              the aucan ligula. Orci varius natoque senatibus et magnis-->
+    <!--              narturient monte nascete ridiculus mus nellentesque habitant-->
+    <!--              morbine.-->
+    <!--            </p>-->
+    <!--          </div>-->
+    <!--        </div>-->
+    <!--        <div class="row">-->
+    <!--          <div class="col-md-12">-->
+    <!--            <div class="owl-carousel owl-theme">-->
+    <!--              <div class="item bg-img" data-background="/static/userassets/img/news/7.jpg">-->
+    <!--                <div class="content">-->
+    <!--                  <div class="info">-->
+    <!--                    <a href="blog.html">-->
+    <!--                      <span-->
+    <!--                        ><i class="ti-time" aria-hidden="true"></i>28 Dec-->
+    <!--                        2024</span-->
+    <!--                      ></a-->
+    <!--                    >-->
+    <!--                  </div>-->
+    <!--                  <a href="post.html">-->
+    <!--                    <h5>2 Family Room Options with Double Bedrooms</h5>-->
+    <!--                  </a>-->
+    <!--                  <p>-->
+    <!--                    Nulla tincidunt ante the sit amet suscition ullamcorpen-->
+    <!--                    risus sigula pharetra sapien viverra odio ante masna.-->
+    <!--                  </p>-->
+    <!--                  <div class="arrow">-->
+    <!--                    <a href="post.html"><span class="ti-arrow-right"></span></a>-->
+    <!--                  </div>-->
+    <!--                </div>-->
+    <!--              </div>-->
+    <!--              <div class="item bg-img" data-background="/static/userassets/img/news/3.jpg">-->
+    <!--                <div class="content">-->
+    <!--                  <div class="info">-->
+    <!--                    <a href="blog.html">-->
+    <!--                      <span-->
+    <!--                        ><i class="ti-time" aria-hidden="true"></i>26 Dec-->
+    <!--                        2024</span-->
+    <!--                      ></a-->
+    <!--                    >-->
+    <!--                  </div>-->
+    <!--                  <a href="post.html">-->
+    <!--                    <h5>Luxury Hotel Experience: Heated Pools</h5>-->
+    <!--                  </a>-->
+    <!--                  <p>-->
+    <!--                    Nulla tincidunt ante the sit amet suscition ullamcorpen-->
+    <!--                    risus sigula pharetra sapien viverra odio ante masna.-->
+    <!--                  </p>-->
+    <!--                  <div class="arrow">-->
+    <!--                    <a href="post.html"><span class="ti-arrow-right"></span></a>-->
+    <!--                  </div>-->
+    <!--                </div>-->
+    <!--              </div>-->
+    <!--              <div class="item bg-img" data-background="/static/userassets/img/news/9.jpg">-->
+    <!--                <div class="content">-->
+    <!--                  <div class="info">-->
+    <!--                    <a href="blog.html">-->
+    <!--                      <span-->
+    <!--                        ><i class="ti-time" aria-hidden="true"></i>24 Dec-->
+    <!--                        2024</span-->
+    <!--                      ></a-->
+    <!--                    >-->
+    <!--                  </div>-->
+    <!--                  <a href="post.html">-->
+    <!--                    <h5>What is the Meaning of Resort Hotel?</h5>-->
+    <!--                  </a>-->
+    <!--                  <p>-->
+    <!--                    Nulla tincidunt ante the sit amet suscition ullamcorpen-->
+    <!--                    risus sigula pharetra sapien viverra odio ante masna.-->
+    <!--                  </p>-->
+    <!--                  <div class="arrow">-->
+    <!--                    <a href="post.html"><span class="ti-arrow-right"></span></a>-->
+    <!--                  </div>-->
+    <!--                </div>-->
+    <!--              </div>-->
+    <!--              <div class="item bg-img" data-background="/static/userassetst/img/news/8.jpg">-->
+    <!--                <div class="content">-->
+    <!--                  <div class="info">-->
+    <!--                    <a href="blog.html">-->
+    <!--                      <span-->
+    <!--                        ><i class="ti-time" aria-hidden="true"></i>22 Dec-->
+    <!--                        2024</span-->
+    <!--                      ></a-->
+    <!--                    >-->
+    <!--                  </div>-->
+    <!--                  <a href="post.html">-->
+    <!--                    <h5>Luxury Hotel Bathroom Collections</h5>-->
+    <!--                  </a>-->
+    <!--                  <p>-->
+    <!--                    Nulla tincidunt ante the sit amet suscition ullamcorpen-->
+    <!--                    risus sigula pharetra sapien viverra odio ante masna.-->
+    <!--                  </p>-->
+    <!--                  <div class="arrow">-->
+    <!--                    <a href="post.html"><span class="ti-arrow-right"></span></a>-->
+    <!--                  </div>-->
+    <!--                </div>-->
+    <!--              </div>-->
+    <!--              <div class="item bg-img" data-background="/static/userassets/img/news/2.jpg">-->
+    <!--                <div class="content">-->
+    <!--                  <div class="info">-->
+    <!--                    <a href="blog.html">-->
+    <!--                      <span-->
+    <!--                        ><i class="ti-time" aria-hidden="true"></i>20 Dec-->
+    <!--                        2024</span-->
+    <!--                      ></a-->
+    <!--                    >-->
+    <!--                  </div>-->
+    <!--                  <a href="post.html">-->
+    <!--                    <h5>What are the Benefits of the Spa?</h5>-->
+    <!--                  </a>-->
+    <!--                  <p>-->
+    <!--                    Nulla tincidunt ante the sit amet suscition ullamcorpen-->
+    <!--                    risus sigula pharetra sapien viverra odio ante masna.-->
+    <!--                  </p>-->
+    <!--                  <div class="arrow">-->
+    <!--                    <a href="post.html"><span class="ti-arrow-right"></span></a>-->
+    <!--                  </div>-->
+    <!--                </div>-->
+    <!--              </div>-->
+    <!--              <div class="item bg-img" data-background="img/news/5.jpg">-->
+    <!--                <div class="content">-->
+    <!--                  <div class="info">-->
+    <!--                    <a href="blog.html">-->
+    <!--                      <span-->
+    <!--                        ><i class="ti-time" aria-hidden="true"></i>18 Dec-->
+    <!--                        2024</span-->
+    <!--                      ></a-->
+    <!--                    >-->
+    <!--                  </div>-->
+    <!--                  <a href="post.html">-->
+    <!--                    <h5>Choosing a Hotel to Have a Business Meeting</h5>-->
+    <!--                  </a>-->
+    <!--                  <p>-->
+    <!--                    Nulla tincidunt ante the sit amet suscition ullamcorpen-->
+    <!--                    risus sigula pharetra sapien viverra odio ante masna.-->
+    <!--                  </p>-->
+    <!--                  <div class="arrow">-->
+    <!--                    <a href="post.html"><span class="ti-arrow-right"></span></a>-->
+    <!--                  </div>-->
+    <!--                </div>-->
+    <!--              </div>-->
+    <!--            </div>-->
+    <!--          </div>-->
+    <!--        </div>-->
+    <!--      </div>-->
+</section>
+<script>
+    document.getElementById('checkInDate').min = new Date().toISOString().split('T')[0];
+    document.getElementById('checkOutDate').min = new Date().toISOString().split('T')[0];
+</script>
+{% endblock %}

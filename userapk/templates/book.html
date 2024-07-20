@@ -1,0 +1,42 @@
+{% extends 'user_base.html' %}
+
+{% block content %}
+
+<!--    &lt;!&ndash; Contact &ndash;&gt;-->
+
+  <section class="rooms1 section-padding pb-60" data-scroll-index="1">
+      <div class="container">
+        <div class="row">
+
+          <div class="col-md-6 mb-60">
+            <div class="rooms1-single">
+              <div class="rooms1-img">
+                <img src="{{ eachroom.Room_image.url }}" alt="" />
+              </div>
+              <div class="rooms1-content active">
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="rooms1-title"><a href="#">{{eachroom.room_type}}</a></div>
+                    <div class="rooms1-tagline">
+                      30 m<sup>2</sup> / 2 adults 1 children
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="book">
+                      <div>
+                      </div>
+                      <div>
+                        <span>from</span><span class="price">₹{{eachroom.Price}}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+    </section>
+{% endblock %}

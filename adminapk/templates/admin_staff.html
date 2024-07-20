@@ -1,0 +1,958 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<ol class="breadcrumb" >
+    <li class="breadcrumb-item " style="margin-left: 78%;" >
+        <a href="{% url 'dashboard' %}">Dashboard</a>
+    </li>
+    <li class="breadcrumb-item active" >
+        Administration Staff
+    </li>
+
+</ol>
+<div class="container">
+    <div>
+        <form action="{% url 'addas' %}" method="post" onsubmit="return validateForm()">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-xl-3 col-lg-4">
+
+                </div>
+                <div class="col-xl-12 col-lg-8">
+                    <div class="card" style="width:1140px;margin-left:-20px;">
+                        <div class="card-header d-flex justify-content-between" style="background-color: #161d2b;color:white;">
+                            <div class="header-title">
+                                <h4 class="card-title" style="color:white">New Employee Information</h4>
+
+                            </div>
+                        </div>
+
+                        <div class="card-body">
+                            <div class="new-user-info">
+                                <form>
+                                    <div class="row">
+
+                                        <div class="form-group col-md-4">
+                                            <label class="form-label" for="full_name"><b>Full Name</b>&nbsp;<b style="color: red;">*</b></label>
+                                            <input class="form-control" id="full_name" name="full_name" autocomplete="off" oninput="validateFullName(this)" placeholder="Enter Full Name" required type="text" />
+                                            <div class="error-message" id="full_name_error" style="color: red;"></div>
+                                        </div>
+
+                                     <div class="form-group col-md-4">
+                                    <label class="form-label" for="date_of_joining"><b>Date of Joining</b>&nbsp;<b style="color: red;">*</b></label>
+                                    <input class="form-control" id="date_of_joining" autocomplete="off" name="date_of_joining" onchange="validateDate()" required type="date" min="{{ today|date:'Y-m-d' }}"/>
+                                    <small class="form-text text-muted" id="dojHelp"></small>
+                                </div>
+
+
+                                <div class="form-group col-md-4">
+                                    <label class="form-label" for="employee_age"><b>Employee Age</b> &nbsp;<b style="color: red;">*</b></label>
+                                    <input class="form-control" id="employee_age" name="employee_age" oninput="validateAge(this)" autocomplete="off" placeholder="Enter Employee Age" required type="number" pattern="^(1[8-9]|[2-5][0-9]|60)$"/>
+                                    <div class="error-message" id="age_error" style="color: red;"></div>
+                                </div>
+                                        <!-- Gender -->
+                                        <div class="form-group col-md-4">
+                                            <label class="form-label" for="gender"><b>Gender</b>&nbsp;<b style="color: red;">*</b></label>
+                                            <select class="selectpicker form-control" data-style="py-0" id="gender" name="gender" required>
+                                                <!-- <option>Select</option> -->
+                                                <option disabled selected value="">Select Gender</option>
+                                                <option>Male</option>
+                                                <option>Female</option>
+                                                <option>Others</option>
+                                                <option>Prefer not to say</option>
+
+                                            </select>
+                                        </div>
+
+
+                                        <div class="form-group col-md-4">
+                                            <label class="form-label" for="emp_address">
+                                                <b>Employee Address </b>&nbsp;<b style="color: red;">*</b>
+                                            </label>
+                                            <input class="form-control" id="emp_address" autocomplete="off" name="emp_address" placeholder="Enter Employee Address"  required type="text" oninput="validateEmployeeAddress(this)"/>
+                                            <span id="empAddressErrorMessage" style="color: red; display: none;">Please enter a valid address without special characters.</span>
+                                        </div>
+
+                                        <div class="form-group col-md-4">
+                                            <label class="form-label" for="nationality"><b>Nationality Of Employee</b>&nbsp;<b style="color: red;">*</b></label>
+                                            <select class="selectpicker form-select" data-style="py-0" id="nationality" name="nationality" required >
+                                                <option disabled selected value="">Select Nationality</option>
+                                                <option>Indonasia</option>
+                                                <option>India</option>
+                                                <option>UAE</option>
+                                                <option>Australia</option>
+                                                <!-- <option>Africa</option> -->
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <label class="form-label" for="mobile_number"><b>Mobile Number</b>&nbsp;<b style="color: red;">*</b></label>
+                                            <input class="form-control" id="mobile_number" name="mobile_number" oninput="validateMobileNumber(this)" autocomplete="off" pattern="[6-9][0-9]{9}" placeholder="Enter Mobile Number" required title="Please enter a valid 10-digit mobile number." type="number"/>
+                                            <div class="error-message" id="mobno_error" style="color: red;"></div>
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <label class="form-label" for="alternative_mobile_number"><b>Alternate Mobile Number</b>&nbsp;<b style="color: red;">*</b></label>
+                                            <input class="form-control" id="alternative_mobile_number" name="alternative_mobile_number" oninput="validateAlternateMobileNumber(this)"  pattern="[6-9][0-9]{9}" placeholder="Enter Alternate Mobile Number" autocomplete="off" required title="Please enter a valid 10-digit mobile number." type="number"/>
+                                            <div class="error-message" id="alternateMobnoError" style="color: red;"></div>
+                                        </div>
+
+
+                                        <div class="form-group col-md-4">
+                                            <label class="form-label" for="email"><b>Email-id</b>&nbsp;<b style="color: red;">*</b></label>
+                                            <input class="form-control" id="email" name="email" oninput="validateEmail(this)" autocomplete="off" placeholder="Email-id" required type="email"/>
+                                            <div class="error-message" id="emailError" style="color: red;"></div>
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <label class="form-label" for="pincode"><b>Pin Code</b>&nbsp;<b
+                                                    style="color: red;">*</b></label>
+                                            <input class="form-control" id="pincode" name="pincode" oninput="validatePinCode(this)" pattern="\d{3,9}" placeholder="Enter Pin Code" autocomplete="off" required title="Enter a pin code with 3 to 9 digits" type="text" />
+                                            <div class="error-message" id="pinCodeError" style="color: red;"></div>
+                                        </div>
+
+                                        <div class="form-group col-md-4">
+                                            <label class="form-label" for="department"><b>Department</b>&nbsp;<b style="color: red;">*</b></label>
+                                            <select class="form-select" id="department" name="department" required>
+                                                <option disabled selected value="">Select  Department </option>
+                                                 {% for c in department %}
+                                                 <option value="{{ c.pk }}">{{ c.department }}</option>
+                                                 {% endfor %}
+                                             </select>
+                                        </div>
+
+
+                                        <div class="form-group col-md-4">
+                                            <label class="form-label" for="designation"><b>Designation</b>&nbsp;<b style="color: red;">*</b></label>
+                                            <select class="form-select" id="designation" name="designation" required>
+                                                <option disabled selected value="">Select  Designation </option>
+                                                 {% for d in designation %}
+                                                 <option value="{{ d.pk }}">{{ d.designation }}</option>
+                                                 {% endfor %}
+                                             </select>
+                                        </div>
+
+                                        <div class="form-group col-md-4">
+                                            <label class="form-label" for="city"><b>Branch Location</b>&nbsp;<b style="color: red;">*</b></label>
+                                            <select class="form-select" id="city" name="city" required>
+                                                <option disabled selected value="">Select  Location </option>
+                                                 {% for e in city %}
+                                                 <option value="{{ e.pk }}">{{ e.city }}</option>
+                                                 {% endfor %}
+                                             </select>
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <label class="form-label" for="shift_timings"><b>Shift Timings</b>&nbsp;<b style="color: red;">*</b></label>
+                                            <select class="selectpicker form-select" data-style="py-0" id="shift_timings" name="shift_timings" required >
+                                                <option disabled selected value="">Select Shift Timings</option>
+                                                <option>Day Shift</option>
+                                                <option>Afternoon Shift</option>
+                                                <option>Night Shift</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group col-md-4">
+                                            <label class="form-label" for="type_of_emp"><b>Type Of Employee</b>&nbsp;<b style="color: red;">*</b></label>
+                                            <select class="selectpicker form-select" data-style="py-0" id="type_of_emp" name="type_of_emp" required >
+                                                <option disabled selected value="">Select Type Of Employee</option>
+                                                <option>Permanent Employee</option>
+                                                <option>Temporary or Seasonal Employee</option>
+                                                <option>Contract Employee</option>
+                                                <option>Interns</option>
+                                                <option>Casual Employee</option>
+                                                <option>Trainee</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <label class="form-label" for="imageUpload"><b>Upload Passport Image</b>&nbsp;<b style="color: red;">*</b></label>
+                                            <input class="form-control" id="passport_image" name="passport_image" required type="file" accept="image/*">
+                                            <p id="image_error" style="color: red; display: none;"></p>
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <label class="form-label" for="imageUpload"><b>Upload ID Proofs</b>&nbsp;<b style="color: red;">*</b></label>
+                                            <input class="form-control" id="id_prooof" multiple name="id_prooof" required type="file" accept="image/*">
+                                        </div>
+
+                                        <div class="form-group col-md-4">
+                                            <label class="form-label" for="imageUpload"><b>Upload Necessary Certificates</b>&nbsp;<b style="color: red;">*</b></label>
+                                             <input class="form-control" id="certificates" multiple name="certificates" required type="file" accept="image/*">
+                                        </div>
+                                         <div class="form-group col-md-4">
+                                            <label class="form-label" for="imageUpload"><b>Upload E-Signature</b>&nbsp;<b  style="color: red;">*</b></label>
+                                            <input class="form-control" id="signature" name="signature" required type="file" accept="image/*"></div>
+
+
+
+                                    <!-- next row -->
+                                    <div class="checkbox" style="margin-left:15px;">
+                                        <label class="form-label">
+                                            <input class="form-check-input me-2" id="flexchexked" required  type="checkbox" value="" />
+                                            I hereby accept to all the <b>terms and conditions</b> of the company .
+                                        </label>
+                                    </div>
+                                    <!-- <button type="submit" class="btn btn-primary">
+                                      Add New User
+                                    </button> -->
+                                  <div align="center" class="row">
+                            <div class="col-xl-12">
+                                <button class="btn btn-outline-dark" style="background-color:#161d2b" type="submit"><span class="text-white">Submit</span></button>
+                            <button class="btn btn-outline-dark" style="background-color:#626875;" type="reset"><span style="color: white;">Clear</span></button>
+                            </div>
+                        </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% for s in as_a %}
+              <div class="modal fade" id="deleteData-{{forloop.counter}}" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+           <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header" >
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="NotificationModalbtn-close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mt-2 text-center">
+<lord-icon
+    src="https://cdn.lordicon.com/skkahier.json"
+    trigger="hover"
+    colors="primary:#c71f16"
+    style="width:150px;height:100px">
+</lord-icon>
+                        <h4>Are you sure ?</h4>
+                        <p class="text-muted mx-4 mb-0">Are you sure you want to remove this <b style="color: red;">{{s.full_name}}</b>'s  record ?</p>
+                    </div>
+
+                <div class="d-flex gap-2 justify-content-center mt-4 mb-2">
+                    <a class="btn btn-outline-danger text-white" style="background-color: #d11d26;" href="{% url 'deleteas' s.pk %}">Delete</a>
+                    <button type="button" class="btn btn-outline-dark text-white" style="background-color: #626875;" data-bs-dismiss="modal">Cancel</button>
+                </div>
+                </div>
+            </div>
+      </div>
+         <br>
+               <br>
+    </div>
+            {% endfor %}
+            <!-- Edit -->
+            {% for d in as_a %}
+            <div class="modal" id="editData-{{forloop.counter}}">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+
+                        <!-- Modal Header -->
+                        <div class="modal-header" style="background-color: #161d2b;">
+                            <h1 class="modal-title fs-5 text-white" id="exampleModalLabel">Edit Employee
+                                Information</h1>
+                            <button aria-label="Close" class="btn btn-close text-white bg-white" data-bs-dismiss="modal"
+                                    type="button"></button>
+                        </div>
+
+                        <!-- Modal body -->
+                        <form action="{% url 'updateas' d.id %}" method="POST">
+                            {% csrf_token %}
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-lg-4 mb-3">
+                                        <label for="full_name"><b>Full Name</b></label>
+                                        <input class="form-control" id="full_name" name="full_name"
+                                               pattern="[A-Za-z ]{3,30}"
+                                               required title="Enter characters only" type="text"
+                                               autocomplete="off"
+                                               value="{{d.full_name}}">
+                                    </div>
+
+                                    <div class="col-lg-4 mb-3">
+                                        <label for="date_of_joining123"><b>Date of joining</b></label>
+                                        <input class="form-control" id="date_of_joining123" name="date_of_joining"
+                                               pattern="[0-9]{10}|[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
+                                               required title="Enter a valid phone number or email address"
+                                               autocomplete="off"
+                                               type="date" value="{{d.date_of_joining}}"
+                                               min="{{ today | date:'Y-m-d' }}"> <!-- Add the min attribute here -->
+                                    </div>
+
+
+                                    <div class="col-lg-4 mb-3">
+                                        <label for="employee_age"><b>Employee Age</b></label>
+                                        <input class="form-control" id="employee_age" name="employee_age" required type="number" value="{{d.employee_age}}" oninput="validateEmployeeAge(this)">
+                                        <div id="ageError" style="color: red;"></div>
+                                    </div>
+                                    <div class="col-lg-4 mb-3">
+                                        <label for="gender"><b>Gender </b></label>
+
+                                        <input class="form-control" id="gender" name="gender" required type="text" autocomplete="off"
+                                               value="{{d.gender}}">
+                                    </div>
+
+
+                                    <div class="col-lg-4 mb-3">
+                                        <label for="emp_address"><b>Employee Address</b> </label>
+
+                                        <input class="form-control" id="emp_address" name="emp_address" required autocomplete="off" type="text" value="{{d.emp_address}}">
+                                    </div>
+                                    <div class="col-lg-4 mb-3">
+                                        <label for="nationality"><b>Nationality Of Employee</b></label>
+
+                                        <input class="form-control" id="nationality" name="nationality" required autocomplete="off"
+                                               type="Text" value="{{d.nationality}}">
+                                    </div>
+                                    <div class="col-lg-4 mb-3">
+                                        <label for="mobile_number"><b>Mobile Number</b></label>
+
+                                        <input class="form-control" id="mobile_number" name="mobile_number" required autocomplete="off"
+                                               type="tel" value="{{d.mobile_number}}">
+                                    </div>
+                                    <div class="col-lg-4 mb-3">
+                                        <label for="alternative_mobile_number"><b>Alternate Mobile number</b></label>
+
+                                        <input class="form-control" id="alternative_mobile_number"
+                                               name="alternative_mobile_number" required type="tel"
+                                               autocomplete="off"
+                                               value="{{d.alternative_mobile_number}}">
+                                    </div>
+
+                                    <div class="col-lg-4 mb-3">
+                                        <label for="email"><b>Email</b></label>
+
+                                        <input class="form-control" id="email" name="email" required type="email" autocomplete="off"
+                                               value="{{d.email}}">
+                                    </div>
+                                    <div class="col-lg-4 mb-3">
+                                        <label for="pincode"><b>Pincode</b></label>
+
+                                        <input class="form-control" id="pincode" name="pincode" required type="number" autocomplete="off"
+                                               value="{{d.pincode}}">
+                                    </div>
+                                    <div class="col-lg-4 mb-3">
+                                        <label for="department"><b>Department</b></label>
+
+                                        <select class="form-select" id="department" name="department" required>
+                                            <option disabled selected value="{{d.department}}">{{d.department}} </option>
+                                             {% for c in department %}
+                                             <option value="{{ c.pk }}">{{ c.department }}</option>
+                                             {% endfor %}
+                                         </select>
+                                    </div>
+
+                                    <div class="col-lg-4 mb-3">
+                                        <label for="designation"><b>Designation</b></label>
+
+                                        <select class="form-select" id="designation" name="designation" required>
+                                            <option disabled selected value="{{ d.designation }}">{{ d.designation }}</option>
+                                             {% for d in designation %}
+                                             <option value="{{ d.pk }}">{{ d.designation }}</option>
+                                             {% endfor %}
+                                         </select>
+                                    </div>
+                                    <div class="col-lg-4 mb-3">
+                                        <label for="branch_location"><b>Branchlocation</b></label>
+
+                                        <input class="form-control" id="branch_location" name="branch_location" required autocomplete="off"
+                                               type="text" value="{{d.branch_location}}">
+                                    </div>
+                                    <div class="col-lg-4 mb-3">
+                                        <label for="shift_timings"><b>Shift Timings</b></label>
+
+                                        <input class="form-control" id="shift_timings" name="shift_timings" required autocomplete="off"
+                                               type="text" value="{{d.shift_timings}}">
+                                    </div>
+
+                                    <div class="col-lg-4 mb-3">
+                                        <label for="type_of_emp"><b>Type Of Employee</b></label>
+
+                                        <input class="form-control" id="type_of_emp" name="type_of_emp" required autocomplete="off"
+                                               type="Text" value="{{d.type_of_emp}}">
+                                    </div>
+
+                                    <div class="col-lg-4 mb-3">
+                                        <label for="passport_image"><b>Passport Image</b></label>
+
+                                        <input accept=".jpg, .jpeg, .png" class="form-control" id="passport_image"
+                                               name="passport_image"
+                                               required title="Enter JPG, PNG, JPEG only" type="file"
+                                               >
+                                        <img class="rounded-rectangle" height="50px;" src="{{d.passport_image.url}}"
+                                                 width="50px;">
+
+
+                                    </div>
+
+
+                                    <div class="col-lg-4 mb-3">
+                                        <label for="id_prooof"><b>ID Proofs</b></label>
+
+                                        <input accept=".jpg, .jpeg, .png" class="form-control" id="id_prooof" multiple
+                                               name="id_prooof" required title="Enter JPG, PNG, JPEG only" type="file"
+                                               value="{{d.id_prooof}}">
+                                        <img class="rounded-rectangle" height="50px;" src="{{d.id_prooof.url}}"
+                                                 width="50px;">
+
+
+                                    </div>
+
+
+                                    <div class="col-lg-4 mb-3">
+                                        <label for="certificates"><b>Necessary Certificates</b></label>
+
+                                        <input accept=".jpg, .jpeg, .png" class="form-control" id="certificates"
+                                               multiple
+                                               name="certificates" required title="Enter JPG, PNG, JPEG only"
+                                               type="file" value="{{d.certificates}}">
+                                         <img class="rounded-rectangle" height="50px;" src="{{d.certificates.url}}"
+                                                 width="50px;">
+
+
+                                    </div>
+                                    <div class="col-lg-4 mb-3">
+                                        <label for="signature"><b>E-Signature</b></label>
+
+                                        <input accept=".jpg, .jpeg, .png" class="form-control" id="signature" multiple
+                                               name="signature" required title="Enter JPG, PNG, JPEG only" type="file"
+                                               value="{{d.signature}}">
+                                        <img class="rounded-rectangle" height="50px;" src="{{d.signature.url}}"
+                                                 width="50px;">
+
+
+                                    </div>
+                                </div>
+
+
+                                <!-- Modal footer -->
+                                <div class="modal-footer d-flex justify-content-center align-items-center text-center">
+                                    <button class="btn btn-outline-dark" style="background-color:#161d2b" type="submit"><span class="text-white">Submit</span></button>
+                            <button class="btn btn-outline-dark" style="background-color:#626875;" type="reset"><span style="color: white;">Clear</span></button>
+                                </div>
+
+
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+
+
+
+
+                {% endfor %}
+
+
+            <div class="card">
+    <div class="card-body">
+        <div class="table-responsive">
+            <!-- Add a container div for the table with a fixed height -->
+            <div >
+                <table id="datatable"  data-toggle="data-table" >
+                                <thead>
+                                <tr style="background:#161d2b ;text-align;center;" >
+                                    <th class="sort" data-sort="customer_name"><span style="color: white;text-align;center;">S.no</span>
+                                    </th>
+                                    <th class="sort" data-sort="name" style="color: white; text-align: center;">Full Name</span></th>
+                                    <th class="sort" data-sort="name" style="color: white; text-align: center;"><span style="color: white;">Date of joining</span>
+                                    </th>
+                                    <th class="sort" data-sort="status" style="color: white; text-align: center;"> <span style="color: white;">Employee age</span>
+                                    </th>
+                                    <th class="sort" data-sort="action" style="color: white; text-align: center;"><span style="color: white;">Gender</span></th>
+                                    <th class="sort" data-sort="action" style="color: white; text-align: center;"><span
+                                            style="color: white;">Employee Address</span></th>
+                                    <th class="sort" data-sort="action" style="color: white; text-align: center;"><span style="color: white;">Nationality of Employee</span>
+                                    </th>
+                                    <th class="sort" data-sort="action" style="color: white; text-align: center;"><span style="color: white;">Mobile Number</span>
+                                    </th>
+                                    <th class="sort" data-sort="action" style="color: white; text-align: center;"><span style="color: white;">Alternate Mobile Number</span>
+                                    </th>
+                                    <th class="sort" data-sort="action" style="color: white; text-align: center;">Email-id</th>
+                                    <th class="sort" data-sort="action" style="color: white; text-align: center;"><span style="color: white;">Pincode</span></th>
+                                    <th class="sort" data-sort="action" style="color: white; text-align: center;"><span style="color: white;">Department</span>
+                                    </th>
+                                    <th class="sort" data-sort="action" style="color: white; text-align: center;"><span style="color: white;">Designation</span>
+                                    </th>
+                                    <th class="sort" data-sort="action" style="color: white; text-align: center;"><span
+                                            style="color: white;">Branch Location</span></th>
+                                    <th class="sort" data-sort="action" style="color: white; text-align: center;"><span style="color: white;">Shift Timings</span>
+                                    </th>
+                                    <th class="sort" data-sort="action" style="color: white; text-align: center;"><span
+                                            style="color: white;">Type of Employee</span></th>
+                                    <th class="sort" data-sort="action" style="color: white; text-align: center;"><span
+                                            style="color: white;">Passport Image</span></th>
+                                    <th class="sort" data-sort="action" style="color: white; text-align: center;"><span
+                                            style="color: white;">ID Proofs</span>
+                                    </th>
+                                    <th class="sort" data-sort="action" style="color: white; text-align: center;"><span style="color: white;">Necessary Certificates</span>
+                                    </th>
+                                    <th class="sort" data-sort="action" style="color: white; text-align: center;"><span style="color: white;">E-Signature</span> </th>
+                                    <th class="sort" data-sort="action" style="color: white; text-align: center;"><span style="color: white;">Created At</span></th>
+                                    <th class="sort" data-sort="action" style="color: white; text-align: center;"><span style="color: white;">Status</span></th>
+                                    <th class="sort" data-sort="action" style="color: white; text-align: center;"><span style="color: white;">Actions</span></th>
+                                </tr>
+                                </thead>
+
+                                <tbody align="center" class="list form-check-all">
+                                {% for c in as_a %}
+                                <tr>
+
+                                    <td class="text-center">{{ forloop.counter }}</td>
+                                    <td class="text-center">{{ c.full_name }}</td>
+                                    <td class="text-center">{{ c.date_of_joining }}</td>
+                                    <td class="text-center">{{ c.employee_age }}</td>
+                                    <td class="text-center">{{ c.gender }}</td>
+                                    <td class="text-center">{{ c.emp_address }}</td>
+                                    <td class="text-center">{{ c.nationality }}</td>
+                                    <td class="text-center">{{ c.mobile_number }}</td>
+                                    <td class="text-center">{{ c.alternative_mobile_number }}</td>
+                                    <td class="text-center">{{ c.email }}</td>
+                                    <td class="text-center">{{ c.pincode }}</td>
+                                    <td class="text-center">{{ c.department }}</td>
+                                    <td class="text-center">{{ c.designation }}</td>
+                                    <td class="text-center">{{ c.city }}</td>
+                                    <td class="text-center">{{ c.shift_timings }}</td>
+                                    <td class="text-center">{{ c.type_of_emp }}</td>
+                                    <td class="text-center">{{ c.created_at }}</td>
+
+                                    <td class="name"> <img class="rounded-rectangle" height="50px;" src="{{ c.passport_image.url}}"
+                                                 width="50px;"></td>
+                                    <td class="name"> <img class="rounded-rectangle" height="50px;" src="{{ c.id_prooof.url}}"
+                                                 width="50px;"></td>
+                                    <td class="name"> <img class="rounded-rectangle" height="50px;" src="{{ c.certificates.url}}"
+                                                 width="50px;"></td>
+                                    <td class="name"> <img class="rounded-rectangle" height="50px;" src="{{ c.signature.url}}"
+                                                 width="50px;"></td>
+                                                 <td> <form action="{% url 'togglestatus12' c.id %}" method="post">
+                                        {% csrf_token %}
+                                        <button  style="border: none; background: none; padding: 0; margin: 0; cursor: pointer;"
+                                         class="{% if c.status %}text-danger{% else %}text-success{% endif %}" type="submit">
+                                            {% if c.status %}Inactive{% else %}Active{% endif %}
+                                        </button>
+                                    </form>
+                                </td>
+
+
+                                    <td>
+                                        <button class="btn btn-outline-dark text-white" data-bs-target="#editData-{{forloop.counter}}" data-bs-toggle="modal"
+                                                style="background-color: #161d2b;"
+                                                type="button"><span style="color: white"><svg
+                                                class="bi bi-pencil-square" fill="currentColor" height="16"
+                                                viewBox="0 0 16 16" width="16" xmlns="http://www.w3.org/2000/svg">
+  <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+  <path d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"
+        fill-rule="evenodd"/>
+</svg></span></button>
+
+                                        <button class="btn btn-outline-danger text-white" style="background-color: #d11d26;" data-bs-target="#deleteData-{{forloop.counter}}" data-bs-toggle="modal"
+                                                type="button">
+                                            <svg class="bi bi-trash3" fill="currentColor" height="16"
+                                                 viewBox="0 0 16 16" width="16" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"/>
+                                            </svg>
+                                        </button>
+                                    </td>
+
+                                </tr>
+                                {% endfor %}
+                                </tbody>
+
+
+                            </table>
+                </div></div></div></div> </div></div></div></form></div>
+
+
+
+
+
+
+
+                <script>
+                    function validateAge(input) {
+                        const ageError = document.getElementById("age_error");
+                        const age = parseInt(input.value);
+
+                        if (isNaN(age) || age < 18 || age > 60) {
+                            ageError.innerText = "Age must be between 18 and 60.";
+                        } else {
+                            ageError.innerText = "";
+                        }
+                    }
+                </script>
+                <script>
+                    function validateFullName(input) {
+                        const fullNameError = document.getElementById("full_name_error");
+                        const fullNameValue = input.value.trim();
+
+                        // Reset any previous error messages
+                        fullNameError.textContent = "";
+
+                        if (fullNameValue === "") {
+                            fullNameError.textContent = "Full Name is required.";
+                            return;
+                        }
+
+                        if (!/^[A-Za-z ]{3,30}$/.test(fullNameValue)) {
+                            fullNameError.textContent = "Full Name should contain 3 to 30 alphabets only.";
+                            input.value = ""; // Clear the input field
+                        }
+                    }
+
+                    function validateForm() {
+                        // Trigger the full name validation before submitting
+                        validateFullName(document.getElementById("full_name"));
+
+                        // Check if there is any error message in the full name field
+                        var fullNameError = document.getElementById("full_name_error");
+                        if (fullNameError.textContent !== "") {
+                            // Return false to prevent form submission
+                            return false;
+                        }
+
+                        // Additional validation logic for other fields can be added here
+
+                        // Return true if all validations pass
+                        return true;
+                    }
+                </script>
+                <script>
+                    function validateMobileNumber(input) {
+                        const mobnoError = document.getElementById("mobno_error");
+                        const mobnoValue = input.value.trim();
+
+                        mobnoError.textContent = "";
+
+                        if (mobnoValue === "") {
+                            mobnoError.textContent = "Mobile Number is required.";
+                            return;
+                        }
+
+                        if (!/^[^a-zA-Z]{10,15}$/.test(mobnoValue)) {
+                            mobnoError.textContent = "Please enter a valid mobile number (10 to 15 characters with no alphabets).";
+                            input.value = "";
+                        }
+                    }
+
+                    function validateForm() {
+                        // Trigger the mobile number validation before submitting
+                        validateMobileNumber(document.getElementById("mobile_number"));
+
+                        // Check if there is any error message in the mobile number field
+                        var mobnoError = document.getElementById("mobno_error");
+                        if (mobnoError.textContent !== "") {
+                            // Return false to prevent form submission
+                            return false;
+                        }
+
+                        // Additional validation logic for other fields can be added here
+
+                        // Return true if all validations pass
+                        return true;
+                    }
+                </script>
+
+<script>
+    function validateDate() {
+        var inputDate = document.getElementById('doj').value;
+        var currentDate = new Date().toISOString().split('T')[0];
+        var dojError = document.getElementById("doj_error");
+
+        if (inputDate > currentDate) {
+            dojError.textContent = "Date of Joining cannot exceed today's date.";
+        } else {
+            dojError.textContent = ""; // Clear any previous error messages
+        }
+    }
+
+    function validateForm() {
+        // Trigger the date validation before submitting
+        validateDate();
+
+        // Check if there is any error message in the Date of Joining field
+        var dojError = document.getElementById("doj_error");
+        if (dojError.textContent !== "") {
+            // Return false to prevent form submission
+            return false;
+        }
+
+        // Additional validation logic for other fields can be added here
+
+        // Return true if all validations pass
+        return true;
+    }
+</script>
+
+
+
+<script>
+    function validateMobileNumber(input) {
+        var mobileError = document.getElementById("mobno_error");
+        var mobilePattern = /^[0-9]{10}$/;
+
+        if (!mobilePattern.test(input.value)) {
+            // Display the error message if the input is not a valid mobile number
+            mobileError.textContent = "Please enter a correct 10-digit mobile number.";
+            mobileError.style.display = "block";
+        } else {
+            // Hide the error message if the input is valid
+            mobileError.style.display = "none";
+        }
+    }
+
+    function validateForm() {
+        // Trigger the mobile number validation before submitting
+        validateMobileNumber(document.getElementById("mobile_number"));
+
+        // Check if there is any error message in the mobile number field
+        var mobileError = document.getElementById("mobno_error");
+        if (mobileError.style.display === "block") {
+            // Return false to prevent form submission
+            return false;
+        }
+
+        // Additional validation logic for other fields can be added here
+
+        // Return true if all validations pass
+        return true;
+    }
+</script>
+
+                <script>
+                    function validateAlternateMobileNumber(input) {
+                        var alternateMobileError = document.getElementById("alternateMobnoError");
+                        var mobilePattern = /^[0-9]{10}$/;
+
+                        if (!mobilePattern.test(input.value)) {
+                            // Display the error message if the input is not a valid mobile number
+                            alternateMobileError.textContent = "Please enter a correct 10-digit mobile number.";
+                            alternateMobileError.style.display = "block";
+                        } else {
+                            // Hide the error message if the input is valid
+                            alternateMobileError.style.display = "none";
+                        }
+                    }
+                </script>
+
+<script>
+    function validateAlternateMobileNumber(input) {
+        var alternateMobileError = document.getElementById("alternateMobnoError");
+        var mobilePattern = /^[0-9]{10}$/;
+
+        if (!mobilePattern.test(input.value)) {
+            // Display the error message if the input is not a valid mobile number
+            alternateMobileError.textContent = "Please enter a correct 10-digit mobile number.";
+            alternateMobileError.style.display = "block";
+        } else {
+            // Hide the error message if the input is valid
+            alternateMobileError.style.display = "none";
+        }
+    }
+
+    function validateForm() {
+        // Trigger the alternate mobile number validation before submitting
+        validateAlternateMobileNumber(document.getElementById("alternate_mobile_number"));
+
+        // Check if there is any error message in the alternate mobile number field
+        var alternateMobileError = document.getElementById("alternateMobnoError");
+        if (alternateMobileError.style.display === "block") {
+            // Return false to prevent form submission
+            return false;
+        }
+
+        // Additional validation logic for other fields can be added here
+
+        // Return true if all validations pass
+        return true;
+    }
+</script>
+<script>
+    function validateEmail(input) {
+        var emailError = document.getElementById("emailError");
+        var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        if (!emailPattern.test(input.value)) {
+            // Display the error message if the input is not a valid email
+            emailError.textContent = "Please enter a correct email address.";
+            emailError.style.display = "block";
+        } else {
+            // Hide the error message if the input is valid
+            emailError.style.display = "none";
+        }
+    }
+
+    function validateForm() {
+        // Trigger the email validation before submitting
+        validateEmail(document.getElementById("email"));
+
+        // Check if there is any error message in the email field
+        var emailError = document.getElementById("emailError");
+        if (emailError.style.display === "block") {
+            // Return false to prevent form submission
+            return false;
+        }
+
+        // Additional validation logic for other fields can be added here
+
+        // Return true if all validations pass
+        return true;
+    }
+</script>
+
+<script>
+    function validatePinCode(input) {
+        var pinCodeError = document.getElementById("pinCodeError");
+        var pinCodePattern = /^\d{3,9}$/;
+
+        if (!pinCodePattern.test(input.value)) {
+            // Display the error message if the input is not a valid pin code
+            pinCodeError.textContent = "Please enter a correct pin code of 3 to 9 digits.";
+            pinCodeError.style.display = "block";
+        } else {
+            // Hide the error message if the input is valid
+            pinCodeError.style.display = "none";
+        }
+    }
+
+    function validateForm() {
+        // Trigger the pin code validation before submitting
+        validatePinCode(document.getElementById("pin_code"));
+
+        // Check if there is any error message in the pin code field
+        var pinCodeError = document.getElementById("pinCodeError");
+        if (pinCodeError.style.display === "block") {
+            // Return false to prevent form submission
+            return false;
+        }
+
+        // Additional validation logic for other fields can be added here
+
+        // Return true if all validations pass
+        return true;
+    }
+</script>
+
+                <script>
+                    function clearFileInput(inputId) {
+                        var fileInput = document.getElementById(inputId);
+                        fileInput.value = ""; // Reset the file input
+                    }
+                </script>
+
+                <script>
+                    function clearFileInput(inputId) {
+                        var fileInput = document.getElementById(inputId);
+                        fileInput.value = ""; // Reset the file input
+                    }
+                </script>
+
+                <script>
+                    function clearFileInput(inputId) {
+                        var fileInput = document.getElementById(inputId);
+                        fileInput.value = ""; // Reset the file input
+                    }
+                </script>
+
+                <script>
+                    function clearFileInput(inputId) {
+                        var fileInput = document.getElementById(inputId);
+                        fileInput.value = ""; // Reset the file input
+                    }
+                </script>
+                <script>
+                    $(document).ready(function(){
+                    $('#example').DataTable();
+                    });
+                </script>
+                <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+                <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css"
+                      rel="stylesheet"
+                      type="text/css">
+                <!-- Bootstrap JS and Popper.js -->
+                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+                <script src="path/to/jquery.min.js"></script>
+                <script src="path/to/bootstrap.bundle.min.js"></script>
+                <script>
+                    $(document).ready(function() {
+                    // Your JavaScript code here
+                });
+                </script>
+                <script>
+    // Get the current date and time in the format required for datetime-local input
+    function getCurrentDateTime() {
+        const now = new Date();
+        const year = now.getFullYear();
+        const month = (now.getMonth() + 1).toString().padStart(2, '0');
+        const day = now.getDate().toString().padStart(2, '0');
+        const hours = now.getHours().toString().padStart(2, '0');
+        const minutes = now.getMinutes().toString().padStart(2, '0');
+        return `${year}-${month}-${day}T${hours}:${minutes}`;
+    }
+
+    // Set the min attribute of the input to the current date and time
+    document.getElementById('availability').min = getCurrentDateTime();
+</script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#example').DataTable({
+            "ordering": false  // Disable sorting
+        });
+    });
+</script>
+
+<script>
+        function validateFullName(input) {
+            var fullName = input.value.trim();
+            var fullNameError = document.getElementById('full_name_error');
+
+            // Check if the length is between 3 and 30 characters
+            if (fullName.length < 3 || fullName.length > 30) {
+                fullNameError.textContent = 'Full Name must be between 3 and 30 characters';
+                return;
+            }
+
+            // Check if the input contains numbers or special characters
+            if (!/^[a-zA-Z\s]+$/.test(fullName)) {
+                fullNameError.textContent = 'Full Name should not contain numbers or special characters';
+                return;
+            }
+
+            // Check if the first letter is capital
+            if (!/^[A-Z]/.test(fullName)) {
+                fullNameError.textContent = 'First letter of Full Name should be capital';
+                return;
+            }
+
+            // Clear error message if validation passes
+            fullNameError.textContent = '';
+        }
+    </script>
+    <script>
+        function validateEmployeeAge(input) {
+            var age = input.value;
+
+            // Check if the age is a number and within the specified range
+            if (isNaN(age) || age < 18 || age > 60) {
+                document.getElementById("ageError").innerHTML = "Please enter a valid age between 18 and 60.";
+                input.setCustomValidity("Invalid age");
+            } else {
+                document.getElementById("ageError").innerHTML = "";
+                input.setCustomValidity("");
+            }
+        }
+    </script>
+    <script>
+        function validateEmployeeAddress(inputField) {
+            var inputValue = inputField.value;
+            var regex = /^[a-zA-Z0-9\s_./]*$/; // Regular expression to allow letters, numbers, spaces, underscores, periods, and slashes
+
+            var errorMessageElement = document.getElementById('empAddressErrorMessage');
+
+            if (!regex.test(inputValue)) {
+                errorMessageElement.style.display = 'block';
+            } else {
+                errorMessageElement.style.display = 'none';
+            }
+        }
+        </script>
+
+
+
+
+
+
+                {% endblock %}

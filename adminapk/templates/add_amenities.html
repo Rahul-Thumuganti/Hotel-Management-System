@@ -1,0 +1,273 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<br>
+<br>
+<div class="card" style="margin-right: 40px;margin-left: 30px;">
+    <div class="card-body">
+        <div class="card-header" style="background-color: #161d2b;color:white;">
+
+        <span style="color: "><h4 style="color:white"> Add Amenities</h4></span>
+        </div>
+        <br>
+        <br>
+        <form action="{% url 'addamenities' %}" method="post">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-xl-6">
+                    <label for="amenitie"><b>Amenities</b> &nbsp;<b style="color: red;">*</b></label>
+                    <input class="form-control" autocomplete="off" id="amenitie" name="amenitie" pattern="[A-Za-z ]{3,30}"required type="text" placeholder="Enter The Amenities">
+                    <p id="amenitiesError" style="color: red; display: none;">Please enter valid amenities (only letters, 3-30 characters)</p> {% if error_message_a %}
+                    <div style="color:#c03221;" role="alert">{{ error_message_a }}</div>
+              {% endif %}
+                </div>
+                <div class="col-xl-6">
+         <label for="imageUpload"><b>Amenities Image</b>&nbsp;<b style="color: red;">*</b></label>
+                    <input accept=".jpg, .jpeg, .png" autocomplete="off" class="form-control" id="formFile" name="image" required title="Enter JPG, PNG, JPEG only" type="file">
+                </div>
+
+                <div class="col-md-12" style="margin-top: 10px;">
+                    <label class="form-label" for="description"><b>Description</b>&nbsp;<b style="color: red;">*</b></label>
+                    <textarea autocomplete="off" class="form-control" cols="30" id="description" maxlength="200" name="Ame_description" oninput="validateRoomDescription()" rows='1' placeholder="Enter Description" required></textarea>
+                    <span id="charCount" style="color: #555; font-size: 12px;"></span>
+                    <span class="error" id="errorMessageNutrition" style="color: red;"></span>
+                </div>
+            </div>
+    </div>
+
+
+ <div align="center" class="row">
+                            <div class="col-xl-12">
+                                <button class="btn btn-outline-dark" style="background-color:#161d2b" type="submit"><span class="text-white">Submit</span></button>
+                            <button class="btn btn-outline-dark" style="background-color:#626875;" type="reset"><span style="color: white;">Clear</span></button>
+                            </div>
+                        </div>
+    </form><br></div>
+<!---- edit popup---->
+{% for m in eme_a %}
+<div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade" id="editData-{{forloop.counter}}"
+     tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form action="{% url 'updateeme' m.id %}" method="POST">
+                {% csrf_token %}
+                <div class="modal-header" style="background: #161d2b">
+                    <h5 class="modal-title text-white" id="formModalLabel" style="color: white">Edit </h5>
+                    <button aria-label="Close" class="btn-close bg-white" data-bs-dismiss="modal" type="button"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-xl-6">
+                            <label for="amenitie"><b>Amenities</b></label>
+                            <input class="form-control" autocomplete="off" id="amenitie" name="amenitie" pattern="[A-Za-z ]{3,30}" required type="text" value="{{m.amenitie}}">
+                        </div>
+                       <div class="col-xl-6">
+         <label for="imageUpload"><b>Amenities Image</b></label>
+                                <input accept=".jpg, .jpeg, .png" v class="form-control" id="image" name="image" required title="Enter JPG, PNG, JPEG only" type="file" value="{{m.image}}" ><img class="rounded-rectangle" src="{{ m.image.url }}" style="height: 50px; width: 50px;" alt=""></div>
+                            <div class="col-md-12" style="margin-top: 10px;">
+
+
+                    <label class="form-label" for="description"><b>Description</b></label>
+                    <textarea autocomplete="off" class="form-control" cols="30"
+                              id="description" maxlength="200" name="Ame_description" oninput="validateRoomDescription()"
+                              rows='1' placeholder="Enter The Room Description" required>{{m.Ame_description}}</textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                <div class="modal-footer d-flex justify-content-center align-items-center text-center">
+                    <button class="btn btn-outline-dark" style="background-color:#161d2b" type="submit"><span class="text-white">Submit</span></button>
+                    <button class="btn btn-outline-dark" style="background-color:#626875;" type="reset"><span style="color: white;">Clear</span></button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endfor %}
+<!---delete popup---->
+{% for e in eme_a %}
+  <div class="modal fade" id="deleteData-{{forloop.counter}}" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+           <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header" >
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="NotificationModalbtn-close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mt-2 text-center">
+ <lord-icon
+    src="https://cdn.lordicon.com/skkahier.json"
+    trigger="hover"
+    colors="primary:#c71f16"
+    style="width:150px;height:100px">
+</lord-icon>
+                        <h4>Are you sure ?</h4>
+                        <p class="text-muted mx-4 mb-0">Are you sure you want to remove this <b style="color: red;">{{e.amenitie}}</b> Amenitie ?</p>
+                    </div>
+
+                <div class="d-flex gap-2 justify-content-center mt-4 mb-2">
+                    <a class="btn btn-outline-danger text-white" style="background-color: #d11d26;" href="{% url 'deleteeme' e.pk %}">Delete</a>
+                    <button type="button" class="btn btn-outline-dark text-white" style="background-color: #626875;" data-bs-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <br>
+</div>
+
+
+
+{% endfor %}
+<br>
+
+</div>
+
+
+</div>
+
+<div class="card" style="margin-right: 40px; margin-left: 30px;">
+    <div class="card-body">
+        <div class="table-responsive">
+               <table class="table mb-0" data-toggle="data-table" id="datatable">
+                <thead>
+                <tr style="background:  #161d2b;">
+                    <th class="sort" data-sort="customer_name" style="color: white; text-align: center;">S.no</th>
+                    <th class="sort" data-sort="name" style="color: white; text-align: center;">Amenities</th>
+                    <th class="sort" data-sort="name" style="color: white; text-align: center;">image</th>
+                    <th class="sort" data-sort="name" style="color: white; text-align: center;">Description</th>
+                    <th class="sort" data-sort="name" style="color: white; text-align: center;">Status</th>
+                    <th class="sort" data-sort="action" style="color: white; text-align: center;">Actions</th>
+                </tr>
+                </thead>
+                <tbody align="center" class="list form-check-all">
+                {% for r in eme_a %}
+                <tr>
+                    <td class="text-center">{{ forloop.counter }}</td>
+                    <td class="text-center">{{ r.amenitie }}</td>
+                    <td class="text-center"><img class="rounded-rectangle" src="{{ r.image.url }}" style="height: 50px; width: 50px;" alt=""></td>
+                    <td class="text-center">{{ r.Ame_description }}</td>
+                    <td> <form action="{% url 'togglestatusame' r.id %}" method="post">
+                        {% csrf_token %}
+                        <button class="btn btn-sm {% if r.status %}btn-danger{% else %}btn-success{% endif %}" type="submit">
+                            {% if r.status %}Inactive{% else %}Active{% endif %}
+                        </button>
+                    </form>
+                </td>
+
+
+                    <td>
+                        <button class="btn btn-outline-dark text-dark" data-bs-target="#editData-{{forloop.counter}}" data-bs-toggle="modal"
+                                style="background-color: #161d2b;" type="button"><span
+                                style="color: white"><svg class="bi bi-pencil-square" fill="currentColor" height="16" viewBox="0 0 16 16" width="16" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                                    <path d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"
+                                    fill-rule="evenodd"/></svg></span></button>
+
+                        <button class="btn btn-outline-danger text-white" style="background-color: #d11d26;" data-bs-target="#deleteData-{{forloop.counter}}" data-bs-toggle="modal" type="button">
+                            <svg class="bi bi-trash3" fill="currentColor" height="16" viewBox="0 0 16 16" width="16" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"/>
+                            </svg>
+                        </button>
+                    </td>
+
+                </tr>
+                {% endfor %}
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+</div>
+
+
+</div>
+</div>
+
+
+<script>
+    $(document).ready(function(){
+    $('#example').DataTable();
+    });
+</script>
+<style>
+    /* Set the color property to black for all text within the elements */
+    .card,.modal-body, label, input, span, textarea, th, td, button {
+      color: black;
+    }
+</style>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+<style>
+    .nav-item .nav-link:hover .item-name,
+    .nav-item .nav-link:focus .item-name {
+        color: white !important;
+    }
+    .nav-item .nav-link:hover,
+    .nav-item .nav-link:focus {
+        background-color: #2185f4 !important;
+    }
+</style>
+<style>
+    <style>
+    .sidebar .sidebar-list .nav-item .nav-link .item-name {
+        color:;
+    }
+
+    .navbar .nav-item .nav-link {
+        color: !important;
+    }
+    .navbar .nav-item .nav-link:hover {
+        background-color: white !important;
+        color: #2185f4 !important;
+    }
+</style>
+<script>
+    document.getElementById('amenitie').addEventListener('input', function() {
+    var amenitiesError = document.getElementById('amenitiesError');
+    if (!this.checkValidity()) {
+        amenitiesError.style.display = 'block';
+    } else {
+        amenitiesError.style.display = 'none';
+    }
+});
+
+</script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css" rel="stylesheet"
+      type="text/css">
+
+<script charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js" type="text/javascript"></script>
+<script>
+    $(document).ready(function() {
+        $('#example').DataTable({
+            "ordering": false  // Disable sorting
+        });
+    });
+</script>
+<script>
+    function validateRoomDescription() {
+        var descriptionInput = document.getElementById('description');
+        var charCountSpan = document.getElementById('charCount');
+        var errorMessageSpan = document.getElementById('errorMessageNutrition');
+
+        // Get the entered value and count of special symbols
+        var descriptionValue = descriptionInput.value;
+        var specialSymbolCount = (descriptionValue.match(/[^\w\s]/g) || []).length;
+
+        // Check if the entered value is within the specified limits
+        if (descriptionValue.length > 200 || specialSymbolCount > 10) {
+            errorMessageSpan.innerText = "Invalid input. Please follow the character limit and special symbol constraint.";
+            descriptionInput.setCustomValidity("Invalid input");
+        } else {
+            errorMessageSpan.innerText = "";
+            descriptionInput.setCustomValidity("");
+        }
+
+        // Update character count display
+        charCountSpan.innerText = descriptionValue.length + " characters";
+    }
+</script>
+
+{% endblock %}

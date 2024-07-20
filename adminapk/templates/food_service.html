@@ -1,0 +1,496 @@
+{% extends 'base.html' %}
+{% block content %}
+<ol class="breadcrumb" >
+    <li class="breadcrumb-item " style="margin-left: 78%;" >
+        <a href="{% url 'dashboard' %}">Dashboard</a>
+    </li>
+    <li class="breadcrumb-item active" >
+        Food Service
+    </li>
+
+</ol>
+
+<div class="col-md-12"  style="width: 98%; margin-top: 30px; margin-left: 20px; padding-right: 42px;">
+    <div class="row">
+        <div class="card " style=" margin-left: 10px;">
+            <div class="card-header d-flex justify-content-between" style="margin-top: 10px; background-color: #161d2b; width: 98%; margin-left: 1%;">
+
+                <h4 class="text-white"  style=""><b>Add Food Service</b></h4>
+
+
+            </div>
+            <div class="card-body">
+
+
+
+
+
+
+<form method="POST" action="{% url 'food_service' %}" onsubmit="return validateForm()" id="recipeForm">
+    {% csrf_token %}
+    <div class="col-md-12" >
+        <div class="row">
+
+
+<div class="form-group col-md-6">
+    <label class="form-label" for="full_name"><b>Recipe Name</b>&nbsp;<b style="color: red;">*</b></label>
+    <input class="form-control" id="full_name" name="Recepie_name" oninput="validateFullName(this)" placeholder="Enter Recipe Name" required type="text" />
+    <div class="error-message" id="full_name_error" style="color: red;"></div>
+</div>
+
+
+
+<div class="col-md-6">
+<label for="imageUpload" class="form-label"><b>Recipe Image</b>&nbsp;&nbsp;<b style="color: red;">*</b></label>
+<input class="form-control" type="file" id="Recepie_image" name="Recepie_image" accept=".jpg, .jpeg, .png" multiple required>
+<span id="errorMessageImages" style="color: red;" class="error"></span>
+
+</div>
+
+<div class="col-md-6" >
+<label for="meal_type" class="form-label"><b>Meal type</b>&nbsp;<b style="color: red;">*</b></label>
+<select class="form-select" id="meal_type" name="meal_type" required >
+ <option value="" disabled selected>Select Meal Type</option>
+ <option value="Breakfast">Breakfast</option>
+
+ <option value="Lunch">Lunch</option>
+ <option value="Snacks">Snacks</option>
+ <option value="Dinner">Dinner</option>
+</select>
+<span id="errorMessageMealType"  style="color: red;" class="error"></span>
+</div>
+
+<div class="col-md-6" >
+    <label for="Food_category" class="form-label"><b>Food category</b>&nbsp;<b style="color: red;">*</b></label>
+    <select class="form-select" id="Food_category" name="Food_category" required>
+        <option value="" disabled selected>Select Food Category</option>
+        <option value="vegetarian">Vegetarian</option>
+        <option value="Non-vegetarian">Non-Vegetarian</option>
+    </select>
+    <span id="errorMessageFoodCategory" style="color: red;" class="error"></span>
+</div>
+
+
+
+<div class="col-md-6" style="margin-top: 10px;">
+    <label for="Price" class="form-label"><b>Price</b>&nbsp;<b style="color: red;">*</b></label>
+    <div class="input-group">
+        <input type="number" class="form-control" autocomplete="off" name="Price" placeholder="Enter The Price" id="Price"  required>
+    </div>
+    <span id="errorMessagePrice" class="error" style="color: red;"></span>
+</div>
+
+<div class="col-md-6" style="margin-top: 10px;">
+    <label for="Recepie_Category" class="form-label"><b>Recipe Category</b>&nbsp;<b style="color: red;">*</b></label>
+    <select class="form-select" name="Recepie_Category" id="Recepie_Category" required>
+        <option value="Select Recepie Category" disabled selected>Select Recipe Category</option>
+        <option value="Appetizers">Appetizers</option>
+        <option value="MainDish">Main Dish</option>
+        <option value="Desserts">Desserts</option>
+        <option value="Salads">Salads</option>
+        <option value="Soups">Soups</option>
+        <!-- Add more recipe categories as needed -->
+    </select>
+    <span id="errorMessageCategory" style="color: red;" class="error"></span>
+</div>
+
+
+
+<div class="col-md-12">
+    <label for="recepie_description" style="margin-top: 20px;" class="form-label"><b>Recipe Description</b></label>
+    <textarea id="recepie_description" name="recepie_description" autocomplete="off" class="form-control" cols="30" rows="2" oninput="updateCharacterCount()" maxlength="200"></textarea>
+    <span id="charCount" style="color: green;"></span>
+    <span id="errorMessageRecipe" class="error" style="color: red;"></span>
+    &nbsp;
+</div>
+
+
+<div class="col-md-12 text-center">
+<br>
+<button class="btn btn-outline-dark" style="background-color:#161d2b" type="submit"><span class="text-white">Submit</span></button>
+                            <button class="btn btn-outline-dark" style="background-color:#626875;" type="reset"><span style="color: white;">Clear</span></button>
+</div>
+</div>
+</div>
+</form>
+
+
+                        </div>
+                    </div>
+
+
+            </div>
+        </div>
+
+        <!-------Edit Start------->
+        {% for a in food_b %}
+        <div class="modal fade" id="editData-{{forloop.counter}}" tabindex="-1" style="padding-right: 220px;" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" >
+            <div class="modal-content"  style="width: 750px;">
+                <form method="POST" action="{% url 'updatefood' a.id %}">
+                    {% csrf_token %}
+            <div class="modal-header" style="background-color: #161d2b;" >
+              <h1 class="modal-title fs-5 text-white" id="exampleModalLabel">Edit Food Services</h1>
+              <button type="button" class="btn btn-close text-white bg-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="col-md-12">
+                    <div class="row">
+                        <form method="POST" action="your-submit-url">
+                        <div class="col-md-6">
+                        <label for="branchName" class="form-label"><b>Recipe Name</b></label>
+                        <input type="text" class="form-control" autocomplete="off"  id="branchName" name="Recepie_name" value="{{ a.Recepie_name }}" pattern="[A-Za-z ]{3,30}" required title="Enter characters only (3-30)">
+                        <span id="errorMessageName" style="color: red; display: none;">Please enter characters (3-30) only and First letter must be Capse</span>
+                        </div>
+
+                        <div class="col-md-6">
+                        <label for="imageUpload" class="form-label"><b>Recipe Images</b></label>
+                        <input class="form-control" type="file"  id="formFile" name="Recepie_image" value="{{ a.Recepie_image }}" accept=".jpg, .jpeg, .png" required title="Enter JPG, PNG, JPEG only">
+                        <span id="errorMessageImages" class="error"></span>
+                        </div>
+
+                        <div class="col-md-6" style="margin-top: 10px;">
+                        <label for="meal_type" class="form-label"><b>Meal type</b></label>
+                        <select class="form-select" id="meal_type" name="meal_type" value="{{ a.meal_type }}" required title="Select a meal type">
+                         <option value="{{ a.meal_type }}" >{{ a.meal_type }}</option>
+                         <option value="Breakfast">Breakfast</option>
+
+                         <option value="Lunch">Lunch</option>
+                         <option value="Snacks">Snacks</option>
+                         <option value="Dinner">Dinner</option>
+                        </select>
+                        <span id="errorMessageMealType" class="error"></span>
+                        </div>
+
+                        <div class="col-md-6" style="margin-top: 10px;">
+                        <label for="validationServer01" class="form-label"><b>Food category</b></label>
+                        <select class="form-select" id="validationServer01" name="Food_category" value="{{ a.Food_category }}" required title="Select Vegetarian or Non-Vegetarian">
+                         <option value=""  >{{ a.Food_category }}</option>
+                         <option value="veg">Vegetarian</option>
+                         <option value="nonveg">Non-Vegetarian</option>
+                        </select>
+                        <span id="errorMessageFoodCategory" class="error"></span>
+                        </div>
+
+
+                        <div class="col-md-6" style="margin-top: 10px;">
+                            <label for="Price" class="form-label"><b>Price</b></label>
+                            <div class="input-group">
+                                <input type="number" class="form-control" autocomplete="off" name="Price" value="{{a.Price}}" placeholder="Enter The Price" id="Price"  required>
+                            </div>
+
+                        </div>
+
+
+
+
+
+
+                        <div class="col-md-6" style="margin-top: 10px;">
+                        <label for="recipeCategory" class="form-label"><b>Recipe Category</b></label>
+                        <select class="form-select" name="Recepie_Category" value="{{ a.Recepie_Category }}" id="recipeCategory" required title="Select a Recepie_category">
+                        <option value=""  selected>{{ a.Recepie_Category }}</option>
+                        <option value="Appetizers">Appetizers</option>
+                        <option value="MainDish">Main Dish</option>
+                        <option value="Desserts">Desserts</option>
+                        <option value="Salads">Salads</option>
+                        <option value="Soups">Soups</option>
+                        <!-- Add more recipe categories as needed -->
+                        </select>
+                        <span id="errorMessageCategory" class="error"></span>
+                        </div>
+
+
+                        <div class="col-md-12" >
+                            <label for="recepie_description" style="margin-top: 20px;" class="form-label"><b>Recipe Description</b></label>
+                            <textarea id="recepie_description" name="recepie_description" autocomplete="off" class="form-control" cols="30" rows="2" oninput="updateCharacterCount()" maxlength="200">{{a.recepie_description}}</textarea>
+                            <span id="charCount" style="color: #555; font-size: 12px;"></span>
+                            <span id="errorMessageNutrition" class="error" style="color: red;"></span>
+                            &nbsp;
+                        </div>
+
+
+
+                        <div class="modal-footer d-flex justify-content-center align-items-center text-center">
+                            <button class="btn btn-outline-dark" style="background-color:#161d2b" type="submit"><span class="text-white">Submit</span></button>
+                            <button class="btn btn-outline-dark" style="background-color:#626875;" type="reset"><span style="color: white;">Clear</span></button>
+                        </div>
+                        </form>
+            </div>
+
+            </div>
+            </div></form>
+            <!------------------------------------------------------------>
+
+
+
+            <!------------------------------------------------------------>
+
+            </div>
+            </div>
+        </div>
+            </div>
+            {% endfor %}
+        <!-------Edit End--------->
+
+{% for e in food_b %}
+  <div class="modal fade" id="deleteData-{{forloop.counter}}" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+           <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header" >
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="NotificationModalbtn-close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mt-2 text-center">
+<lord-icon
+    src="https://cdn.lordicon.com/skkahier.json"
+    trigger="hover"
+    colors="primary:#c71f16"
+    style="width:150px;height:100px">
+</lord-icon>
+                        <h4>Are you sure ?</h4>
+                        <p class="text-muted mx-4 mb-0">Are you sure you want to remove this <b style="color: red;">{{e.Recepie_name}}</b> Recipe Record ?</p>
+                    </div>
+
+                <div class="d-flex gap-2 justify-content-center mt-4 mb-2">
+                    <a class="btn btn-outline-danger text-white" style="background-color: #d11d26;" href="{% url 'deletefood' e.id %}">Delete</a>
+                    <button type="button" class="btn btn-outline-dark text-white" style="background-color: #626875;" data-bs-dismiss="modal">Cancel</button>
+                </div>
+                </div>
+            </div>
+      </div>
+         <br>
+               <br>
+    </div>
+
+</div>
+{% endfor %}
+        <div class="card"  style="margin-top: 30px; margin-left: 28px; width: 96%;">
+
+          <div class="card-body">
+
+
+        <div class="table-responsive">
+                <table class="table mb-0" data-toggle="data-table" id="datatable">
+            <thead >
+                <tr>
+             <th  class="text-center text-white " style="background-color: #161d2b;">S.No</th>
+              <th   class="text-center text-white " style="background-color: #161d2b;">Recipe Name</th>
+              <th  class="text-center text-white " style="background-color: #161d2b;">Recipe Image</th>
+              <th   class="text-center text-white " style="background-color: #161d2b;">Meal Type</th>
+              <th   class="text-center text-white " style="background-color: #161d2b;">Food Category</th>
+
+              <th  class="text-center text-white " style="background-color: #161d2b;">Price</th>
+              <th   class="text-center text-white " style="background-color: #161d2b;">Recipe Category</th>
+              <th  class="text-center text-white " style="background-color: #161d2b;">Recipe Description</th>
+              <th  class="text-center text-white " style="background-color: #161d2b;">Status</th>
+              <th  class="text-center text-white " style="background-color: #161d2b;">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+                {% for f in food_b %}
+              <tr class="text-center">
+                <td>{{ forloop.counter }}</td>
+                <td>{{ f.Recepie_name }}</td>
+                <td> <img class="rounded-rectangle" height="50px;" src="{{ f.Recepie_image.url}}"
+                                                 width="50px;"></td>
+                <td>{{ f.meal_type }}</td>
+                <td>{{ f.Food_category }}</td>
+
+
+                <td>{{ f.Price }}</td>
+                <td>{{ f.Recepie_Category }}</td>
+                <td>{{ f.recepie_description }}</td>
+                <td> <form action="{% url 'togglestatusff' f.id %}" method="post">
+                    {% csrf_token %}
+                    <button style="border: none; background: none; padding: 0; margin: 0; cursor: pointer;"
+                     class="{% if f.status %}text-success{% else %}text-danger{% endif %}" type="submit">
+                        {% if f.status %}Active{% else %}Inactive{% endif %}
+                    </button>
+                </form>
+                                                </td>
+                <td><button type="button" class="btn btn-outline-dark text-white" style="background-color: #161d2b;"data-bs-target="#editData-{{forloop.counter}}" data-bs-toggle="modal"  ><svg xmlns="http://www.w3.org/2000/svg" style="color: white;" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                  <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                  <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+                </svg></button>
+<!--Edit Modal -->
+
+<button type="button" class="btn btn-outline-danger text-white" style="background-color: #d11d26;" data-bs-toggle="modal" data-bs-target="#deleteData-{{forloop.counter}}"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
+<path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"/>
+</svg></button>
+<!---delete popup---->
+
+</td>
+              </tr>
+              {% endfor %}
+
+            </tbody>
+          </table>
+        </div>
+
+
+
+        </div>
+      </div>
+
+
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+
+  <script>
+     function preventDefaultClick(event) {
+         event.preventDefault();
+     }
+ </script>
+
+
+
+
+<script>
+                $(document).ready(function(){
+                $('#example').DataTable();
+                });
+            </script>
+            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+            <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+   <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css" rel="stylesheet"
+          type="text/css">
+<!-- Include jQuery -->
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    function validateFullName(input) {
+        var fullName = input.value.trim();
+        var fullNameError = document.getElementById('full_name_error');
+
+        // Check if the length is between 3 and 30 characters
+        if (fullName.length < 3 || fullName.length > 30) {
+            fullNameError.textContent = 'Recipe Name must be between 3 and 30 characters';
+            return false;
+        }
+
+        // Check if the input contains numbers or special characters
+        if (!/^[a-zA-Z\s]+$/.test(fullName)) {
+            fullNameError.textContent = 'Recipe Name should not contain numbers or special characters';
+            return false;
+        }
+
+        // Check if the first letter is capital
+        if (!/^[A-Z]/.test(fullName)) {
+            fullNameError.textContent = 'First letter of Recipe Name should be capital';
+            return false;
+        }
+
+        // Clear error message if validation passes
+        fullNameError.textContent = '';
+        return true;
+    }
+
+    function validateForm() {
+        // Validate each field
+        var isValidFullName = validateFullName(document.getElementById('full_name'));
+
+        // Return false if any field is not valid
+        return isValidFullName;
+    }
+</script>
+<script>
+    // Add an event listener to the Price input field
+    document.getElementById('Price').addEventListener('input', function () {
+        // Get the entered value
+        var price = parseFloat(this.value);
+
+        // Check if the entered value is greater than 20000
+        if (price > 20000) {
+            // Display error message
+            document.getElementById('errorMessagePrice').innerText = 'Price must not exceed 20000.';
+        } else {
+            // Clear the error message
+            document.getElementById('errorMessagePrice').innerText = '';
+        }
+    });
+
+    function validateForm() {
+        // Check the Price field
+        var price = parseFloat(document.getElementById('Price').value);
+        if (price > 20000) {
+            // Display error message
+            document.getElementById('errorMessagePrice').innerText = 'Price must not exceed 20000.';
+            // Return false to prevent form submission
+            return false;
+        }
+
+        // Additional validation logic for other fields can be added here
+
+        // Return true if all validations pass
+        return true;
+    }
+</script>
+
+<script>
+    var previousValue = "";
+
+    function updateCharacterCount() {
+        var textarea = document.getElementById("recipe_description");
+        var charCountSpan = document.getElementById("charCount");
+        var errorMessageSpan = document.getElementById("errorMessageRecipe");
+
+        var currentLength = textarea.value.length;
+
+        charCountSpan.textContent = currentLength + "/200";
+
+        if (currentLength > 0 && textarea.value === previousValue) {
+            errorMessageSpan.textContent = "Error: Please avoid entering the same characters continuously.";
+            textarea.setCustomValidity("Please avoid entering the same characters continuously.");
+        } else {
+            errorMessageSpan.textContent = "";
+            textarea.setCustomValidity("");
+        }
+
+        previousValue = textarea.value;
+    }
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var recipeCategorySelect = document.getElementById("Recepie_Category");
+        var errorMessageCategory = document.getElementById("errorMessageCategory");
+        var form = document.getElementById("recipeForm"); // Replace "recipeForm" with the actual form ID
+
+        recipeCategorySelect.addEventListener("change", validateRecipeCategory);
+
+        function validateRecipeCategory() {
+            var selectedValue = recipeCategorySelect.value;
+
+            if (selectedValue === "Select Recepie Category") {
+                // Invalid selection, display error message
+                errorMessageCategory.textContent = "Please select a Recipe Category.";
+                return false; // Signal that validation failed
+            } else {
+                // Valid selection, clear error message
+                errorMessageCategory.textContent = "";
+                return true; // Signal that validation passed
+            }
+        }
+
+        form.addEventListener("submit", function (event) {
+            if (!validateRecipeCategory()) {
+                // If validation fails, prevent form submission
+                event.preventDefault();
+            }
+        });
+    });
+</script>
+
+
+
+{% endblock %}

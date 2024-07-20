@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+    <meta
+            content="width=device-width, initial-scale=1, maximum-scale=1"
+            name="viewport"
+    />
+    <title>Raj Hotel</title>
+    <link href="/static/userassets/img/favicon.png" rel="shortcut icon"/>
+    <link
+            href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&amp;family=Outfit:wght@300;400&amp;display=swap"
+            rel="stylesheet"
+    />
+    <link href="/static/userassets/css/plugins.css" rel="stylesheet"/>
+    <link href="/static/userassets/css/style.css" rel="stylesheet"/>
+    <style>
+        .container {
+          text-align: center;
+          position: relative;
+        }
+
+        .logo-image {
+          border-radius: 50%;
+          width: 100px;
+          height: 100px;
+          object-fit: cover;
+          margin-bottom: 20px;
+          position: absolute;
+          top: -60px;
+          left: 50%;
+          transform: translateX(-50%);
+        }
+
+        .login-container {
+          position: relative;
+        }
+    </style>
+    <style>
+        body {
+          margin: 0;
+          padding: 0;
+          overflow: hidden;
+          background: url("/static/userassets/img/mantion6\ \(1\).jpg") no-repeat center center fixed;
+          background-size: cover;
+          height: 100vh;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-family: "Arial", sans-serif;
+          position: relative;
+        }
+
+        body::before {
+          content: "";
+          position: absolute;
+          top: 0;
+          right: 0;
+          bottom: 0;
+          left: 0;
+          background-color: rgba(0, 0, 0, 0.6);
+        }
+
+        .login-container {
+          background: rgba(255, 255, 255, 0);
+          padding: 30px 5px; /* 30px top and bottom, 5px left and right */
+          border-radius: 10px;
+          box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+          width: 400px;
+          text-align: center;
+          margin: auto;
+          transition: transform 0.3s ease-in-out;
+          border: 2px solid #fff; /* White border */
+          /* background-color: rgba(255, 255, 255, 0.3); */
+        }
+
+        .login-container:hover {
+          transform: scale(1.05);
+        }
+
+        .login-container img {
+          width: 80px;
+          height: 80px;
+          border-radius: 50%;
+          margin-bottom: 20px;
+        }
+
+        .login-container input {
+          width: 100%;
+          padding: 12px;
+          margin-bottom: 15px;
+          box-sizing: border-box;
+          border: 1px solid #ccc;
+          border-radius: 5px;
+        }
+
+        .login-container button {
+          width: 100%;
+          padding: 12px;
+          background-color: #007bff;
+          color: #fff;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+        }
+
+        .login-container button:hover {
+          background-color: #0056b3;
+        }
+        .white-placeholder::placeholder {
+          color: white;
+        }
+    </style>
+    <style>
+        body {
+          background-color: #333;
+          color: white;
+          text-align: center;
+          padding: 50px;
+        }
+
+        input,
+        button {
+          margin-bottom: 10px;
+        }
+
+        .error-message {
+          color: red;
+        }
+    </style>
+</head>
+<body>
+<div class="container" style="text-align: center">
+    <div>
+        <br/>
+        <br/>
+        <!-- <h5 style="color: white">𝙷𝚘𝚝𝚎𝚕 𝚁𝚊𝚓</h5> -->
+    </div>
+
+    <div class="login-container">
+        <div
+                style="
+            border: 2px solid white;
+            height: 130px;
+            width: 130px;
+            border-radius: 170px;
+            margin-left: 125px;
+          "
+        >
+            <img
+                    alt=""
+                    src="/static/userassets/img/logo-intro_2-1.png"
+                    style="height: 110px; width: 110px; margin-top: 15px"
+            />
+        </div>
+
+        <form id="myForm" method="POST">
+            {% csrf_token %}
+            <div class="card-header">
+                <h5 style="margin-top: 15px; color: #fff">
+                    <b>Customer Sign-IN</b>
+                </h5>
+            </div>
+            <br/>
+            <input
+                    class="white-placeholder"
+                    id="usernameInput"
+                    name="username"
+                    placeholder="Username"
+                    required
+                    style="
+              background: transparent;
+              color: white;
+              caret-color: white;
+              width: 80%;
+              max-width: 300px;
+              margin: 0 auto;
+            "
+                    type="text"
+            />
+            <div
+                    id="usernameError"
+                    style="
+              color: white;
+              font-size: 14px;
+              margin-top: 5px;
+              margin-right: 150px;
+            "
+            ></div>
+
+            <br/>
+            <input
+                    class="white-placeholder"
+                    id="passwordInput"
+                    name="password"
+                    placeholder="Password"
+                    required
+                    style="
+              background: transparent;
+              color: white;
+              caret-color: white;
+              width: 80%;
+              max-width: 300px;
+              margin: 0 auto;
+            "
+                    type="password"
+            /><br><br>
+            <div
+                    id="passwordError"
+                    style="
+              color: white;
+              font-size: 14px;
+              margin-top: 5px;
+              margin-right: 150px;
+            "
+            ></div>
+            <a href="{% url 'user_reg' %}" style="color: white"
+            ><i>Don't have an account? sign up</i></a
+            >
+
+            <br><br>
+
+            <button
+                    onclick="validateForm()"
+                    style="background-color: white; color: black; width: 300px"
+                    type="submit"
+            >
+                Log in
+            </button>
+            <br><br>
+
+            <a href="{% url 'home_view' %}" style="color: white"
+            ><i>Back To Website</i></a
+            >
+
+
+        </form>
+    </div>
+</div>
+<script>
+    function validateForm() {
+      var usernameInput = document.getElementById("usernameInput");
+      var usernameError = document.getElementById("usernameError");
+
+      if (usernameInput.value === "") {
+        usernameError.innerHTML = "Please enter username";
+      } else {
+        usernameError.innerHTML = "";
+        // Add additional validation or form submission logic here
+      }
+    }
+
+    // Adding an event listener to check for real-time validation
+    document
+      .getElementById("usernameInput")
+      .addEventListener("input", function () {
+        var usernameError = document.getElementById("usernameError");
+        usernameError.innerHTML = ""; // Clear error message as soon as the user starts typing
+      });
+</script>
+<script>
+    function validateForm() {
+      var usernameInput = document.getElementById("usernameInput");
+      var usernameError = document.getElementById("usernameError");
+      var passwordInput = document.getElementById("passwordInput");
+      var passwordError = document.getElementById("passwordError");
+
+      // Validate Username
+      if (usernameInput.value === "") {
+        usernameError.innerHTML = "Please enter username";
+      } else {
+        usernameError.innerHTML = "";
+      }
+
+      // Validate Password
+      if (passwordInput.value === "") {
+        passwordError.innerHTML = "Please enter password";
+      } else {
+        passwordError.innerHTML = "";
+        // Add additional validation or form submission logic here
+      }
+    }
+
+    // Adding event listeners for real-time validation
+    document
+      .getElementById("usernameInput")
+      .addEventListener("input", function () {
+        var usernameError = document.getElementById("usernameError");
+        usernameError.innerHTML = "";
+      });
+
+    document
+      .getElementById("passwordInput")
+      .addEventListener("input", function () {
+        var passwordError = document.getElementById("passwordError");
+        passwordError.innerHTML = "";
+      });
+</script>
+</body>
+</html>

@@ -1,0 +1,581 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<ol class="breadcrumb" >
+    <li class="breadcrumb-item " style="margin-left: 78%;" >
+        <a href="{% url 'dashboard' %}">Dashboard</a>
+    </li>
+    <li class="breadcrumb-item active" >
+        Booking Management
+    </li>
+
+</ol>
+
+<div class=" container">
+    <div class="row">
+        <div class="col-lg-12">
+
+            <div class="card" style="margin-right: 20px;margin-left: -20px;width:1130px;">
+                <div class="card-body">
+                    <div class="card-header" style="background-color: #161d2b;color:white;">
+
+                        <span style="color:white; "><h4 style="color:white;">Booking</h4></span>
+                    </div>
+                    <br>
+                    <br>
+
+                    <form action="{% url 'addreservation' %}" method="post" onsubmit="return validateForm()">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-xl-4 mb-3">
+                                <label class="form-label" for="profile_name"><b>User Name</b>&nbsp<b style="color: red;">*</b></label>
+                                <input class="form-control" id="profileNameError" placeholder="Enter User Name" name="profile_name" required type="text">
+                                <div id="userNameError" style="color: red;" class="error-message"></div>
+                            </div>
+
+
+                            <div class="col-xl-4 mb-3">
+                                <label class="form-label" for="contact"><b>Contact Number</b>&nbsp<b style="color: red;">*</b></label>
+                                <input class="form-control" id="contact" name="contact"
+                                       oninput="setCustomValidity('')" oninvalid="setCustomValidity('Please enter a valid 10-digit contact number')"
+                                       pattern="[6-9][0-9]{9}" placeholder="Enter Contact Number"
+                                       required
+                                       type="tel">
+                                <div id="contactError" style="color: red; display: none;">Please enter a valid 10-digit
+                                    contact number
+                                </div>
+                            </div>
+                            <div class="col-xl-4 mb-3">
+
+                                <label class="form-label" for="email"><b>Email-id</b>&nbsp<b style="color: red;">*</b></label>
+                                <input class="form-control" id="email" name="email_id" pattern=".+@gmail\.com" placeholder="Enter Email-id" required>
+                                <div class="invalid-feedback" id="email-error">Please enter a valid Gmail address ending
+                                    with .com or .in.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xl-4 mb-3">
+                                 <label class="form-label" for="city"><b> Branch</b>&nbsp;<b style="color: red;">*</b></label>
+                                <select class="form-select" id="city" name="city" required>
+                                    <option selected>Select  Branch </option>
+                                    {% for c in city %}
+                                    <option value="{{ c.id }}">{{ c.city }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="col-xl-4 mb-3">
+                                <label class="form-label" for="room_type"><b>Room Type</b>&nbsp<b style="color: red;">*</b></label>
+                                <input class="form-control" id="room_type"
+                                       name="room_type"  placeholder="Enter Room Type"
+                                       required type="text">
+
+                                <div id="error-message" style="color: red;"></div>
+                              </div>
+
+                            <div class="col-xl-4 mb-3">
+                                <label class="form-label" for="number_of_guest"><b>Number Of Adults</b>&nbsp<b style="color: red;">*</b></label>
+                                <input class="form-control" id="number_of_guest" max="999" min="1"
+                                       name="number_of_guest" oninput="setCustomValidity('')" oninvalid="setCustomValidity('Please enter a valid room number')"
+                                       pattern="\d{1,3}" placeholder="Enter Number Of Adults"
+                                       required type="number">
+                                <div id="roomNumberError" style="color: red; display: none;">Please enter a valid room
+                                    number
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xl-4 mb-3">
+                                <label class="form-label" for="number_of_child"><b>Number Of Children</b>&nbsp<b style="color: red;">*</b></label>
+                                <input class="form-control" id="number_of_child" max="999" min="1"
+                                       name="number_of_child" oninput="setCustomValidity('')" oninvalid="setCustomValidity('Please enter a valid room number')"
+                                       pattern="\d{1,3}" placeholder="Enter Number Of Children"
+                                       required type="number">
+                                <div id="roomNumberError" style="color: red; display: none;">Please enter a valid room
+                                    number
+                                </div>
+                            </div>
+                            <div class=" col-xl-4 mb-3">
+                                <label class="form-label" for="check_in"><b>Check In</b></label>
+                                <input class="form-control input datepicker" placeholder="Check in" type="datetime-local" id="check_in" name="check_in" required />
+                            </div>
+                                 <div class=" col-xl-4 mb-3">
+                                <label class="form-label" for="check_out"><b>Check Out</b></label>
+                                <input class="form-control input datepicker" placeholder="Check out" type="datetime-local" id="check_out" name="check_out" required />
+                            </div>
+                        </div>
+
+
+                        <div class="row justify-content-center">
+                        <div class="modal-footer d-flex justify-content-center align-items-center text-center">
+                            <button class="btn btn-outline-dark" style="background-color:#161d2b" type="submit"><span class="text-white">Submit</span></button>
+                            <button class="btn btn-outline-dark" style="background-color:#626875;" type="reset"><span style="color: white;">Clear</span></button>
+                        </div>
+                    </div>
+                    </form>
+                </div>
+            </div>
+
+
+            {% for d in rr_a %}
+            <div aria-hidden="true" aria-labelledby="editData-{{forloop.counter}}" class="modal fade"
+                 id="editData-{{forloop.counter}}"
+                 tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header" style="background-color:#161d2b;">
+                            <h5 class="modal-title text-white" id="formModalLabel"><b>Edit Booking</b></h5>
+                            <button aria-label="Close" class="btn-close" data-bs-dismiss="modal"
+                                    type="button"></button>
+                        </div>
+                        <form action="{% url 'updatereservarions' d.id %}" method="POST">
+                            {% csrf_token %}
+                            <div class="modal-body">
+                                <div class="col-md-12">
+                                    <div class="row">
+
+
+
+                                <div class="col-md-6">
+                                    <label class="form-label" for="profile_name"> <b>User Name</b></label>
+                                    <input class="form-control" id="profile_name" name="profile_name" oninput="setCustomValidity('')"
+                                           oninvalid="setCustomValidity('Please enter characters only.')" pattern="[A-Za-z ]{2,30}"
+                                           placeholder="Enter Profile Name" required
+                                           type="text"
+                                           value="{{ d.profile_name }}">
+                                    <div class="invalid-feedback">Please enter characters only.</div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="form-label" for="contact"><b>Contact Number</b></label>
+                                    <input class="form-control" id="contact" name="contact"
+                                           pattern="[6-9][0-9]{9}" placeholder="Enter Contact Number"
+                                           required type="tel" value="{{d.contact}}">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label" for="email_id"><b>Email ID</b></label>
+                                    <input class="form-control" id="email_id" name="email_id"
+                                           oninput="validateEmail()"
+                                           pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}\.com"
+                                           placeholder="Enter Email ID" required type="email" value="{{d.email_id}}">
+                                    <span id="emailError" style="color: red;"></span>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label" for="branch"><b>Branch</b></label>
+                                    <input class="form-control" id="branch" name="branch"
+                                           placeholder="Enter Branch ID"
+                                           type="text" value="{{d.branch}}">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label" for="room_number"><b>Room Number</b></label>
+                                    <input class="form-control" id="room_number" max="999" min="1"
+                                           name="room_number" placeholder="Enter Room Number" required type="number"
+                                           value="{{d.room_number}}">
+                                </div>
+                                 <div class="col-md-6">
+                                <label class="form-label" for="number_of_guest"><b>Number Of Guests</b></label>
+                                <input class="form-control" id="number_of_guest" max="999" min="1"
+                                       name="number_of_guest" oninput="setCustomValidity('')" oninvalid="setCustomValidity('Please enter a valid room number')"
+                                       pattern="\d{1,3}" placeholder="Enter Number Of Guests"
+                                       required type="number" value="{{d.number_of_guest}}">
+                                <div id="roomNumberError" style="color: red; display: none;">Please enter a valid room
+                                    number
+                                </div>
+                            </div>
+
+
+                            <div class=" col-md-6">
+                                <label class="form-label" for="number_of_child"><b>Number Of Children</b></label>
+                                <input class="form-control" id="number_of_child" max="999" min="1"
+                                       name="number_of_child" oninput="setCustomValidity('')" oninvalid="setCustomValidity('Please enter a valid room number')"
+                                       pattern="\d{1,3}" placeholder="Enter Room Number"
+                                       required type="number" value="{{d.number_of_child}}">
+                                <div id="roomNumberError" style="color: red; display: none;">Please enter a valid room
+                                    number
+                                </div>
+                            </div>
+                                 <div class=" col-md-6">
+                                <label class="form-label" for="check_in"><b>Check In</b></label>
+                                <input
+                                    class="form-control input datepicker"
+                                    placeholder="Check in" id="check_in" name="check_in"
+                                    type="text" value="{{d.check_in}}"
+                            />
+                            </div>
+                                 <div class=" col-md-6">
+                                <label class="form-label" for="check_out"><b>Check Out</b></label>
+                                <input
+                                    class="form-control input datepicker"
+                                    placeholder="Check out" id="check_out" name="check_out"
+                                    type="text" value="{{d.check_out}}"
+                            />
+                            </div>
+
+
+
+
+                        <div class="modal-footer text-center">
+                            <button class="btn btn-outline-dark" style="background-color:#161d2b" type="submit"><span class="text-white">Submit</span></button>
+                            <button class="btn btn-outline-dark" style="background-color:#626875;" type="reset"><span style="color: white;">Clear</span></button>
+                        </div>
+                    </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+                </div>
+            </div>
+            {% endfor %}
+
+            <!-- edit popup end -->
+
+            <!-- Delete Confirmation Modal -->
+            {% for f in rr_a %}
+            <div aria-hidden="true" aria-labelledby="deleteModalLabel" class="modal fade" id="deleteData-{{forloop.counter}}"
+                 tabindex="-1">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button aria-label="Close" class="btn-close" data-bs-dismiss="modal" id="NotificationModalbtn-close"
+                                    type="button"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="mt-2 text-center">
+                                <lord-icon
+                                        colors="primary:#c71f16"
+                                        src="https://cdn.lordicon.com/skkahier.json"
+                                        style="width:150px;height:100px"
+                                        trigger="hover">
+                                </lord-icon>
+                                <h4>Are you sure ?</h4>
+                                <p class="text-muted mx-4 mb-0">Are you sure you want to remove this Notification ?</p>
+                            </div>
+
+                            <div class="d-flex gap-2 justify-content-center mt-4 mb-2">
+                                <a class="btn btn-danger" href="{% url 'deletereservarions' f.pk %}">Delete</a>
+                                <button class="btn btn-secondary" data-bs-dismiss="modal" type="button">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <br>
+            </div>
+            {% endfor %}
+
+            <!-- edit and delete popup end -->
+
+
+            <div class="card" style="margin-left:-20px;">
+                <div class="card-body" style="background-color:white;">
+                    <div class="table-responsive">
+                        <table class="table mb-0" data-toggle="data-table" id="datatable">
+
+                            <thead>
+                            <tr style="background:  #161d2b;">
+                                <th class="sort" data-sort="customer_name" style="color: white; text-align: center;">SNo
+                                </th>
+                                <th class="sort" data-sort="customer_name" style="color: white; text-align: center;">
+                                    User Name
+                                </th>
+                                <th class="sort" data-sort="customer_name" style="color: white; text-align: center;">
+                                    Contact
+                                </th>
+                                <th class="sort" data-sort="customer_name" style="color: white; text-align: center;">
+                                    Email-Id
+                                </th>
+                                <th class="sort" data-sort="customer_name" style="color: white; text-align: center;">
+                                    Branch
+                                </th>
+                                <th class="sort" data-sort="customer_name" style="color: white; text-align: center;">
+                                    Room Type
+                                </th>
+                                <th class="sort" data-sort="customer_name" style="color: white; text-align: center;">
+                                    Number Of Adults
+                                </th>
+                                <th class="sort" data-sort="customer_name" style="color: white; text-align: center;">
+                                    Number Of Children
+                                </th> <th class="sort" data-sort="customer_name" style="color: white; text-align: center;">
+                                    Check In
+                                </th> <th class="sort" data-sort="customer_name" style="color: white; text-align: center;">
+                                    Check Out
+                                </th>
+                                <th class="sort" data-sort="customer_name" style="color: white; text-align: center;">
+                                   Created At
+                                </th>
+                                <th class="sort" data-sort="customer_name" style="color: white; text-align: center;">
+                                    Status
+                                </th>
+                                <th class="sort" data-sort="customer_name" style="color: white; text-align: center;">
+                                    Action
+                                </th>
+
+                            </tr>
+                            </thead>
+                            <tbody align="center">
+                             {% for a in rr_a %}
+                            <tr >
+
+                                <td scope="text-center">{{ forloop.counter }}</td>
+                                <td class="text-center">{{ a.profile_name }}</td>
+                                <td class="text-center">{{ a.contact }}</td>
+                                <td class="text-center">{{ a.email_id }}</td>
+                                <td class="text-center">{{ a.city }}</td>
+                                <td class="text-center">{{ a.room_type }}</td>
+                                <td class="text-center">{{ a.number_of_guest }}</td>
+                                <td class="text-center">{{ a.number_of_child }}</td>
+                                <td class="text-center">{{ a.check_in }}</td>
+                                <td class="text-center">{{ a.check_out }}</td>
+                                <td class="text-center">{{ a.created_at }}</td>
+
+
+                                <td> <form action="{% url 'togglestatus' a.id %}" method="post">
+    {% csrf_token %}
+    <button style="border: none; background: none; padding: 0; margin: 0; cursor: pointer;"
+     class=" {% if a.status %}text-danger{% else %}text-success{% endif %}" type="submit">
+        {% if a.status %}Cancel{% else %}Booked{% endif %}
+    </button>
+</form>
+                                </td>
+                                <td>
+                                    <div class="d-flex justify-content-evenly">
+
+
+                                        <button class="btn" data-bs-target="#editData-{{forloop.counter}}"
+                                                data-bs-toggle="modal"
+                                                style="background-color:#161d2b;" type="button">
+                        <span style="color: white">
+                            <svg class="bi bi-pencil-square" fill="currentColor" height="16" viewBox="0 0 16 16"
+                                 width="16" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                                <path d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"
+                                      fill-rule="evenodd"/>
+                            </svg>
+                        </span>
+                                        </button>
+
+&nbsp
+                                        <button class="btn " data-bs-target="#deleteData-{{forloop.counter}}"
+                                                data-bs-toggle="modal"
+                                                type="button" style="background-color:#d11d26;"><span style="color: white">
+                                            <svg class="bi bi-trash3" fill="currentColor" height="16"
+                                                 viewBox="0 0 16 16" width="16" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"/>
+                                            </svg></span>
+
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+
+
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function(){
+    $('#example').DataTable();
+    });
+</script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css" rel="stylesheet"
+      type="text/css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+
+<script>
+    document.getElementById('profileNameError').addEventListener('input', function () {
+        var userNameInput = this.value.trim();
+        var userNameErrorElement = document.getElementById('userNameError');
+
+        // Reset error message
+        userNameErrorElement.textContent = '';
+
+        // Validate first letter as capital
+        if (/^[A-Z]/.test(userNameInput)) {
+            // Validate length
+            if (userNameInput.length >= 3 && userNameInput.length <= 30) {
+                // Valid input
+                return;
+            } else {
+                userNameErrorElement.textContent = 'User Name must be between 3 and 30 characters.';
+            }
+        } else {
+            userNameErrorElement.textContent = 'User Name must start with a capital letter.';
+        }
+    });
+
+    function validateForm() {
+        // Your other validation logic for different fields...
+
+        // Check if there are any error messages
+        var errorMessages = document.querySelectorAll('.error-message');
+        for (var i = 0; i < errorMessages.length; i++) {
+            if (errorMessages[i].textContent.trim() !== '') {
+                return false; // Prevent form submission if there are errors
+            }
+        }
+
+        return true; // Submit the form if all validations pass
+    }
+</script>
+
+
+
+<script>
+    function validateAge(input) {
+      const ageError = document.getElementById("age_error");
+      const ageValue = input.value.trim();
+
+
+      ageError.textContent = "";
+
+      if (ageValue === "") {
+        ageError.textContent = "Age is required.";
+        return;
+      }
+
+      // Check if the input is a number and within the specified range
+      if (isNaN(ageValue) || ageValue < 18 || ageValue > 99) {
+        ageError.textContent = "Please enter a valid age (between 18 and 99).";
+        input.value = "";
+      }
+    }
+</script>
+
+
+<script>
+    function validateAge(input) {
+      const ageError = document.getElementById("age_error");
+      const ageValue = input.value.trim();
+
+      // Reset any previous error messages
+      ageError.textContent = "";
+
+      if (ageValue === "") {
+        ageError.textContent = "rooms are required.";
+        return;
+      }
+
+      // Check if the input matches the pattern for exactly 2 digits
+      if (!/^\d{2}$/.test(ageValue) || ageValue < 18) {
+        ageError.textContent = "Please enter a valid age (2 digits and age >= 18).";
+      }
+    }
+</script>
+<script>
+    function validateFullName(input) {
+      const fullNameError = document.getElementById("full_name_error");
+      const fullNameValue = input.value.trim();
+
+      // Reset any previous error messages
+      fullNameError.textContent = "";
+
+      if (fullNameValue === "") {
+        fullNameError.textContent = "Full Name is required.";
+        return;
+      }
+
+
+      if (!/^[A-Za-z ]{0,30}$/.test(fullNameValue)) {
+        fullNameError.textContent = "Full Name should contain 3 to 30 alphabets only.";
+        input.value = ""; // Clear the input field
+      }
+    }
+</script>
+<script>
+    function validateMobileNumber(input) {
+      const mobnoError = document.getElementById("mobno_error");
+      const mobnoValue = input.value.trim();
+
+
+      mobnoError.textContent = "";
+
+      if (mobnoValue === "") {
+        mobnoError.textContent = "Mobile Number is required.";
+        return;
+      }
+
+
+      if (!/^[^a-zA-Z]{10,15}$/.test(mobnoValue)) {
+        mobnoError.textContent = "Please enter a valid mobile number (10 to 15 characters with no alphabets).";
+        input.value = "";
+      }
+    }
+</script>
+
+<script>
+    function validateDate() {
+        var inputDate = document.getElementById('doj').value;
+        var currentDate = new Date().toISOString().split('T')[0];
+
+        if (inputDate > currentDate) {
+            alert("Date of Joining cannot exceed today's date.");
+        } else {
+            // Proceed with form submission or other actions
+            alert("Validation successful! Submitting the form.");
+
+        }
+    }
+</script>
+<script charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js" type="text/javascript"></script>
+<script>
+    $(document).ready(function() {
+        $('#example').DataTable({
+            "ordering": false  // Disable sorting
+        });
+    });
+</script>
+<script>
+    function validateUserName(input) {
+        // Get the error element
+        const userNameError = document.getElementById("profileNameError");
+
+        // Get the trimmed value of the input
+        const userNameValue = input.value.trim();
+
+        // Reset any previous error messages
+        userNameError.textContent = "";
+
+        // Check if the input is empty
+        if (userNameValue === "") {
+            userNameError.textContent = "User name is required.";
+            return;
+        }
+
+        // Check if the input matches the pattern for characters only
+        if (!/^[A-Za-z ]*$/.test(userNameValue)) {
+            userNameError.textContent = "Please enter characters only.";
+        }
+    }
+</script>
+<script>
+    document.getElementById('room_number').addEventListener('input', function() {
+      var roomNumberInput = this.value;
+      var errorMessageElement = document.getElementById('error-message');
+
+      // Clear previous error message
+      errorMessageElement.textContent = '';
+
+      if (roomNumberInput < 1 || roomNumberInput > 999) {
+        errorMessageElement.textContent = 'Room number must be between 1 and 999.';
+      }
+    });
+  </script>
+
+
+
+
+
+{% endblock %}

@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="zxx">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1"
+    />
+    <title>Raj Hotel</title>
+        <link rel="shortcut icon" href="/static/userassets/img/logo-intro_2-1.png">
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&amp;family=Outfit:wght@300;400&amp;display=swap"
+    />
+    <link rel="stylesheet" href="/static/userassets/css/plugins.css" />
+    <link rel="stylesheet" href="/static/userassets/css/style.css" />
+
+
+
+    <style>
+      /* B */
+      .custom-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 1000; /* Set a high z-index to be above other elements */
+        justify-content: center;
+        align-items: center;
+      }
+
+      .custom-popup {
+        background: #deb942;
+        color: black;
+        padding: 20px;
+        border-radius: 5px;
+        text-align: center;
+        position: relative;
+        width: 500px;
+        height: 475px;
+        padding: 30px;
+        background-color: #deb942;
+        border: 2px solid #ccc;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .close-btn {
+        cursor: pointer;
+        position: absolute;
+        top: 10px;
+        right: 10px;
+      }
+      /* B */
+      .overlayy {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+        backdrop-filter: blur(5px); /* Add blur effect */
+        z-index: 1000;
+      }
+
+      /* Sign In Popup */
+      .signin-popup {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 30px;
+        width: 500px;
+        background-color: #deb942;
+        border: 2px solid #ccc;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        z-index: 1001;
+      }
+
+      /* Popup Header Styles */
+      .popup-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 15px;
+        background-color: #deb942;
+        color: #fff;
+        padding: 0px;
+      }
+
+      /* Close Button Styles */
+      .close-btn {
+        cursor: pointer;
+        font-size: 20px;
+      }
+
+      /* Other Styles */
+      label {
+        display: block;
+        margin-bottom: 10px;
+      }
+
+      input {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        box-sizing: border-box;
+      }
+
+      .remember-password {
+      }
+
+      .remember-password input {
+      }
+
+      button {
+        padding: 10px;
+        background-color: #9d5b2a;
+        color: #fff;
+        border: none;
+        /* border-radius: 5px; */
+        cursor: pointer;
+      }
+
+      button:hover {
+        background-color: #9d5b2a;
+        color: black;
+      }
+
+      .popup {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 20px;
+        width: 350px;
+        background-color: #fff;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+      }
+
+      /* Styles for the overlay/background behind the popup */
+      .overlays {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 900;
+      }
+      */
+
+      /* Styles for close button */
+      .popup-close {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        cursor: pointer;
+      }
+    </style>
+    <!-- 1 -->
+  </head>
+  <body>
+    <!-- Preloader -->
+    <div class="preloader-bg"></div>
+    <div id="preloader">
+      <div id="preloader-status">
+        <div class="preloader-position loader"><span></span></div>
+      </div>
+    </div>
+    <!-- Progress scroll totop -->
+    <div class="progress-wrap cursor-pointer">
+      <svg
+        class="progress-circle svg-content"
+        width="100%"
+        height="100%"
+        viewBox="-1 -1 102 102"
+      >
+        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" />
+      </svg>
+    </div>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg">
+      <div class="container">
+        <!-- Logo -->
+        <div class="logo-wrapper">
+          <a class="" href="index7.html">
+            <img
+               src="/static/userassets/img/logo-intro_2-1.png"
+              class="logo-img"
+              alt=""
+            />
+          </a>
+        </div>
+        <!-- Button -->
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbar"
+          aria-controls="navbar"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"><i class="ti-menu"></i></span>
+        </button>
+        <!-- Menu -->
+        <div class="collapse navbar-collapse" id="navbar">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item ">
+              <a class="nav-link" href="{% url 'home_view' %}"
+
+                role="button"
+                >Home
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'about_view' %}">About</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="{% url 'rooms_view' %}">Rooms </a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'restarunts_view' %}">Restaurant</a>
+            </li>
+
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link "
+                href="{% url 'blog_view' %}"
+
+                >Blog
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'contact_view' %}">Contact</a>
+            </li>
+
+          </ul>
+        </div>
+        <!-- 2 -->
+        &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;
+      {% if user %}
+    <li class="nav-item dropdown" >
+
+        <a class="py-0 nav-link d-flex align-items-center ps-3" href="#" id="profile-setting" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <!-- Your profile picture or icon -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16" style="color:#aa8453;">
+                <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+                <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
+            </svg>
+            {% for pro in user_full_name %}
+            <div class="caption ms-3 d-none d-md-block">
+                <h4 class="mb-0 caption-title" style="color:#aa8453;">{{ pro.user_full_name }}</h4>
+            </div>
+             {% endfor %}
+        </a>
+        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profile-setting" style="margin-top:10px;">
+              <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="{% url 'my_account_view' %}">My Account </a>
+            </li><br>
+             <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="{% url 'mybooking' %}">My Bookings </a>
+            </li><br>
+             <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="">Settings </a>
+            </li><br>
+            <li><a href="{% url 'user_signout' %}">Logout</a></li>
+        </ul>
+
+    </li>
+
+{% else %}
+    <a href="{% url 'user_login' %}">
+        <button class="login-button">Login</button>
+    </a>
+    <a href="{% url 'user_signup' %}">
+        <button class="signup-button">Signup</button>
+    </a>
+{% endif %}
+
+        <!-- 2 -->
+      </div>
+    </nav>
+   {% block content %}
+
+{% endblock %}
+    <!-- Footer -->
+   <footer class="footer">
+      <div class="top">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-3 mb-30">
+              <div class="sub-title border-footer-light whte">Contact Us!</div>
+            </div>
+            <div class="col-md-4 offset-md-1">
+              <div class="item">
+                <h3>Get in touch</h3>
+                <p>
+                  Plot No. 850, Road No. 45, 100 Feet Rd, Ayyappa Society, Madhapur, Telangana 500081
+                </p>
+                <p class="phone">+91 6307567261</p>
+<!--                <p class="mail">Raj@hotel.com</p>-->
+<!--                <div class="social mt-2">-->
+<!--                  <a href="https://twitter.com/?lang=en-in"><i class="ti-twitter"></i></a>-->
+<!--                  <a href="https://www.instagram.com/?hl=en"><i class="ti-instagram"></i></a>-->
+<!--                  <a href="https://in.linkedin.com/"><i class="ti-linkedin"></i></a>-->
+<!--                </div>-->
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="item">
+                <h3>Rooms & Suites</h3>
+                   {% for a in room_type %}
+                <ul class="footer-explore-list list-unstyled">
+                  <li><a href="{% url 'rooms_view' %}">{{a.room_type}}</a></li>
+                </ul>
+                  {% endfor %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="bottom">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-4">
+              <p>© 2023 Raj Hotel. All right reserved.</p>
+            </div>
+            <div class="col-md-8">
+              <p class="right"><a href="{% url 'terms' %}">Terms &amp; Conditions</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <!-- jQuery -->
+     <script src="/static/userassets/js/jquery-3.6.3.min.js"></script>
+    <script src="/static/userassets/js/jquery-migrate-3.0.0.min.js"></script>
+    <script src="/static/userassets/js/modernizr-2.6.2.min.js"></script>
+    <script src="/static/userassets/js/imagesloaded.pkgd.min.js"></script>
+    <script src="/static/userassets/js/jquery.isotope.v3.0.2.js"></script>
+    <script src="/static/userassets/js/pace.js"></script>
+    <script src="/static/userassets/js/popper.min.js"></script>
+    <script src="/static/userassets/js/bootstrap.min.js"></script>
+    <script src="/static/userassets/js/scrollIt.min.js"></script>
+    <script src="/static/userassets/js/jquery.waypoints.min.js"></script>
+    <script src="/static/userassets/js/owl.carousel.min.js"></script>
+    <script src="/static/userassets/js/jquery.stellar.min.js"></script>
+    <script src="/static/userassets/js/jquery.magnific-popup.js"></script>
+    <script src="/static/userassets/js/YouTubePopUp.js"></script>
+    <script src="/static/userassets/js/select2.js"></script>
+
+    <script src="/static/userassets/js/smooth-scroll.min.js"></script>
+    <script src="/static/userassets/js/wow.min.js"></script>
+    <script src="/static/userassets/js/custom.js"></script>
+    <!-- 4 -->
+
+
+
+    <script>
+      function openSignInPopup() {
+        document.getElementById("overlayy").style.display = "block";
+        document.getElementById("signinPopup").style.display = "block";
+      }
+
+      function closeSignInPopup() {
+        document.getElementById("overlayy").style.display = "none";
+        document.getElementById("signinPopup").style.display = "none";
+      }
+
+      function submitSignIn() {
+        closeSignInPopup();
+        const overlay = document.querySelector(".custom-overlay");
+        overlay.style.display = "none";
+      }
+    </script>
+
+    <script>
+      function togglePasswordVisibility() {
+        var passwordInput = document.getElementById("password");
+
+        if (passwordInput.type === "password") {
+          passwordInput.type = "text";
+        } else {
+          passwordInput.type = "password";
+        }
+      }
+    </script>
+
+    <!-- 4 -->
+    <!-- C -->
+    <script>
+      const openPopupBtn = document.getElementById("openPopup");
+      const overlay = document.querySelector(".custom-overlay");
+      const closeBtn = document.getElementById("closeBtn");
+
+      openPopupBtn.addEventListener("click", (event) => {
+        event.preventDefault(); // Prevent the default hyperlink behavior
+        overlay.style.display = "flex";
+      });
+
+      closeBtn.addEventListener("click", () => {
+        overlay.style.display = "none";
+      });
+
+      // Add additional logic for real-time error messages, form submission, etc.
+    </script>
+    <script>
+      function validateMobileNumber(input) {
+        const mobileNumberError = document.getElementById("mobileNumberError");
+
+        const isValid = /^\d{10}$/.test(input.value);
+
+        if (!isValid) {
+          mobileNumberError.style.display = "block";
+        } else {
+          mobileNumberError.style.display = "none";
+        }
+      }
+    </script>
+    <script>
+      function validateOtpField(input) {
+        const otpError = document.getElementById("otpError");
+        const otpContainer = document.querySelector(
+          'div[style="text-align: left"]'
+        );
+
+        const isValid = /^[0-9]+$/.test(input.value);
+
+        if (!isValid) {
+          otpError.style.display = "block";
+          otpContainer.style.marginBottom = "20px"; // Adjust margin to accommodate error message
+        } else {
+          otpError.style.display = "none";
+          otpContainer.style.marginBottom = "0";
+        }
+      }
+    </script>
+    <script>
+      function submitForm() {
+        const overlay = document.querySelector(".custom-overlay");
+        overlay.style.display = "none";
+      }
+    </script>
+    <!-- C -->
+    <script>
+      // Function to open the popup
+      function openPopup() {
+        document.getElementById("overlays").style.display = "block";
+        document.getElementById("popup").style.display = "block";
+      }
+
+      // Function to close the popup
+      function closePopup() {
+        document.getElementById("overlays").style.display = "none";
+        document.getElementById("popup").style.display = "none";
+      }
+
+      // Function to navigate to a new page (change the URL as needed)
+      function payWithCard() {
+        window.location.href = "cart.html";
+      }
+
+      function payWithUPI() {
+        window.location.href = "upi.html";
+      }
+
+      // Event listeners for the "Book" buttons
+      document
+        .getElementById("openPopup1")
+        .addEventListener("click", openPopup);
+      document
+        .getElementById("openPopup2")
+        .addEventListener("click", openPopup);
+      document
+        .getElementById("openPopup3")
+        .addEventListener("click", openPopup);
+      document
+        .getElementById("openPopup4")
+        .addEventListener("click", openPopup);
+      document
+        .getElementById("openPopup5")
+        .addEventListener("click", openPopup);
+      document
+        .getElementById("openPopup6")
+        .addEventListener("click", openPopup);
+      // Add more event listeners for additional buttons if needed
+    </script>
+  </body>
+</html>

@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+    <meta
+            content="width=device-width, initial-scale=1, maximum-scale=1"
+            name="viewport"
+    />
+    <title>Raj Hotel</title>
+    <link href="/static/userassets/img/favicon.png" rel="shortcut icon"/>
+    <link
+            href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&amp;family=Outfit:wght@300;400&amp;display=swap"
+            rel="stylesheet"
+    />
+    <link href="/static/userassets/css/plugins.css" rel="stylesheet"/>
+    <link href="/static/userassets/css/style.css" rel="stylesheet"/>
+    <style>
+        .container {
+          text-align: center;
+          position: relative;
+        }
+
+        .logo-image {
+          border-radius: 50%;
+          width: 100px;
+          height: 100px;
+          object-fit: cover;
+          margin-bottom: 20px;
+          position: absolute;
+          top: -60px;
+          left: 50%;
+          transform: translateX(-50%);
+        }
+
+        .login-container {
+          position: relative;
+        }
+    </style>
+    <style>
+        body {
+          margin: 0;
+          padding: 0;
+          overflow: hidden;
+          background: url("/static/userassets/img/mantion6\ \(1\).jpg") no-repeat center center fixed;
+          background-size: cover;
+          height: 100vh;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-family: "Arial", sans-serif;
+          position: relative;
+        }
+
+        body::before {
+          content: "";
+          position: absolute;
+          top: 0;
+          right: 0;
+          bottom: 0;
+          left: 0;
+          background-color: rgba(0, 0, 0, 0.6);
+        }
+
+        .login-container {
+          background: rgba(255, 255, 255, 0);
+          padding: 30px 5px; /* 30px top and bottom, 5px left and right */
+          border-radius: 10px;
+          box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+          width: 400px;
+          text-align: center;
+          margin: auto;
+          transition: transform 0.3s ease-in-out;
+          border: 2px solid #fff; /* White border */
+        }
+
+        .login-container:hover {
+          transform: scale(1.05);
+        }
+
+        .login-container img {
+          width: 80px;
+          height: 80px;
+          border-radius: 50%;
+          margin-bottom: 40px; /* Adjust this value to move the image down */
+        }
+
+        .login-container input {
+          width: 100%;
+          padding: 12px;
+          margin-bottom: 15px;
+          box-sizing: border-box;
+          border: 1px solid #ccc;
+          border-radius: 5px;
+        }
+
+        .login-container button {
+          width: 100%;
+          padding: 12px;
+          background-color: #007bff;
+          color: #fff;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+        }
+
+        .login-container button:hover {
+          background-color: #0056b3;
+        }
+        .white-placeholder::placeholder {
+          color: white;
+        }
+    </style>
+    <style>
+        #myForm {
+      overflow-y: auto;
+      max-height: 450px;
+      padding: 10px;
+  }
+
+  #myForm input,
+  #myForm textarea {
+      margin-bottom: 10px;
+  }
+
+  #myForm::-webkit-scrollbar {
+      width: 12px;
+  }
+
+  #myForm::-webkit-scrollbar-thumb {
+      background-color: transparent;
+  }
+
+  #myForm::-webkit-scrollbar-track {
+      background-color: transparent;
+  }
+
+    </style>
+    <style>
+        body {
+          background-color: #333;
+          color: white;
+          text-align: center;
+          padding: 50px;
+        }
+
+        input,
+        button {
+          margin-bottom: 10px;
+        }
+
+        .error-message {
+          color: red;
+        }
+    </style>
+</head>
+<body>
+<div class="container" style="text-align: center">
+    <div>
+        <!-- <div
+          style="
+            border: 2px solid white;
+            height: 130px;
+            width: 130px;
+            border-radius: 170px;
+            margin-left: 590px;
+          "
+        >
+          <img
+            src="/hotel_admin_panel/sending work/dist/dashboard/logo-intro_2-1.png"
+            alt=""
+            style="height: 110px; width: 110px; margin-top: 15px"
+          />
+        </div>
+
+            <br /> -->
+
+        <div class="login-container">
+            <div
+                    style="
+            border: 2px solid white;
+            height: 130px;
+            width: 130px;
+            border-radius: 170px;
+            margin-left: 125px;
+          "
+            >
+                <img
+                        alt=""
+                        src="/static/userassets/img/logo-intro_2-1.png"
+                        style="height: 110px; width: 110px; margin-top: 15px"
+                />
+            </div>
+            <form id="myForm" method="POST">
+                {% csrf_token %}
+                <div class="card-header">
+                    <h5 style="margin-top: 15px; color: #fff">
+                        <b>Customer Sign-Up</b>
+                        <br>
+                    </h5>
+                </div>
+
+                <br>
+                <!-- Full Name Field -->
+                <input
+                        class="white-placeholder"
+                        id="fullNameInput"
+                        name="fullName"
+                        oninput="validateFullName()"
+                        placeholder="Full Name"
+                        required
+                        style="
+              background: transparent;
+              color: white;
+              caret-color: white;
+              width: 80%;
+              max-width: 300px;
+              margin: 0 auto;
+            "
+                        type="text"
+                />
+                <div
+                        id="fullNameError"
+                        style="
+              color: white;
+              font-size: 14px;
+              margin-top: 5px;
+              margin-right: 150px;
+            "
+                ></div>
+
+                <!-- Username Field -->
+                <input
+                        class="white-placeholder"
+                        id="usernameInput"
+                        name="username"
+                        oninput="validateUsername()"
+                        placeholder="Username"
+                        required
+                        style="
+              background: transparent;
+              color: white;
+              caret-color: white;
+              width: 80%;
+              max-width: 300px;
+              margin: 0 auto;
+            "
+                        type="text"
+                />
+                <div
+                        id="usernameError"
+                        style="
+              color: white;
+              font-size: 14px;
+              margin-top: 5px;
+              margin-right: 150px;
+            "
+                ></div>
+                <!-- Email ID Field -->
+                <input
+                        class="white-placeholder"
+                        id="emailInput"
+                        name="email"
+                        oninput="validateEmail()"
+                        placeholder="Email ID"
+                        required
+                        style="
+              background: transparent;
+              color: white;
+              caret-color: white;
+              width: 80%;
+              max-width: 300px;
+              margin: 0 auto;
+            "
+                        type="email"
+                />
+                <div
+                        id="emailError"
+                        style="
+              color: white;
+              font-size: 14px;
+              margin-top: 5px;
+              margin-right: 150px;
+            "
+                ></div>
+                <!-- Phone Number Field -->
+                <input
+                        class="white-placeholder"
+                        id="phoneNumberInput"
+                        name="phoneNumber"
+                        oninput="validatePhoneNumber()"
+                        placeholder="Phone Number"
+                        required
+                        style="
+              background: transparent;
+              color: white;
+              caret-color: white;
+              width: 80%;
+              max-width: 300px;
+              margin: 0 auto;
+            "
+                        type="tel"
+                />
+                <div
+                        id="phoneNumberError"
+                        style="
+              color: white;
+              font-size: 14px;
+              margin-top: 5px;
+              margin-right: 150px;
+            "
+                ></div>
+                <!-- Password Field -->
+                <input
+                        class="white-placeholder"
+                        id="passwordInput"
+                        name="password"
+                        oninput="validatePassword()"
+                        placeholder="Password"
+                        required
+                        style="
+              background: transparent;
+              color: white;
+              caret-color: white;
+              width: 80%;
+              max-width: 300px;
+              margin: 0 auto;
+            "
+                        type="password"
+                />
+                <div
+                        id="passwordError"
+                        style="
+              color: white;
+              font-size: 14px;
+              margin-top: 5px;
+              margin-right: 150px;
+            "
+                ></div>
+                <!-- Confirm Password Field -->
+                <input
+                        class="white-placeholder"
+                        id="confirmPasswordInput"
+                        name="confirmPassword"
+                        oninput="validateConfirmPassword()"
+                        placeholder="Confirm Password"
+                        required
+                        style="
+              background: transparent;
+              color: white;
+              caret-color: white;
+              width: 80%;
+              max-width: 300px;
+              margin: 0 auto;
+            "
+                        type="password"
+                />
+                <div
+                        id="confirmPasswordError"
+                        style="
+              color: white;
+              font-size: 14px;
+              margin-top: 5px;
+              margin-right: 150px;
+            "
+                ></div>
+                <!-- New code -->
+
+                <a href="{% url 'user_login' %}" style="color: white;"><i>already existing customer?Sign in</i></a>
+                <br>
+                <button
+                        onclick="validateForm()"
+                        style="background-color: white; color: black; width: 300px"
+                        type="submit"
+                >
+                    Sign Up
+                </button>
+            </form>
+            <a href="{% url 'home_view' %}" style="color: white"
+            ><i>Back To Website</i></a
+            >
+        </div>
+    </div>
+    <script>
+        function validateForm() {
+          var usernameInput = document.getElementById("usernameInput");
+          var usernameError = document.getElementById("usernameError");
+
+          if (usernameInput.value === "") {
+            usernameError.innerHTML = "Please enter username";
+          } else {
+            usernameError.innerHTML = "";
+            // Add additional validation or form submission logic here
+          }
+        }
+
+        // Adding an event listener to check for real-time validation
+        document
+          .getElementById("usernameInput")
+          .addEventListener("input", function () {
+            var usernameError = document.getElementById("usernameError");
+            usernameError.innerHTML = ""; // Clear error message as soon as the user starts typing
+          });
+    </script>
+    <script>
+        function validateForm() {
+          var usernameInput = document.getElementById("usernameInput");
+          var usernameError = document.getElementById("usernameError");
+          var passwordInput = document.getElementById("passwordInput");
+          var passwordError = document.getElementById("passwordError");
+
+          // Validate Username
+          if (usernameInput.value === "") {
+            usernameError.innerHTML = "Please enter username";
+          } else {
+            usernameError.innerHTML = "";
+          }
+
+          // Validate Password
+          if (passwordInput.value === "") {
+            passwordError.innerHTML = "Please enter password";
+          } else {
+            passwordError.innerHTML = "";
+            // Add additional validation or form submission logic here
+          }
+
+        }
+
+        // Adding event listeners for real-time validation
+        document
+          .getElementById("usernameInput")
+          .addEventListener("input", function () {
+            var usernameError = document.getElementById("usernameError");
+            usernameError.innerHTML = "";
+          });
+
+        document
+          .getElementById("passwordInput")
+          .addEventListener("input", function () {
+            var passwordError = document.getElementById("passwordError");
+            passwordError.innerHTML = "";
+          });
+    </script>
+
+    <!-- new code -->
+    <script>
+        function validateFullName() {
+          const fullNameInput = document.getElementById("fullNameInput");
+          const fullNameError = document.getElementById("fullNameError");
+
+          // Regular expression to match only alphabets
+          const alphabetRegex = /^[A-Za-z]+$/;
+
+          if (!alphabetRegex.test(fullNameInput.value)) {
+            fullNameError.textContent = "Please enter correct name";
+            fullNameInput.setCustomValidity(
+              "Invalid characters. Please use only alphabets."
+            );
+          } else {
+            fullNameError.textContent = "";
+            fullNameInput.setCustomValidity("");
+          }
+        }
+    </script>
+    <script>
+        function validateUsername() {
+          const usernameInput = document.getElementById("usernameInput");
+          const usernameError = document.getElementById("usernameError");
+
+          if (usernameInput.value.trim() === "") {
+            usernameError.textContent = "Username is required.";
+            usernameInput.setCustomValidity("Username is required.");
+          } else {
+            usernameError.textContent = "";
+            usernameInput.setCustomValidity("");
+          }
+        }
+    </script>
+    <script>
+        function validateEmail() {
+          const emailInput = document.getElementById("emailInput");
+          const emailError = document.getElementById("emailError");
+
+          // Regular expression to match the email format
+          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+          if (!emailRegex.test(emailInput.value)) {
+            emailError.textContent = "Invalid email format.";
+            emailInput.setCustomValidity("Invalid email format.");
+          } else {
+            emailError.textContent = "";
+            emailInput.setCustomValidity("");
+          }
+        }
+    </script>
+    <script>
+        function validatePhoneNumber() {
+          const phoneNumberInput = document.getElementById("phoneNumberInput");
+          const phoneNumberError = document.getElementById("phoneNumberError");
+
+          // Regular expression to match the phone number format
+          const phoneRegex = /^[6-9]\d{9}$/;
+
+          if (!phoneRegex.test(phoneNumberInput.value)) {
+            phoneNumberError.textContent = "Invalid phone number format.";
+            phoneNumberInput.setCustomValidity("Please enter valid phone number");
+          } else {
+            phoneNumberError.textContent = "";
+            phoneNumberInput.setCustomValidity("");
+          }
+        }
+    </script>
+
+    </div>
+    <!-- new code -->
+</body>
+</html>

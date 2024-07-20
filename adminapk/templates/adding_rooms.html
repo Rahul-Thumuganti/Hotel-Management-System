@@ -1,0 +1,654 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    <ol class="breadcrumb" >
+        <li class="breadcrumb-item " style="margin-left: 78%;" >
+            <a href="{% url 'dashboard' %}">Dashboard</a>
+        </li>
+        <li class="breadcrumb-item active" >
+            Adding Room
+        </li>
+
+    </ol>
+
+
+        <div class="col-md-12">
+            <div class="row">
+                <div class="card" style=" margin-left: 30px; width: 95%;">
+
+                    <div class="card-header  text-white" style="background-color: #161d2b; margin-top: 10px;">
+
+                        <h3 class="text-white"> Adding Room</h3>
+
+                    </div>
+
+                    <div class="card-body ">
+                        <form action="{% url 'addad' %}" class="row g-3" method="POST"
+                              onsubmit="return validateForm()">
+                            {% csrf_token %}
+                            <div class="col-md-4">
+                                <label class="form-label" for="city"><b> Branch</b>&nbsp;<b
+                                        style="color: red;">*</b></label>
+                                <select class="form-select" id="city" name="city" required>
+                                   <option disabled selected value="">Select  Branch </option>
+                                    {% for c in city %}
+                                    <option value="{{ c.pk }}">{{ c.city }}</option>
+                                    {% endfor %}
+                                </select>
+                                <span id="branch_name_error"
+                                      style="color: red; display: none;">Please Select this field</span>
+                            </div>
+
+
+                            <div class="col-md-4">
+                                <label class="form-action" for="roomNumber" style="margin-top: 2px;"><b>Room Number</b>&nbsp;<b
+                                        style="color: red;" >*</b></label>
+                                <input autocomplete="off" autocomplete="off" class="form-control" id="roomNumber" min="1" max="999" name="Room_number"
+                                       oninput="validateRoomNumber()" placeholder="Enter Room Number"
+                                       type="number" required>
+                                <span class="error" id="errorMessageRoomNumber" style="color: red;"></span>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label class="form-label" for="room_type"><b>Room Type</b>&nbsp;<b
+                                        style="color: red;">*</b></label>
+                                <select class="form-select" id="room_type" name="room_type" required>
+                                    <option disabled selected value="">Select Room Type</option>
+                                    {% for a in room_type %}
+                                    <option value="{{ a.pk }}">{{ a.room_type }}</option>
+                                    {% endfor %}
+                                    <!-- Add more room types as needed -->
+                                </select>
+                                <span class="error" id="roomTypeError" style="color: red;"></span>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label class="form-label" for="aaa"><b>Number of Beds</b>&nbsp;<b style="color: red;">*</b></label>
+                                <input type="number"   class="form-control" id="aaa" name="No_of_beds" autocomplete="off" placeholder="Enter Number of Beds" min="1" max="8" required>
+                                <span id="bedsErrorMessage" style="color: red; display: none;">Please enter a value between 1 and 8.</span>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label class="form-label" for="roomArea"><b>Room Area (in square feet)</b>&nbsp;<b style="color: red;">*</b></label>
+                                <div class="input-group has-validation">
+                                    <input autocomplete="off" class="form-control" id="roomArea" name="Room_area" min="200" max="600"
+                                           oninput="validateRoomArea()" placeholder="Enter Room Area" type="text" required>
+                                </div>
+                                <span class="error" id="roomAreaError" style="color: red;"></span>
+                            </div>
+
+
+
+
+
+
+
+                            <div class="col-md-4" style="margin-top: 12px;">
+                                <label class="form-label" for="imageUpload"><b>Room Image</b>&nbsp;<b
+                                        style="color: red;">*</b></label>
+                                <input accept="image/*" autocomplete="off" class="form-control" id="formFile"
+                                       multiple name="Room_image" type="file" required>
+                                <span class="error" id="imageUploadError" style="color: red;"></span>
+                            </div>
+
+                            <div class="col-md-4" style="margin-top: 10px;">
+                                <label class="form-label" for="price"><b>Room Price</b>&nbsp;<b style="color: red;">*</b></label>
+                                <div class="input-group">
+                                    <input autocomplete="off" class="form-control" autocomplete="off" id="price" name="Price"
+                                           placeholder="Enter Room Price" style="margin-top: 5px;" type="number" oninput="validateRoomPrice()" required>
+                                </div>
+                                <span class="error" id="errorMessagePrice" style="color: red;"></span>
+                            </div>
+
+
+                            <div class="col-md-12">
+                                <label class="form-label" for="description"><b>Room Description</b></label>
+                                <textarea autocomplete="off" class="form-control" cols="30" rows="4"
+                                          id="description" maxlength="200" name="Room_description" oninput="validateRoomDescription()"
+                                          rows='1' placeholder="Enter The Room Description"  ></textarea>
+                                <span id="charCount" style="color: #555; font-size: 12px;"></span>
+                                <span class="error" id="errorMessageNutrition" style="color: red;"></span>
+                            </div>
+
+
+                            <div class="mt-4 text-center">
+                                <button class="btn btn-outline-dark" style="background-color:#161d2b" type="submit"><span class="text-white">Submit</span></button>
+                            <button class="btn btn-outline-dark" style="background-color:#626875;" type="reset"><span style="color: white;">Clear</span></button>
+                            </div>
+                    </div>
+
+
+                    </form>
+                </div>
+            </div>
+            <!----Edit start-->
+            {% for a in ad_a %}
+            <div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade"
+                 id="exampleModal-{{forloop.counter}}" tabindex="-1">
+                <div class="modal-dialog ">
+                    <div class="modal-content">
+                        <form action="{% url 'updatead' a.id %}" class="post-form" method="POST">
+                            {% csrf_token %}
+                            <div class="modal-header" style="background-color: #161d2b;">
+                                <h1 class="modal-title fs-5 text-white" id="exampleModalLabel">Edit Adding Room</h1>
+                                <button aria-label="Close" class="btn btn-close text-white bg-white" data-bs-dismiss="modal"
+                                        type="button"></button>
+                            </div>
+
+                            <div class="modal-body">
+                                <div class="col-md-12 ">
+                                    <div class="row">
+                                        <form action="your-submit-url" method="POST">
+
+                                            <div class="col-md-12">
+                                                <div class="row">
+
+
+                                                    <div class="col-md-6">
+                                                        <label class="form-label" for="city"><b>Hotel Branch
+                                                            Name</b></label>
+                                                        <select class="form-select" id="city" name="city">
+                                                            <option>{{ a.city }}</option>
+                                                            {% for c in city %}
+                                                            <option value="{{ c.pk }}">{{ c.city }}</option>
+                                                            {% endfor %}
+                                                            <!-- Add more room types as needed -->
+                                                        </select>
+                                                        <span class="error" id="roomTypeError"></span>
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <label class="form-action" for="numbe" style="float: left;"><b>Room
+                                                            Number</b></label>
+                                                        <input autocomplete="off" class="form-control" autocomplete="off" id="numbe"
+                                                               name="Room_number" type="text"
+                                                               value="{{ a.Room_number }}">
+                                                        <span class="error" id="errorMessageRoomNumber"></span>
+
+                                                    </div>
+                                                    <div class="col-md-6" style="margin-top: 10px;">
+                                                        <label class="form-label" for="area" style="float: left;"><b>Room
+                                                            Area (in square feet)</b></label>
+                                                        <div class="input-group has-validation">
+                                                            <input autocomplete="off" class="form-control" id="area" autocomplete="off"
+                                                                   name="Room_area" type="number" value="{{ a.Room_area }}">
+                                                        </div>
+                                                        <span class="error" id="roomAreaError"></span>
+                                                    </div>
+                                                    <div class="col-md-6" style="margin-top: 10px;">
+                                                        <label class="form-label" for="room_type"
+                                                               style="float: left;"><b>Room Type</b></label>
+                                                        <select class="form-select" id="room_type" name="room_type">
+                                                            <option>{{ a.room_type }}</option>
+                                                            {% for a in room_type %}
+                                                            <option value="{{ a.pk }}">{{ a.room_type }}</option>
+                                                            {% endfor %}
+                                                            <!-- Add more room types as needed -->
+                                                        </select>
+                                                        <span class="error" id="roomTypeError"></span>
+                                                    </div>
+                                                    <div class="col-md-6" style="margin-top: 10px;">
+                                                        <label class="form-label" for="aa"><b>Number of Beds</b></label>
+                                                        <input type="number" class="form-control" id="aa" name="No_of_beds" autocomplete="off" value="{{a.No_of_beds}}" placeholder="Enter Number of Beds" min="1" max="8" required>
+                                                        <span id="cotsErrorMessage" style="color: red; display: none;">Please enter a value between 1 and 8.</span>
+                                                    </div>
+
+                                                    <div class="col-md-6" style="margin-top: 10px;">
+                                                        <label class="form-label" for="price"><b>Price</b></label>
+                                                        <div class="input-group">
+                                                            <input autocomplete="off" class="form-control" autocomplete="off"
+                                                                   id="price" name="Price" placeholder="Enter Room Price"
+                                                                   style="margin-top: 5px;" type="text"
+                                                                   value="{{ a.Price }}">
+                                                        </div>
+                                                        <span class="error" id="errorMessagePrice"
+                                                              style="color: red;"></span>
+                                                    </div>
+
+
+                                                    <div class="col-md-12" style="margin-top: 10px;">
+                                                        <label class="form-label" for="imageUpload" style="float: left;"><b>Room
+                                                            Image</b></label>
+                                                        <input accept="image/*" autocomplete="off" class="form-control" autocomplete="off"
+                                                               id="image" name="Room_image" type="file"
+                                                               value="{{ a.Room_image }}">
+                                                        <span class="error" id="imageUploadError"></span>
+                                                    </div>
+
+
+                                                    <div class="col-md-12" style="margin-top: 10px;">
+                                                        <label class="form-label" for="description"
+                                                               style="float: left;"><b>Room Description</b></label>
+                                                        <textarea class="form-control" cols="5" id="description"
+                                                                  name="Room_description" required rows="2">{{ a.Room_description }}</textarea>
+                                                        <span class="error" id="errorMessageNutrition"></span>
+                                                        &nbsp;
+                                                    </div>
+
+                                                    <div class="modal-footer d-flex justify-content-center align-items-center text-center">
+                                                        <button class="btn btn-outline-dark" style="background-color:#161d2b" type="submit"><span class="text-white">Submit</span></button>
+                                                        <button class="btn btn-outline-dark" style="background-color:#626875;" type="reset"><span style="color: white;">Clear</span></button>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+           {% for R in ad_a %}
+                <!---delete popup---->
+                 <div class="modal fade" id="deleteModal-{{forloop.counter}}" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+           <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header" >
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="NotificationModalbtn-close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mt-2 text-center">
+  <lord-icon
+    src="https://cdn.lordicon.com/skkahier.json"
+    trigger="hover"
+    colors="primary:#c71f16"
+    style="width:150px;height:100px">
+</lord-icon>
+                        <h4>Are you sure ?</h4>
+                        <p class="text-muted mx-4 mb-0">Are you sure you want to remove Room No: <b style="color: red;">{{R.Room_number}}</b> ?</p>
+                    </div>
+
+                <div class="d-flex gap-2 justify-content-center mt-4 mb-2">
+                   <a class="btn btn-danger" href="{% url 'deletead' R.pk %}">Delete</a>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                </div>
+                </div>
+            </div>
+      </div>
+         <br>
+               <br>
+    </div></div>
+                {% endfor %}
+
+                <!----Edit end-->
+
+                <br>
+                            <!-------------------Data table---------->
+               <div class="card" style="margin-right: 30px; margin-left: 20px;width:96%;">
+                 <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table mb-0" data-toggle="data-table" id="datatable">
+                            <thead>
+                                <tr style="background:  #161d2b;">
+                                    <th class="text-center text-white" style="background-color: #161d2b;">S.No</th>
+                                    <th class="text-center text-white" style="background-color: #161d2b;">Hotel Branch Name
+                                    </th>
+                                    <th class="text-center text-white" style="background-color: #161d2b;">Room Number
+                                    </th>
+                                    <th class="text-center text-white" style="background-color: #161d2b;">Room Area
+                                    </th>
+                                    <th class="text-center text-white" style="background-color: #161d2b;">Room Type</th>
+
+                                    <th class="text-center text-white" style="background-color: #161d2b;">No.of Beds
+                                    </th>
+                                    <th class="text-center text-white" style="background-color: #161d2b;"> Room Images</th>
+                                    <th class="text-center text-white" style="background-color: #161d2b;"> Room Price</th>
+
+                                    <th class="text-center text-white" style="background-color: #161d2b;">Room Description </th>
+
+                                    <th class="text-center text-white" style="background-color: #161d2b;"> Status</th>
+                                    <th class="text-center text-white" style="background-color: #161d2b;">Actions</th>
+                                </tr>
+
+                                </thead>
+                                <tbody>
+                                {% for R in ad_a %}
+                                <tr class="text-center">
+                                    <td>{{ forloop.counter }}</td>
+                                    <td>{{ R.city }}</td>
+                                    <td>{{ R.Room_number }}</td>
+                                    <td>{{ R.Room_area }}sq.ft</td>
+                                    <td>{{ R.room_type }}</td>
+
+                                    <td>{{ R.No_of_beds }}</td>
+
+                                    <td> {% if R.Room_image %}
+        <img class="rounded-rectangle" height="50px;" src="{{ R.Room_image.url }}" width="50px;">
+
+    {% endif %}</td>
+                                    <td>{{ R.Price }}</td>
+
+                                    <td>{{ R.Room_description }}</td>
+                                    <td> <form action="{% url 'togglestatusar' R.id %}" method="post">
+                                        {% csrf_token %}
+                                        <button style="border: none; background: none; padding: 0; margin: 0; cursor: pointer;"
+                                        class=" {% if R.status %}text-success{% else %}text-danger{% endif %}" type="submit">
+                                            {% if R.status %}Active{% else %}Inactive{% endif %}
+                                        </button>
+                                    </form>
+                                                                    </td>
+                                    <td class="text-center">
+                                        <button class="btn btn-outline-dark text-white" data-bs-target="#exampleModal-{{forloop.counter}}" data-bs-target="#Edit"
+                                                data-bs-toggle="modal"
+                                                style="background-color: #161d2b;" type="button">
+                                            <svg class="bi bi-pencil-square" fill="currentColor" height="16"
+                                                 style="color: white;" viewBox="0 0 16 16" width="16"
+                                                 xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                                                <path d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"
+                                                      fill-rule="evenodd"/>
+                                            </svg>
+                                        </button>
+                                        <!--Edit Modal -->
+
+
+                                        <button class="btn btn-outline-danger text-white" style="background-color: #d11d26;" data-bs-target="#deleteModal-{{forloop.counter}}" data-bs-toggle="modal"
+                                                type="button">
+                                            <svg class="bi bi-trash3" fill="currentColor" height="16"
+                                                 viewBox="0 0 16 16" width="16" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"/>
+                                            </svg>
+                                        </button>
+
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+
+
+            </table>
+        </div>
+    </div>
+</div>
+
+            </div></div></div></div>
+
+<script>
+    function validateRoomNumber() {
+        let roomNumberInput = document.getElementById('roomNumber');
+        let errorMessageRoomNumber = document.getElementById('errorMessageRoomNumber');
+
+        // Get the entered value and convert it to a number
+        let enteredNumber = parseInt(roomNumberInput.value, 10);
+
+        // Check if the entered value is a valid room number (between 1 and 999)
+        if (isNaN(enteredNumber) || enteredNumber < 1 || enteredNumber > 999) {
+            errorMessageRoomNumber.textContent = 'Please enter a valid room number between 1 and 999.';
+        } else {
+            errorMessageRoomNumber.textContent = '';
+        }
+    }
+</script>
+
+
+
+
+
+
+
+<script>
+    function validateForm() {
+        // Reset previous error messages
+        document.getElementById("errorMessageRoomNumber").innerHTML = "";
+        document.getElementById("roomTypeError").innerHTML = "";
+        document.getElementById("imageUploadError").innerHTML = "";
+        document.getElementById("visitorsError").innerHTML = "";
+        document.getElementById("visitors1Error").innerHTML = "";
+        document.getElementById("errorMessageNutrition").innerHTML = "";
+
+        // Validate Room Description
+        var roomDescription = document.getElementById("description").value.trim();
+
+        // Check for special characters and maximum length
+        var specialChars = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
+        if (specialChars.test(roomDescription)) {
+            document.getElementById("errorMessageNutrition").innerHTML = "Special characters are not allowed.";
+            return false;
+        }
+
+        if (roomDescription.length > 200) {
+            document.getElementById("errorMessageNutrition").innerHTML = "Maximum 200 characters allowed.";
+            return false;
+        }
+
+        // Add more custom validations as needed
+
+        return true;
+    }
+</script>
+
+<script>
+    function updateCharacterCount() {
+        var description = document.getElementById("description").value;
+        var charCountElement = document.getElementById("charCount");
+        var errorMessageElement = document.getElementById("errorMessageNutrition");
+
+        // Check for special characters
+        var specialChars = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
+        if (specialChars.test(description)) {
+            errorMessageElement.innerHTML = "Special characters are not allowed.";
+            return;
+        } else {
+            errorMessageElement.innerHTML = "";
+        }
+
+        // Update character count
+        var remainingChars = 200 - description.length;
+        charCountElement.textContent = remainingChars + " characters remaining";
+    }
+</script>
+<script>
+    function validateForm() {
+        var branchName = document.getElementById('branch_name');
+        var branchNameError = document.getElementById('branch_name_error');
+
+        // Check if the selected value is the default value
+        if (branchName.value === 'Select Hotel Branch Name') {
+            branchNameError.style.display = 'block';  // Show error message
+            return false;  // Prevent form submission
+        } else {
+            branchNameError.style.display = 'none';  // Hide error message
+            return true;  // Allow form submission
+        }
+    }
+</script>
+
+
+<script>
+    $(document).ready(function(){
+    $('#example').DataTable();
+    });
+</script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css" rel="stylesheet"
+      type="text/css">
+<!-- Include jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+<!-- Include DataTables CSS and JS -->
+
+<script charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js" type="text/javascript"></script>
+<script>
+    $(document).ready(function() {
+        $('#example').DataTable({
+            "ordering": false  // Disable sorting
+        });
+    });
+</script>
+<script>
+    function validateRoomArea() {
+        let roomAreaInput = document.getElementById('roomArea');
+        let roomAreaError = document.getElementById('roomAreaError');
+
+        // Get the entered value and convert it to a number
+        let enteredNumber = parseFloat(roomAreaInput.value);
+
+        // Check if the entered value is within the valid range (200 to 600)
+        if (isNaN(enteredNumber) || enteredNumber < 200 || enteredNumber > 600) {
+            roomAreaError.textContent = 'Please enter a valid room area between 200 and 600 sq.ft.';
+            roomAreaInput.setCustomValidity('Invalid room area'); // Set custom validity for HTML5 form validation
+        } else {
+            roomAreaError.textContent = '';
+            roomAreaInput.setCustomValidity(''); // Clear custom validity
+        }
+    }
+
+    // Function to be called on form submission
+    function validateForm() {
+        validateRoomArea(); // Call the room area validation function
+
+        // Add more validation functions for other fields if needed
+
+        // Check if any field has a validation error
+        let validationErrors = document.querySelectorAll('.error');
+        for (let i = 0; i < validationErrors.length; i++) {
+            if (validationErrors[i].textContent.trim() !== '') {
+                return false; // Prevent form submission if there are errors
+            }
+        }
+
+        return true; // Submit the form if all validations pass
+    }
+</script>
+
+<script>
+    function validateRoomPrice() {
+        // Get the input element
+        var priceInput = document.getElementById('price');
+        // Get the error message element
+        var errorMessagePrice = document.getElementById('errorMessagePrice');
+
+        // Get the value from the input
+        var priceValue = parseInt(priceInput.value);
+
+        // Validate if the input is less than or equal to 100000
+        if (priceValue <= 100000) {
+            // Clear the error message if the input is valid
+            errorMessagePrice.textContent = '';
+        } else {
+            // Display an error message if the input is invalid
+            errorMessagePrice.textContent = 'Please enter a room price less than or equal to 100000.';
+        }
+    }
+</script>
+
+<script>
+    function validateForm() {
+        // Reset all error messages
+        document.getElementById('branch_name_error').style.display = 'none';
+        document.getElementById('errorMessageRoomNumber').textContent = '';
+        document.getElementById('roomAreaError').textContent = '';
+        document.getElementById('roomTypeError').textContent = '';
+        document.getElementById('imageUploadError').textContent = '';
+        document.getElementById('errorMessagePrice').textContent = '';
+        document.getElementById('errorMessageNutrition').textContent = '';
+
+        // Validate Branch
+        var branchSelect = document.getElementById('city');
+        if (branchSelect.value === '' || branchSelect.value === 'Select Branch') {
+            document.getElementById('branch_name_error').style.display = 'inline-block';
+            return false;
+        }
+
+        // Validate Room Number
+        var roomNumberInput = document.getElementById('roomNumber');
+        if (roomNumberInput.value.trim() === '') {
+            document.getElementById('errorMessageRoomNumber').textContent = 'Please enter Room Number.';
+            return false;
+        }
+
+        // Validate Room Area
+        var roomAreaInput = document.getElementById('roomArea');
+        if (roomAreaInput.value.trim() === '') {
+            document.getElementById('roomAreaError').textContent = 'Please enter Room Area.';
+            return false;
+        }
+
+        // Validate Room Type
+        var roomTypeSelect = document.getElementById('room_type');
+        if (roomTypeSelect.value === '' || roomTypeSelect.value === 'Select Room Type') {
+            document.getElementById('roomTypeError').textContent = 'Please select Room Type.';
+            return false;
+        }
+
+        // Validate Room Price
+        var priceInput = document.getElementById('price');
+        if (priceInput.value.trim() === '' || parseInt(priceInput.value) > 100000) {
+            document.getElementById('errorMessagePrice').textContent = 'Please enter a valid Room Price less than or equal to 100000.';
+            return false;
+        }
+
+        // You can add more validation for other fields as needed
+
+        // If all validations pass, allow the form to be submitted
+        return true;
+    }
+
+    // Function to update character count for Room Description
+    function updateCharacterCount() {
+        var descriptionInput = document.getElementById('description');
+        var charCountSpan = document.getElementById('charCount');
+        charCountSpan.textContent = descriptionInput.value.length + '/200';
+    }
+</script>
+<script>
+    // Add an event listener to the input field
+    document.getElementById('aaa').addEventListener('input', function() {
+        // Get the entered value
+        var numberOfBeds = parseInt(this.value);
+
+        // Get the error message element
+        var errorMessage = document.getElementById('bedsErrorMessage');
+
+        // Check if the value is outside the valid range
+        if (isNaN(numberOfBeds) || numberOfBeds < 1 || numberOfBeds > 8) {
+            // Display the error message
+            errorMessage.style.display = 'block';
+        } else {
+            // Hide the error message if the value is valid
+            errorMessage.style.display = 'none';
+        }
+    });
+</script>
+<script>
+    function validateRoomDescription() {
+        var descriptionInput = document.getElementById('description');
+        var charCountSpan = document.getElementById('charCount');
+        var errorMessageSpan = document.getElementById('errorMessageNutrition');
+
+        // Get the entered value and count of special symbols
+        var descriptionValue = descriptionInput.value;
+        var specialSymbolCount = (descriptionValue.match(/[^\w\s]/g) || []).length;
+
+        // Check if the entered value is within the specified limits
+        if (descriptionValue.length > 200 || specialSymbolCount > 10) {
+            errorMessageSpan.innerText = "Invalid input. Please follow the character limit and special symbol constraint.";
+            descriptionInput.setCustomValidity("Invalid input");
+        } else {
+            errorMessageSpan.innerText = "";
+            descriptionInput.setCustomValidity("");
+        }
+
+        // Update character count display
+        charCountSpan.innerText = descriptionValue.length + " characters";
+    }
+</script>
+<script>
+    document.getElementById('aa').addEventListener('input', function () {
+        var inputValue = this.value;
+        var errorMessageElement = document.getElementById('cotsErrorMessage');
+
+        if (inputValue < 1 || inputValue > 8) {
+            errorMessageElement.style.display = 'block';
+        } else {
+            errorMessageElement.style.display = 'none';
+        }
+    });
+</script>
+
+{% endblock %}

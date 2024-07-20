@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<br>
+
+
+    {% for pro in profile %}
+        <div class="card" style="width:1200px;margin-left:30px;">
+            <div class="card-body">
+
+                <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; padding: 20px;">
+
+                    <!-- Left section with company image, logo, name, and registration number -->
+                    <div style="flex-basis: 48%;" align="center">
+                        <img  class="img-fluid gradient-main" alt="images"
+                             loading="lazy" style="border-radius: 50%; width: 180px; height: 180px; object-fit: cover;" src="{{pro.hotel_image.url}}">
+                        <a href="{% url 'addhp' %}">
+                            <button class="btn edit-button text-white" type="button"
+                                    style="background-color: #259CEF; border-bottom-width: 0px; padding-bottom: 5px; padding-top: 5px;    border-top-width: 0px; padding-right: 5px; padding-left: 5px; border-left-width: 0px; border-right-width: 0px; top: 70px; right: 40px; ">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                     class="bi bi-pencil-square" viewBox="0 0 16 16">
+                                    <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                                    <path fill-rule="evenodd"
+                                          d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+                                </svg>
+                            </button>
+                        </a>
+                        <div style="display: flex;justify-content: center; margin-top: 10px;">
+
+                            <h2 style="color: black;">{{ pro.Hotel_name }}</h2>
+                        </div>
+                        <br>
+                        <p><strong>Register Number:</strong> {{ pro.Hotel_registration_number }} </p>
+                        <br>
+                    </div>
+                    <!-- Right section with about us, description, and contact information -->
+                    <div style="flex-basis: 48%;">
+                        <strong>
+                            <h3 style="color:black; font-family: 'Calibri', sans-serif;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor"
+                                     class="bi bi-info-circle-fill" viewBox="0 0 16 16" style="color:#259CEF;">
+                                    <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
+                                </svg>
+                                &nbspAbout Us
+                            </h3>
+                        </strong>
+                        <hr style="border: 1px solid #000; margin-top: 10px; margin-bottom: 10px; margin-left: 40px;">
+                        <p>{{ pro.About_us }}</p>
+                        <br>
+                        <strong>
+                            <h3 style="color:black; font-family: 'Calibri', sans-serif;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor"
+                                     class="bi bi-chat-square-text-fill" viewBox="0 0 16 16" style="color:#259CEF;">
+                                    <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2.5a1 1 0 0 0-.8.4l-1.9 2.533a1 1 0 0 1-1.6 0L5.3 12.4a1 1 0 0 0-.8-.4H2a2 2 0 0 1-2-2V2zm3.5 1a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1h-9zm0 2.5a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1h-9zm0 2.5a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5z"/>
+                                </svg>
+                                &nbspDescription
+                            </h3>
+                        </strong>
+                        <hr style="border: 1px solid #000; margin-top: 10px; margin-bottom: 10px; margin-left: 40px;">
+                        <p>{{ pro.description }}</p>
+                        <br>
+                        <strong>
+                            <h3 style="color:black; font-family: 'Calibri', sans-serif;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor"
+                                     class="bi bi-telephone-fill" viewBox="0 0 16 16" style="color:#259CEF;">
+                                    <path fill-rule="evenodd"
+                                          d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 0 0 .178.643l2.457 2.457a.678.678 0 0 0 .644.178l2.189-.547a1.745 1.745 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.634 18.634 0 0 1-7.01-4.42 18.634 18.634 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877L1.885.511z"/>
+                                </svg>
+                                &nbspContact Us
+                            </h3>
+                        </strong>
+                        <hr style="border: 1px solid #000; margin-top: 10px; margin-bottom: 10px; margin-left: 40px;">
+                        <p><strong>Email:</strong> {{ pro.contact_by_mail }} </p>
+                        <p><strong>Phone:</strong> {{ pro.contact_by_mobile }} </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+
+</div>
+
+{% endblock %}

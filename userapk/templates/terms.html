@@ -1,0 +1,1057 @@
+<!DOCTYPE html>
+<html lang="zxx">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Raj Hotel</title>
+    <!-- Include FontAwesome for icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+      integrity="sha384-rRE5HTXE0fJgPsfSzneLUZBMFQqN5tr5bI2az2d4LsFmX0tUmTHiOrA1hSfb2Izn"
+      crossorigin="anonymous"
+    />
+    <style>
+       body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+
+        .back-button {
+  background-color: #f1f1f1;
+  margin-top: ;
+  font-size: 32px;
+}
+
+.back-button a {
+  text-decoration: none;
+  color: #333;
+}
+
+.back-button span {
+  margin-right: 5px;
+}
+
+        .back-button {
+            display: inline-block;
+            padding: 10px 15px;
+            background-color: #007BFF; /* Choose your desired background color */
+            color: #fff; /* Choose your desired text color */
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        .back-button:hover {
+            background-color: #0056b3; /* Choose your desired hover background color */
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        p {
+            line-height: 1.6;
+        }
+    </style>
+    <style>
+      .profile-container {
+        display: flex;
+        align-items: center;
+        margin: 20px;
+      }
+
+      .profile-picture-container {
+        width: 150px;
+        height: 150px;
+        overflow: hidden;
+        border-radius: 10px;
+        border: 2px solid #ddd;
+        margin-right: 10px;
+      }
+
+      #profilePicture {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      #editButton {
+        padding: 10px;
+        cursor: pointer;
+      }
+
+      .overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 1;
+      }
+
+      .popover {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 20px;
+        background-color: #fff;
+        border: 1px solid #ccc;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+      }
+
+      .close {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        cursor: pointer;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 5px;
+      }
+
+      select,
+      input {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 10px;
+      }
+
+      button {
+        background-color: #4caf50;
+        color: white;
+        padding: 10px;
+        border: none;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background-color: #45a049;
+      }
+
+      /* Add your custom styles here */
+      .edit-symbol {
+        font-size: 24px;
+        color: #333;
+      }
+      /* B */
+      .custom-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 1000; /* Set a high z-index to be above other elements */
+        justify-content: center;
+        align-items: center;
+      }
+
+      .custom-popup {
+        background: #deb942;
+        color: black;
+        padding: 20px;
+        border-radius: 5px;
+        text-align: center;
+        position: relative;
+        width: 500px;
+        height: 475px;
+        padding: 30px;
+        background-color: #deb942;
+        border: 2px solid #ccc;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .close-btn {
+        cursor: pointer;
+        position: absolute;
+        top: 10px;
+        right: 10px;
+      }
+      /* B */
+    </style>
+    <style>
+      /* Add your custom styles here */
+      .edit-symbol {
+        font-size: 24px;
+        color: #333;
+      }
+    </style>
+
+    <style>
+      /* Add your custom styles here */
+      .edit-symbol,
+      .clear-symbol {
+        cursor: pointer;
+        font-size: 18px;
+        margin-right: 5px;
+      }
+
+      .clear-symbol {
+        color: #111;
+      }
+    </style>
+    <style>
+      /* Add your custom styles here */
+      .file-link {
+        display: block;
+        margin-top: 5px;
+        text-decoration: underline;
+        cursor: pointer;
+      }
+    </style>
+    <style>
+      /* Add your custom styles here */
+      .input-container {
+        position: relative;
+        display: flex;
+        align-items: center;
+      }
+
+      .woocommerce-Input.readonly-input {
+        flex: 1;
+      }
+
+      .edit-symbol {
+        margin-left: 5px;
+        cursor: pointer;
+      }
+
+      .error-message {
+        display: block; /* Ensure the error message is on a new line */
+        margin-top: 5px;
+      }
+
+      /* Add your custom styles here */
+      .input-group {
+        position: relative;
+        display: flex;
+        align-items: center;
+      }
+
+      .readonly-content {
+        margin-right: 10px;
+      }
+
+      .editable-input {
+        flex: 1;
+      }
+
+      .edit-icon {
+        cursor: pointer;
+      }
+    </style>
+    <!-- 1 -->
+    <style>
+      .overlayy {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+        backdrop-filter: blur(5px); /* Add blur effect */
+        z-index: 1000;
+      }
+
+      /* Sign In Popup */
+      .signin-popup {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 30px;
+        width: 500px;
+        background-color: #deb942;
+        border: 2px solid #ccc;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        z-index: 1001;
+      }
+
+      /* Popup Header Styles */
+      .popup-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 15px;
+        background-color: #deb942;
+        color: #fff;
+        padding: 0px;
+      }
+
+      /* Close Button Styles */
+      .close-btn {
+        cursor: pointer;
+        font-size: 20px;
+      }
+
+      /* Other Styles */
+      label {
+        display: block;
+        margin-bottom: 10px;
+      }
+
+      input {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        box-sizing: border-box;
+      }
+
+      .remember-password {
+      }
+
+      .remember-password input {
+      }
+
+      button {
+        padding: 10px;
+        background-color: #9d5b2a;
+        color: #fff;
+        border: none;
+        /* border-radius: 5px; */
+        cursor: pointer;
+      }
+
+      button:hover {
+        background-color: #9d5b2a;
+        color: black;
+      }
+    </style>
+    <!-- 1 -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1"
+    />
+    <title>Raj</title>
+    <link rel="shortcut icon" href="img/favicon.png" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&amp;family=Outfit:wght@300;400&amp;display=swap"
+    />
+    <link rel="stylesheet" href="css/plugins.css" />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <!-- Preloader -->
+    <div class="preloader-bg"></div>
+    <div id="preloader">
+      <div id="preloader-status">
+        <div class="preloader-position loader"><span></span></div>
+      </div>
+    </div>
+    <!-- Progress scroll totop -->
+
+
+    <!-- 3 -->
+    <!-- Overlay for Blur Effect -->
+    <div id="overlayy" class="overlayy"></div>
+
+    <!-- Sign In Popup -->
+    <div id="signinPopup" class="signin-popup">
+      <div class="popup-header">
+        <h2>Sign-In</h2>
+        <span
+          class="close-btn"
+          onclick="closeSignInPopup()"
+          style="color: black"
+          >&#10006;</span
+        >
+      </div>
+
+      <label for="username" style="color: black"
+        >Username:&nbsp;<span class="required" style="color: red"
+          >*</span
+        ></label
+      >
+      <input
+        type="text"
+        id="username"
+        placeholder="Enter your username"
+        required
+      />
+      <br />
+
+      <label for="password" style="color: black"
+        >Password:&nbsp;<span class="required" style="color: red"
+          >*</span
+        ></label
+      >
+      <div style="position: relative">
+        <input
+          type="password"
+          id="password"
+          placeholder="Enter your password"
+          style="padding-right: 30px"
+        />
+        <span
+          onclick="togglePasswordVisibility()"
+          style="
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+            cursor: pointer;
+          "
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            width="24"
+            height="24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path
+              d="M22 12s-4-6-10-6S2 12 2 12s4 6 10 6 10-6 10-6zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8z"
+            />
+            <circle cx="12" cy="12" r="3" />
+          </svg>
+        </span>
+      </div>
+      <!-- A -->
+      <p>
+        <b>Login through</b> &nbsp;<a
+          href="#"
+          id="openPopup"
+          style="color: blue"
+          >OTP</a
+        >
+      </p>
+
+      <div class="custom-overlay">
+        <div class="custom-popup">
+          <span
+            class="close-btn"
+            onclick="closeSignInPopup()"
+            style="color: black"
+            >&#10006;</span
+          >
+
+          <h3>OTP Verification</h3>
+          <br />
+          <label for="customMobileNumber" style="text-align: left"
+            >Enter mobile number:</label
+          >
+          <input
+            type="text"
+            id="customMobileNumber"
+            pattern="\d{10}"
+            placeholder="Enter 10-digit number"
+            required
+            oninput="validateMobileNumber(this)"
+          />
+          <div id="mobileNumberError" style="color: red; display: none">
+            Please enter a 10-digit number.
+          </div>
+          <!-- <div class="custom-popup"> -->
+          <br />
+          <br />
+          <div>
+            <div>
+              <div style="text-align: center">
+                <label for="customOtp1" style="display: block; text-align: left"
+                  >OTP:</label
+                >
+              </div>
+              <div style="text-align: left">
+                <input
+                  type="text"
+                  id="customOtp1"
+                  maxlength="1"
+                  pattern="\d"
+                  required
+                  oninput="validateOtpField(this)"
+                  style="width: 1.5em; display: inline-block"
+                />
+                &nbsp;&nbsp;&nbsp;
+                <input
+                  type="text"
+                  id="customOtp2"
+                  maxlength="1"
+                  pattern="\d"
+                  required
+                  oninput="validateOtpField(this)"
+                  style="width: 1.5em; display: inline-block"
+                />
+                &nbsp;&nbsp;&nbsp;
+                <input
+                  type="text"
+                  id="customOtp3"
+                  maxlength="1"
+                  pattern="\d"
+                  required
+                  oninput="validateOtpField(this)"
+                  style="width: 1.5em; display: inline-block"
+                />
+                &nbsp;&nbsp;&nbsp;
+                <input
+                  type="text"
+                  id="customOtp4"
+                  maxlength="1"
+                  pattern="\d"
+                  required
+                  oninput="validateOtpField(this)"
+                  style="width: 1.5em; display: inline-block"
+                />
+                <div id="otpError" style="color: red; display: none">
+                  Please enter numeric values.
+                </div>
+              </div>
+            </div>
+          </div>
+          <br />
+
+          <!-- <button onclick="submitSignIn()" style="margin-left: 90px; width: 260px">
+        Sign In
+      </button> -->
+          <button
+            id="submit"
+            style="width: 260px; background-color: #9d5b2a"
+            onclick="submitForm()"
+          >
+            Submit
+          </button>
+          <!-- </div> -->
+        </div>
+      </div>
+      <!-- A -->
+
+      <p style="text-align: center; margin-bottom: 10px">
+        Don't have an account?
+        <a href="signup.html" onclick="openSignUpPopup()" style="color: blue"
+          >Sign Up</a
+        >
+      </p>
+
+      <button
+        onclick="submitSignIn()"
+        style="
+          margin-left: 90px;
+          width: 260px;
+          padding: 10px;
+          background-color: #9d5b2a;
+          color: #fff;
+          border: none;
+          cursor: pointer;
+        "
+        onmouseover="this.style.backgroundColor='#9d5b2a'; this.style.color='black';"
+        onmouseout="this.style.backgroundColor='#9d5b2a'; this.style.color='#fff';"
+      >
+        Sign In
+      </button>
+    </div>
+    <!-- 3 -->
+    <!-- main header -->
+
+
+      <!-- template_new -->
+      <div style="color:#1B1B1B;background-color:#F6F1F0;display:flex;align-items:center;" class="back-button">
+        <a href="#" onclick="goBack()" style="text-decoration:none;margin-top: -15px;">
+            <span>&larr;</span>
+        </a>
+        <h1 style="margin-left: 350px;">Terms and Conditions</h1>
+    </div>
+
+      <div style="margin-left: 50px;">
+        <p><strong>1. Acceptance of Terms</strong></p>
+      <p>By accessing and using this website, you agree to be bound by these terms and conditions. If you do not agree with any part of these terms, you must not use the website.</p>
+
+      <p><strong>2. Use of Website</strong></p>
+      <p>2.1. You must be at least 18 years old to use this website.<br>
+          2.2. You are responsible for ensuring that all information provided is accurate and up-to-date.<br>
+          2.3. Unauthorized use of this website may give rise to a claim for damages and/or be a criminal offense.</p>
+
+      <p><strong>3. Reservation and Booking</strong></p>
+      <p>3.1. All reservations and bookings are subject to availability.<br>
+          3.2. Prices and availability are subject to change without notice.<br>
+          3.3. Cancellations and refund policies are outlined on the booking page.</p>
+
+      <p><strong>4. Intellectual Property</strong></p>
+      <p>4.1. All content on this website, including text, graphics, logos, images, and software, is the property of Raj Hotel and is protected by copyright laws.</p>
+
+      <p><strong>5. Privacy Policy</strong></p>
+      <p>5.1. The use of personal information is governed by our Privacy Policy</p>
+
+      <p><strong>6. Limitation of Liability</strong></p>
+      <p>6.1. Raj Hotel is not liable for any direct, indirect, incidental, special, or consequential damages arising out of or in any way connected with the use of this website.</p>
+
+      <p><strong>7. Governing Law</strong></p>
+      <p>7.1. These terms and conditions are governed by and construed in accordance with the laws of [your country/state].</p>
+    </div>
+
+
+
+      <!-- template_new -->
+    </section>
+    <!-- Map -->
+    <!-- Footer -->
+
+    <!-- jQuery -->
+    <script src="js/jquery-3.6.3.min.js"></script>
+    <script src="js/jquery-migrate-3.0.0.min.js"></script>
+    <script src="js/modernizr-2.6.2.min.js"></script>
+    <script src="js/imagesloaded.pkgd.min.js"></script>
+    <script src="js/jquery.isotope.v3.0.2.js"></script>
+    <script src="js/pace.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/scrollIt.min.js"></script>
+    <script src="js/jquery.waypoints.min.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/jquery.stellar.min.js"></script>
+    <script src="js/jquery.magnific-popup.js"></script>
+    <script src="js/YouTubePopUp.js"></script>
+    <script src="js/select2.js"></script>
+    <script src="js/datepicker.js"></script>
+    <script src="js/smooth-scroll.min.js"></script>
+    <script src="js/wow.min.js"></script>
+    <script src="js/custom.js"></script>
+    <!-- Name -->
+    <script>
+      function enableEdit(fieldName) {
+        // Hide the read-only content and show the input field
+        var readonlyContent = document.querySelector(
+          `[name="${fieldName}"].readonly-content`
+        );
+        var inputField = document.querySelector(
+          `[name="${fieldName}"].editable-input`
+        );
+
+        readonlyContent.style.display = "none";
+        inputField.style.display = "block";
+
+        // Focus on the input field for better user experience
+        inputField.focus();
+      }
+    </script>
+    <script>
+      $(document).ready(function () {
+        // Attach input event listener to the username input
+        $("#username").on("input", function () {
+          validateName();
+        });
+
+        // Attach click event listener to the edit symbol
+        $("#editSymbol").on("click", function () {
+          // Enable the input field for editing
+          $("#username").prop("readonly", false);
+        });
+      });
+
+      function validateName() {
+        // Get the value of the username input
+        const nameInput = $("#username").val();
+
+        // Regular expression to allow only alphabets and spaces
+        const regex = /^[a-zA-Z\s]+$/;
+
+        // Check if the input matches the allowed pattern
+        if (regex.test(nameInput)) {
+          // Clear any previous error message
+          $("#nameErrorMessage").text("");
+        } else {
+          // Display error message
+          $("#nameErrorMessage").text("Please enter a valid name ");
+        }
+      }
+    </script>
+
+    <script>
+      $(document).ready(function () {
+        // Attach input event listener to the number input
+        $("#number").on("input", function () {
+          validateNumber();
+        });
+
+        // Attach click event listener to the edit symbol
+        $("#editSymboll").on("click", function () {
+          // Enable the input field for editing
+          $("#number").prop("readonly", false);
+        });
+      });
+
+      function validateNumber() {
+        // Get the value of the number input
+        const numberInput = $("#number").val();
+
+        // Regular expression to allow only 10-digit numbers
+        const regex = /^\d{10}$/;
+
+        // Check if the input matches the allowed pattern
+        if (regex.test(numberInput)) {
+          // Clear any previous error message
+          $("#numberErrorMessage").text("");
+        } else {
+          // Display error message
+          $("#numberErrorMessage").text(
+            "Please enter a valid 10-digit mobile number."
+          );
+        }
+      }
+    </script>
+
+    <script>
+      $(document).ready(function () {
+        // Attach input event listener to the email input
+        $("#email").on("input", function () {
+          validateEmail();
+        });
+
+        // Attach click event listener to the edit symbol
+        $("#editSymbolll").on("click", function () {
+          // Enable the input field for editing
+          $("#email").prop("readonly", false);
+        });
+      });
+
+      function validateEmail() {
+        // Get the value of the email input
+        const emailInput = $("#email").val();
+
+        // Regular expression for a simple email validation
+        const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        // Check if the input matches the allowed pattern
+        if (regex.test(emailInput)) {
+          // Clear any previous error message
+          $("#emailErrorMessage").text("");
+        } else {
+          // Display error message
+          $("#emailErrorMessage").text("Please enter a valid email address.");
+        }
+      }
+    </script>
+
+    <script>
+      $(document).ready(function () {
+        // Attach input event listener to the gender input
+        $("#gender").on("input", function () {
+          validateGender();
+        });
+
+        // Attach click event listener to the edit symbol
+        $("#editSymbolGender").on("click", function () {
+          // Enable the input field for editing
+          $("#gender").prop("readonly", false);
+        });
+      });
+
+      function validateGender() {
+        // Get the value of the gender input
+        const genderInput = $("#gender").val();
+
+        // Regular expression to allow only alphabets
+        const regex = /^[a-zA-Z]+$/;
+
+        // Check if the input matches the allowed pattern
+        if (regex.test(genderInput)) {
+          // Clear any previous error message
+          $("#genderErrorMessage").text("");
+        } else {
+          // Display error message
+          $("#genderErrorMessage").text("Please enter a valid gender");
+        }
+      }
+    </script>
+    <script>
+      $(document).ready(function () {
+        // Attach input event listener to the age input
+        $("#age").on("input", function () {
+          validateAge();
+        });
+
+        // Attach click event listener to the edit symbol
+        $("#editSymbolAge").on("click", function () {
+          // Enable the input field for editing
+          $("#age").prop("readonly", false);
+        });
+      });
+
+      function validateAge() {
+        // Get the value of the age input
+        const ageInput = $("#age").val();
+
+        // Regular expression to allow only numbers
+        const regex = /^\d+$/;
+
+        // Check if the input matches the allowed pattern
+        if (regex.test(ageInput)) {
+          const age = parseInt(ageInput, 10);
+
+          // Check if age is within the specified range (18 to 99)
+          if (age >= 18 && age <= 99) {
+            // Clear any previous error message
+            $("#ageErrorMessage").text("");
+          } else {
+            // Display error message
+            $("#ageErrorMessage").text("Age must be between 18 and 99.");
+          }
+        } else {
+          // Display error message for invalid input
+          $("#ageErrorMessage").text(
+            "Please enter a valid age (only numbers allowed)."
+          );
+        }
+      }
+    </script>
+
+    <script>
+      $(document).ready(function () {
+        // Attach input event listener to the nationality input
+        $("#nationality").on("input", function () {
+          validateNationality();
+        });
+
+        // Attach click event listener to the edit symbol
+        $("#editSymbolNationality").on("click", function () {
+          // Enable the input field for editing
+          $("#nationality").prop("readonly", false);
+        });
+      });
+
+      function validateNationality() {
+        // Get the value of the nationality input
+        const nationalityInput = $("#nationality").val();
+
+        // Regular expression to allow only alphabets
+        const regex = /^[a-zA-Z\s]+$/;
+
+        // Check if the input matches the allowed pattern
+        if (regex.test(nationalityInput)) {
+          // Clear any previous error message
+          $("#nationalityErrorMessage").text("");
+        } else {
+          // Display error message
+          $("#nationalityErrorMessage").text(
+            "Please enter a valid nationality"
+          );
+        }
+      }
+    </script>
+    <script>
+      $(document).ready(function () {
+        // Attach input event listener to the cardDetails input
+        $("#cardDetails").on("input", function () {
+          validateCardDetails();
+        });
+
+        // Attach click event listener to the edit symbol
+        $("#editSymbolCardDetails").on("click", function () {
+          // Enable the input field for editing
+          $("#cardDetails").prop("readonly", false);
+        });
+      });
+
+      function validateCardDetails() {
+        // Get the value of the cardDetails input
+        const cardDetailsInput = $("#cardDetails").val();
+
+        // Regular expression for a simple card number format (XXXX XXXX XXXX XXXX)
+        const regex = /^\d{4} \d{4} \d{4} \d{4}$/;
+
+        // Check if the input matches the allowed pattern
+        if (regex.test(cardDetailsInput)) {
+          // Clear any previous error message
+          $("#cardDetailsErrorMessage").text("");
+        } else {
+          // Display error message
+          $("#cardDetailsErrorMessage").text(
+            "Please enter the card details in the correct format (XXXX XXXX XXXX XXXX)."
+          );
+        }
+      }
+    </script>
+    <script>
+      function handleFileChange() {
+        const fileInput = document.getElementById("fileInput");
+        const fileInfo = document.getElementById("fileInfo");
+        const fileLinks = document.getElementById("fileLinks");
+        const noFilesMessage = document.getElementById("noFilesMessage");
+
+        fileLinks.innerHTML = ""; // Clear previous file links
+
+        if (fileInput.files.length > 0) {
+          noFilesMessage.style.display = "none";
+
+          for (let i = 0; i < fileInput.files.length; i++) {
+            const file = fileInput.files[i];
+
+            // Create a link for each file
+            const fileLink = document.createElement("a");
+            fileLink.href = URL.createObjectURL(file);
+            fileLink.target = "_blank";
+            fileLink.textContent = file.name;
+            fileLink.classList.add("file-link");
+            fileLinks.appendChild(fileLink);
+          }
+        } else {
+          noFilesMessage.style.display = "block";
+        }
+
+        // Clear any previous error message
+        document.getElementById("fileErrorMessage").textContent = "";
+      }
+
+      function replaceFile() {
+        // Trigger the file input click event to allow replacing files
+        document.getElementById("fileInput").click();
+      }
+
+      function clearFiles() {
+        const fileInput = document.getElementById("fileInput");
+        fileInput.value = null; // Clear the selected files
+        handleFileChange(); // Update the file information display
+      }
+    </script>
+
+    <script>
+      function editFile() {
+        // Trigger the file input click event to allow editing files
+        document.getElementById("fileInput").click();
+      }
+    </script>
+    <script>
+      function logout() {
+        // Redirect to the desired logout page
+        window.location.href = "index7.html";
+      }
+    </script>
+
+    <script>
+      function changeProfilePicture(input) {
+        const profilePicture = document.getElementById("profilePicture");
+
+        if (input.files && input.files[0]) {
+          const reader = new FileReader();
+
+          reader.onload = function (e) {
+            profilePicture.src = e.target.result;
+            // Ensure the uploaded image covers the entire circular container
+            profilePicture.style.objectFit = "cover";
+          };
+
+          reader.readAsDataURL(input.files[0]);
+        }
+      }
+
+      // Attach click event listener to the edit symbol
+      document
+        .querySelector(".edit-symbol")
+        .addEventListener("click", function () {
+          // Trigger the profile picture input click event to enable uploading a new image
+          document.getElementById("profilePictureInput").click();
+        });
+    </script>
+
+    <!-- 4 -->
+
+    <script>
+      function openSignInPopup() {
+        document.getElementById("overlayy").style.display = "block";
+        document.getElementById("signinPopup").style.display = "block";
+      }
+
+      function closeSignInPopup() {
+        document.getElementById("overlayy").style.display = "none";
+        document.getElementById("signinPopup").style.display = "none";
+      }
+
+      function submitSignIn() {
+        closeSignInPopup();
+        const overlay = document.querySelector(".custom-overlay");
+        overlay.style.display = "none";
+      }
+    </script>
+
+    <script>
+      function togglePasswordVisibility() {
+        var passwordInput = document.getElementById("password");
+
+        if (passwordInput.type === "password") {
+          passwordInput.type = "text";
+        } else {
+          passwordInput.type = "password";
+        }
+      }
+    </script>
+
+    <!-- 4 -->
+    <!-- C -->
+    <script>
+      const openPopupBtn = document.getElementById("openPopup");
+      const overlay = document.querySelector(".custom-overlay");
+      const closeBtn = document.getElementById("closeBtn");
+
+      openPopupBtn.addEventListener("click", (event) => {
+        event.preventDefault(); // Prevent the default hyperlink behavior
+        overlay.style.display = "flex";
+      });
+
+      closeBtn.addEventListener("click", () => {
+        overlay.style.display = "none";
+      });
+
+      // Add additional logic for real-time error messages, form submission, etc.
+    </script>
+    <script>
+      function validateMobileNumber(input) {
+        const mobileNumberError = document.getElementById("mobileNumberError");
+
+        const isValid = /^\d{10}$/.test(input.value);
+
+        if (!isValid) {
+          mobileNumberError.style.display = "block";
+        } else {
+          mobileNumberError.style.display = "none";
+        }
+      }
+    </script>
+    <script>
+      function validateOtpField(input) {
+        const otpError = document.getElementById("otpError");
+        const otpContainer = document.querySelector(
+          'div[style="text-align: left"]'
+        );
+
+        const isValid = /^[0-9]+$/.test(input.value);
+
+        if (!isValid) {
+          otpError.style.display = "block";
+          otpContainer.style.marginBottom = "20px"; // Adjust margin to accommodate error message
+        } else {
+          otpError.style.display = "none";
+          otpContainer.style.marginBottom = "0";
+        }
+      }
+    </script>
+    <script>
+      function submitForm() {
+        const overlay = document.querySelector(".custom-overlay");
+        overlay.style.display = "none";
+      }
+    </script>
+    <!-- C -->
+    <script>
+    function goBack() {
+      window.history.back();
+    }</script>
+  </body>
+</html>

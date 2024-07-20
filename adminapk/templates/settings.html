@@ -1,0 +1,222 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container" style="width: 96%;">
+    <div class="row">
+<ol class="breadcrumb" >
+    <li class="breadcrumb-item " style="margin-left: 75%;" >
+        <a href="{% url 'dashboard' %}" style="color: #2185f4;">Dashboard</a>
+        &nbsp;
+    </li>
+    <b>/</b>
+    <li class=" active" >
+        &nbsp;
+        Settings
+    </li>
+
+</ol>
+
+
+
+
+
+
+
+
+<div class="col-xl-4">
+    <a href="{% url 'room_view'%}">
+        <div class="card" style="height: 100px; display: flex; align-items: center;">
+            <div class="card-body" style="color: black; display: flex; align-items: center; justify-content: flex-start;">
+                <span style="margin-right:20px;color: #2185f4;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" fill="currentColor" class="bi bi-hospital" viewBox="0 0 16 16">
+                        <path d="M8.5 5.034v1.1l.953-.55.5.867L9 7l.953.55-.5.866-.953-.55v1.1h-1v-1.1l-.953.55-.5-.866L7 7l-.953-.55.5-.866.953.55v-1.1h1ZM13.25 9a.25.25 0 0 0-.25.25v.5c0 .138.112.25.25.25h.5a.25.25 0 0 0 .25-.25v-.5a.25.25 0 0 0-.25-.25h-.5ZM13 11.25a.25.25 0 0 1 .25-.25h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5a.25.25 0 0 1-.25-.25v-.5Zm.25 1.75a.25.25 0 0 0-.25.25v.5c0 .138.112.25.25.25h.5a.25.25 0 0 0 .25-.25v-.5a.25.25 0 0 0-.25-.25h-.5Zm-11-4a.25.25 0 0 0-.25.25v.5c0 .138.112.25.25.25h.5A.25.25 0 0 0 3 9.75v-.5A.25.25 0 0 0 2.75 9h-.5Zm0 2a.25.25 0 0 0-.25.25v.5c0 .138.112.25.25.25h.5a.25.25 0 0 0 .25-.25v-.5a.25.25 0 0 0-.25-.25h-.5ZM2 13.25a.25.25 0 0 1 .25-.25h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5a.25.25 0 0 1-.25-.25v-.5Z"/>
+                        <path d="M5 1a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v1a1 1 0 0 1 1 1v4h3a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1h3V3a1 1 0 0 1 1-1V1Zm2 14h2v-3H7v3Zm3 0h1V3H5v12h1v-3a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3Zm0-14H6v1h4V1Zm2 7v7h3V8h-3Zm-8 7V8H1v7h3Z"/>
+                    </svg>
+                </span>
+                <h5 class="card-text" style="margin-right: 130px;">Type Of Room</h5>
+            </div>
+        </div>
+    </a>
+</div>
+
+
+
+<!--        <div class="col-xl-4">-->
+<!--    <a href="{% url 'hotel_view'%}">-->
+<!--        <div class="card" style="height: 100px; display: flex; align-items: center;">-->
+<!--            <div class="card-body" style="color: black; display: flex; align-items: center; justify-content: center;">-->
+<!--                <span style="margin-right:20px;color: #2185f4;">-->
+<!--                    <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" fill="currentColor" class="bi bi-building" viewBox="0 0 16 16">-->
+<!--                        <path d="M4 2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1Zm3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1Zm3.5-.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1ZM4 5.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1ZM7.5 5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1Zm2.5.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1ZM4.5 8a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1ZM7 8.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1ZM9.5 8a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1Zm3.5-.5a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1Z"/>-->
+<!--                        <path d="M2 1a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V1Zm11 0H3v14h3v-2.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 .5.5V15h3V1Z"/>-->
+<!--                    </svg>-->
+<!--                </span>-->
+<!--                <h5 class="card-text" style="margin-right: 130px;">Type of Hotel</h5>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </a>-->
+<!--</div>-->
+
+        <div class="col-xl-4">
+    <a href="{% url 'amenities_views'%}">
+        <div class="card" style="height: 100px; display: flex; align-items: center;">
+            <div class="card-body" style="color: black; display: flex; align-items: center; justify-content: center;">
+                <span style="margin-right:20px;color: #2185f4;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" fill="currentColor" class="bi bi-basket2-fill" viewBox="0 0 16 16">
+                        <path d="M5.929 1.757a.5.5 0 1 0-.858-.514L2.217 6H.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h.623l1.844 6.456A.75.75 0 0 0 3.69 15h8.622a.75.75 0 0 0 .722-.544L14.877 8h.623a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1.717L10.93 1.243a.5.5 0 1 0-.858.514L12.617 6H3.383L5.93 1.757zM4 10a1 1 0 0 1 2 0v2a1 1 0 1 1-2 0v-2zm3 0a1 1 0 0 1 2 0v2a1 1 0 1 1-2 0v-2zm4-1a1 1 0 0 1 1 1v2a1 1 0 1 1-2 0v-2a1 1 0 0 1 1-1z"/>
+                    </svg>
+                </span>
+                <h5 class="card-text" style="margin-right: 170px;">Amenities</h5>
+            </div>
+        </div>
+    </a>
+</div>
+
+<div class="col-xl-4">
+    <a href="{% url 'elmpoyee_view'%}">
+        <div class="card" style="height: 100px; display: flex; align-items: center;">
+            <div class="card-body" style="color: black; display: flex; align-items: center; justify-content: center;">
+                <span style="margin-right:10px;color: #2185f4;">
+                    <svg fill="#2185f4" height="60px" width="60px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 442.887 442.887" xml:space="preserve" stroke="#2185f4"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <path d="M166.918,122.093h109.051c5.514,0,10-4.486,10-10V69.69c0-5.514-4.486-10-10-10h-7.434 c0.865-3.617,1.336-7.385,1.336-11.263C269.871,21.724,248.146,0,221.443,0s-48.427,21.724-48.427,48.427 c0,3.878,0.471,7.646,1.336,11.263h-7.434c-5.514,0-10,4.486-10,10v42.402C156.918,117.607,161.404,122.093,166.918,122.093z M221.443,28.389c11.067,0,20.039,8.972,20.039,20.039s-8.972,20.039-20.039,20.039s-20.039-8.972-20.039-20.039 S210.376,28.389,221.443,28.389z"></path> <path d="M221.451,339.444c20.682-0.031,37.52-16.894,37.52-37.59v-11.216c0-0.964-0.039-1.937-0.116-2.912h-4.669 c-9.065,0-12.535-8.376-14.136-13.75c-8.962,4.202-29.799,13.183-56.015,13.725c-0.079,0.984-0.118,1.965-0.118,2.938v11.216 C183.916,322.55,200.754,339.413,221.451,339.444z"></path> <path d="M373.385,82.47h-41.57c-11.028,0-20,8.972-20,20v35.468c0,5.514-4.486,10-10,10H141.072c-5.514,0-10-4.486-10-10V102.47 c0-11.028-8.972-20-20-20h-41.57c-11.028,0-20,8.972-20,20v320.417c0,11.028,8.972,20,20,20h303.883c11.028,0,20-8.972,20-20 V102.47C393.385,91.442,384.413,82.47,373.385,82.47z M280.065,384.872l-0.068,27.125H162.889l-0.07-27.56v-21.342 c0-11.387,12.54-15.799,21.697-19.021c1.916-0.674,4.067-1.431,5.887-2.19c-0.197-0.216-0.396-0.434-0.595-0.652 c-8.284-9.086-17.669-19.381-17.738-37.612l-1.102-14.085c-2.508-32.267,14.408-37.479,37.822-44.692 c3.527-1.086,7.174-2.21,11.08-3.504c5.1-1.69,10.112-2.547,14.898-2.547c10.195,0,19.115,3.817,25.796,11.038 c8.59,9.283,12.622,23.384,11.353,39.706l-1.102,14.085c-0.068,18.231-9.454,28.526-17.738,37.612 c-0.2,0.219-0.398,0.437-0.595,0.652c1.82,0.76,3.971,1.517,5.887,2.19c9.157,3.222,21.697,7.634,21.697,19.021L280.065,384.872z M307.443,211.443h-172V182.7h172V211.443z"></path>
+                         <polygon points="221.443,386.338 251.151,354.83 191.736,354.83 "></polygon> </g> </g></svg>
+                </span>
+                <h5 class="card-text" style="margin-right: 160px;">Designation</h5>
+            </div>
+        </div>
+    </a>
+</div>
+<div class="col-xl-4">
+    <a href="{% url 'Department_view'%}">
+        <div class="card" style="height: 100px; display: flex; align-items: center;">
+            <div class="card-body" style="color: black; display: flex; align-items: center; justify-content: center;">
+                <span style="margin-right:0px;color: #2185f4;">
+                    <svg fill="#2185f4" height="60px" width="80px" version="1.2" baseProfile="tiny" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="-351 154 256 254" xml:space="preserve">
+                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier">
+                             <path d="M-226.5,156.3c10.9,0,19.8,8.9,19.8,19.8s-8.9,19.8-19.8,19.8s-19.8-8.9-19.8-19.8S-237.4,156.3-226.5,156.3z M-176.9,291.8 h-17.3h-5h-54.5h-5h-17.4H-331v14.4h16.1v99.5h175.8v-99.5h16.1v-14.4H-176.9z M-258.4,230.6c0-1.5,1-2.4,2.4-2.4s2.4,1,2.4,2.4 v55.5h54.5v-55.5c0-1.5,1-2.4,2.4-2.4c1.5,0,2.4,1,2.4,2.4v55.5h17.4v-60.5c0-13.7-11.1-24.8-24.8-24.8h-5l-14.5,22.7l-1.7-17 l2.4-5.7H-231l2.4,5.7l-1.9,17.1l-14.6-22.8h-5.8c-13.7,0.1-24.8,11.2-24.8,24.8v60.5h17.4L-258.4,230.6L-258.4,230.6z">
+                             </path>
+                             </g>
+                            </svg>
+                </span>
+                <h5 class="card-text" style="margin-right: 150px;">Department</h5>
+            </div>
+        </div>
+    </a>
+</div>
+
+
+        <!-- <div class="col-xl-4">
+    <a href="">
+        <div class="card" style="height: 100px; display: flex; align-items: center;">
+            <div class="card-body" style="color: black; display: flex; align-items: center; justify-content: center;">
+                <span style="margin-right:20px;color: #2185f4;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" fill="currentColor" class="bi bi-translate" viewBox="0 0 16 16">
+                        <path d="M4.545 6.714 4.11 8H3l1.862-5h1.284L8 8H6.833l-.435-1.286H4.545zm1.634-.736L5.5 3.956h-.049l-.679 2.022H6.18z"/>
+                        <path d="M0 2a2 2 0 0 1 2-2h7a2 2 0 0 1 2 2v3h3a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-3H2a2 2 0 0 1-2-2V2zm2-1a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H2zm7.138 9.995c.193.301.402.583.63.846-.748.575-1.673 1.001-2.768 1.292.178.217.451.635.555.867 1.125-.359 2.08-.844 2.886-1.494.777.665 1.739 1.165 2.93 1.472.133-.254.414-.673.629-.89-1.125-.253-2.057-.694-2.82-1.284.681-.747 1.222-1.651 1.621-2.757H14V8h-3v1.047h.765c-.318.844-.74 1.546-1.272 2.13a6.066 6.066 0 0 1-.415-.492 1.988 1.988 0 0 1-.94.31z"/>
+                    </svg>
+                </span>
+                <h5 class="card-text" style="margin-right: 140px;">Language</h5>
+            </div>
+        </div>
+    </a>
+</div> -->
+
+
+ <!-- <div class="col-xl-4">
+    <a href="">
+        <div class="card" style="height: 100px; display: flex; align-items: center;">
+            <div class="card-body" style="color: black; display: flex; align-items: center; justify-content: center;">
+                <span  style="margin-right:20px;color: #2185f4;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" fill="currentColor" class="bi bi-currency-rupee" viewBox="0 0 16 16">
+                        <path d="M4 3.06h2.726c1.22 0 2.12.575 2.325 1.724H4v1.051h5.051C8.855 7.001 8 7.558 6.788 7.558H4v1.317L8.437 14h2.11L6.095 8.884h.855c2.316-.018 3.465-1.476 3.688-3.049H12V4.784h-1.345c-.08-.778-.357-1.335-.793-1.732H12V2H4v1.06Z"/>
+                    </svg>
+                </span>
+                <h5 class="card-text" style="margin-right: 170px;">Currency</h5>
+            </div>
+        </div>
+    </a>
+</div> -->
+
+
+   <div class="col-xl-4">
+    <a href="{% url 'service_view'%}">
+        <div class="card" style="height: 100px; display: flex; align-items: center; ">
+            <div class="card-body" style="color: black; display: flex; align-items: center; justify-content: center;">
+                <span style="margin-right:30px;color: #2185f4;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" fill="currentColor" class="bi bi-hdd-fill" viewBox="0 0 16 16">
+                        <path d="M0 10a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-1zm2.5 1a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1zm2 0a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1zM.91 7.204A2.993 2.993 0 0 1 2 7h12c.384 0 .752.072 1.09.204l-1.867-3.422A1.5 1.5 0 0 0 11.906 3H4.094a1.5 1.5 0 0 0-1.317.782L.91 7.204z"/>
+                    </svg>
+                </span>
+                <h5 class="card-text" style="margin-right: 150px;">Services</h5>
+            </div>
+        </div>
+    </a>
+</div>
+
+
+
+    </div>
+    <br><br><br><br>
+            </div>
+
+
+<style>
+  /* Set the color property to black for all text within the elements */
+  .card, label, input, span, textarea, th, td, button {
+    color: black;
+  }
+</style>
+<style>
+    .card {
+        transition: transform 0.3s;
+    }
+
+    .card:hover {
+        transform: translate(-5px, -5px);
+    }
+</style>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+    // When the Dashboard link is clicked
+    $('#dashboard-link').on('click', function() {
+        // Remove the 'active' class from all other links
+        $('.nav-link').removeClass('active');
+        // Add 'active' class to the clicked Dashboard link
+        $(this).addClass('active');
+    });
+});
+</script>
+<style>
+    .nav-link.active {
+        color: blue !important;
+    }
+</style>
+
+        <style>
+    .nav-item .nav-link:hover .item-name,
+    .nav-item .nav-link:focus .item-name {
+        color: white !important;
+    }
+    .nav-item .nav-link:hover,
+    .nav-item .nav-link:focus {
+        background-color: #2185f4 !important;
+    }
+</style>
+
+    <style>
+    .sidebar .sidebar-list .nav-item .nav-link .item-name {
+        color:;
+    }
+
+    .navbar .nav-item .nav-link {
+        color: !important;
+    }
+    .navbar .nav-item .nav-link:hover {
+        background-color: white !important;
+        color: #2185f4 !important;
+    }
+</style>
+
+
+
+    {% endblock %}

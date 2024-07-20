@@ -1,0 +1,667 @@
+<!doctype html>
+<html dir="ltr" lang="en">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+    <title>Hotel Management System</title>
+    <meta content="Qompac UI is a revolutionary Bootstrap Admin Dashboard Template and UI Components Library. The Admin Dashboard Template and UI Component features 8 modules."
+          name="description">
+    <meta content="premium, admin, dashboard, template, bootstrap 5, clean ui, qompac-ui, admin dashboard,responsive dashboard, optimized dashboard,"
+          name="keywords">
+    <meta content="Iqonic Design" name="author">
+    <meta content="Qompac UI Responsive Bootstrap 5 Admin Dashboard Template" name="DC.title">
+
+    <!-- Favicon -->
+     <link rel="shortcut icon" href="/static/assets/images/logo-intro_2-1.png"
+         >
+    <!-- Library / Plugin Css Build -->
+    <link href="/static/assets/css/core/libs.min.css" rel="stylesheet">
+
+
+    <!-- qompac-ui Design System Css -->
+    <link href="/static/assets/css/qompac-ui.minf700.css?v=1.0.1" rel="stylesheet">
+
+    <!-- Custom Css -->
+    <link href="/static/assets/css/custom.minf700.css?v=1.0.1" rel="stylesheet">
+    <!-- Dark Css -->
+    <link href="/static/assets/css/dark.minf700.css?v=1.0.1" rel="stylesheet">
+
+    <!-- Customizer Css -->
+    <link href="/static/assets/css/customizer.minf700.css?v=1.0.1" rel="stylesheet">
+
+
+    <!-- RTL Css -->
+    <link href="/static/assets/css/rtl.minf700.css?v=1.0.1" rel="stylesheet">
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+      <link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css">
+    <script defer src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script defer src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script defer src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap4.min.js"></script>
+    <script defer src="script.js"></script>
+    <style>
+
+      .pagination > li > a
+
+{ background-color: white;
+
+color: #5A4181;
+
+}
+
+.pagination > li > a:focus,
+
+.pagination > li > a:hover,
+
+.pagination > li > span:focus,
+
+.pagination > li > span:hover
+
+{
+
+color: #161d2b;
+
+background-color: #eee;
+
+border-color: #ddd;
+
+}
+
+.pagination>.active> a
+
+{
+
+color: white;
+
+background-color: #161d2b !Important;
+
+border: solid 1px #161d2b !Important;
+
+}
+
+      .pagnation>.action>a:hover{
+         background-color: #161d2b;
+      }
+  </style>
+</head>
+<body class="  " style="background:#f3f3f3;">
+<!--         <div id="loading">-->
+<!--  <div class="loader simple-loader" align="center" style="margin-top:-80px;margin-left:70px;">-->
+<!--    <div class="loader-body">-->
+<!--<img src="/static/assets/images/248961.png" alt="loader" class="image-loader img-fluid" style="width: 200px; height: auto;" align="center">-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
+
+  <!-- loader END -->
+        <aside class="sidebar sidebar-base sidebar-white sidebar-default navs-rounded-all " id="first-tour" data-toggle="main-sidebar" data-sidebar="responsive">
+            <div class="sidebar-header d-flex align-items-center justify-content-start"  style="background: #161d2b;height: 57px;" >
+                <a href="index.html" class="navbar-brand">
+
+                    <!--Logo start-->
+                    <div class="logo-main">
+
+                        <div class="logo-mini">
+
+                        </div>
+                    </div>
+                       <img src="/static/assets/images/logo-intro_2-1.png" style="color: white; height: 40px;width: 60px;margin-right: 3px;">
+
+                    <!--logo End-->            <h4 class="logo-title" data-setting=""><span style="color: white">Hotel</span></h4>
+                </a>
+
+                <div class="sidebar-toggle" data-toggle="sidebar" data-active="true" style="background-color:  #161d2b"  >
+                    <i class="icon">
+
+                        <svg class="icon-10" width="10" height="10" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M7.29853 8C7.11974 8 6.94002 7.93083 6.80335 7.79248L3.53927 4.50446C3.40728 4.37085 3.33333 4.18987 3.33333 4.00036C3.33333 3.81179 3.40728 3.63081 3.53927 3.4972L6.80335 0.207279C7.07762 -0.069408 7.52132 -0.069408 7.79558 0.209174C8.06892 0.487756 8.06798 0.937847 7.79371 1.21453L5.02949 4.00036L7.79371 6.78618C8.06798 7.06286 8.06892 7.51201 7.79558 7.79059C7.65892 7.93083 7.47826 8 7.29853 8Z" fill="white"/>
+                            <path d="M3.96552 8C3.78673 8 3.60701 7.93083 3.47034 7.79248L0.206261 4.50446C0.0742745 4.37085 0.000325203 4.18987 0.000325203 4.00036C0.000325203 3.81179 0.0742745 3.63081 0.206261 3.4972L3.47034 0.207279C3.74461 -0.069408 4.18831 -0.069408 4.46258 0.209174C4.73591 0.487756 4.73497 0.937847 4.4607 1.21453L1.69649 4.00036L4.4607 6.78618C4.73497 7.06286 4.73591 7.51201 4.46258 7.79059C4.32591 7.93083 4.14525 8 3.96552 8Z" fill="white"/>
+                        </svg>
+                    </i>
+                </div>
+            </div>
+
+            <div class="sidebar-body pt-0 data-scrollbar" style="height: 1000px;background: #161d2b;margin-top: -7px;margin-bottom: 10px;">
+                <div class="sidebar-list">
+                    <!-- Sidebar Menu Start -->
+                    <ul class="navbar-nav iq-main-menu" id="sidebar-menu">
+
+                         <li class="nav-item">
+                            <a  id="dashboard-link" class="nav-link " aria-current="page" href="{% url 'dashboard' %}">
+                                <i class="icon" data-bs-toggle="tooltip" title="Dashboard" data-bs-placement="right" style="color: white;">
+                                    <svg width="20" class="icon-20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path opacity="0.4" d="M16.0756 2H19.4616C20.8639 2 22.0001 3.14585 22.0001 4.55996V7.97452C22.0001 9.38864 20.8639 10.5345 19.4616 10.5345H16.0756C14.6734 10.5345 13.5371 9.38864 13.5371 7.97452V4.55996C13.5371 3.14585 14.6734 2 16.0756 2Z" fill="currentColor"></path>
+                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M4.53852 2H7.92449C9.32676 2 10.463 3.14585 10.463 4.55996V7.97452C10.463 9.38864 9.32676 10.5345 7.92449 10.5345H4.53852C3.13626 10.5345 2 9.38864 2 7.97452V4.55996C2 3.14585 3.13626 2 4.53852 2ZM4.53852 13.4655H7.92449C9.32676 13.4655 10.463 14.6114 10.463 16.0255V19.44C10.463 20.8532 9.32676 22 7.92449 22H4.53852C3.13626 22 2 20.8532 2 19.44V16.0255C2 14.6114 3.13626 13.4655 4.53852 13.4655ZM19.4615 13.4655H16.0755C14.6732 13.4655 13.537 14.6114 13.537 16.0255V19.44C13.537 20.8532 14.6732 22 16.0755 22H19.4615C20.8637 22 22 20.8532 22 19.44V16.0255C22 14.6114 20.8637 13.4655 19.4615 13.4655Z" fill="currentColor"></path>
+                                    </svg>
+                                </i>
+                                <span class="item-name" style="color: white">Dashboard</span>
+                            </a>
+                        </li>
+
+                             <li class="nav-item">
+                            <a class="nav-link " aria-current="page" href="">
+                                <i class="icon" data-bs-toggle="tooltip" title="Hotel Profile" data-bs-placement="right"  style="color: white;">
+                                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-building" viewBox="0 0 16 16">
+  <path d="M4 2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1Zm3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1Zm3.5-.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1ZM4 5.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1ZM7.5 5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1Zm2.5.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1ZM4.5 8a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1Zm2.5.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1Zm3.5-.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1Z"/>
+  <path d="M2 1a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V1Zm11 0H3v14h3v-2.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 .5.5V15h3V1Z"/>
+</svg>
+                                </i>
+                                <span class="item-name"  style="color: white">Hotel Profile</span>
+                            </a>
+                        </li>
+                               <li class="nav-item">
+                            <a class="nav-link " aria-current="page" href="{% url 'branch_management_view' %}">
+                                <i class="icon" data-bs-toggle="tooltip" title="Hotel Profile" data-bs-placement="right"  style="color: white;">
+                                  <i class="fa fa-list-ul" aria-hidden="true"></i>
+                                </i>
+                                <span class="item-name"  style="color: white">Branch Management</span>
+                            </a>
+                        </li>
+                          <li class="nav-item">
+                            <a class="nav-link " aria-current="page" href="{% url 'adding_rooms' %}">
+                                <i class="icon" data-bs-toggle="tooltip" title="Adding rooms" data-bs-placement="right"  style="color: white;">
+                                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-door-open" viewBox="0 0 16 16">
+  <path d="M8.5 10c-.276 0-.5-.448-.5-1s.224-1 .5-1 .5.448.5 1-.224 1-.5 1"/>
+  <path d="M10.828.122A.5.5 0 0 1 11 .5V1h.5A1.5 1.5 0 0 1 13 2.5V15h1.5a.5.5 0 0 1 0 1h-13a.5.5 0 0 1 0-1H3V1.5a.5.5 0 0 1 .43-.495l7-1a.5.5 0 0 1 .398.117zM11.5 2H11v13h1V2.5a.5.5 0 0 0-.5-.5M4 1.934V15h6V1.077z"/>
+</svg>
+                                </i>
+                                <span class="item-name"  style="color: white">Adding Rooms</span>
+                            </a>
+                        </li>
+                         <li class="nav-item">
+                            <a class="nav-link " aria-current="page" href="{% url 'reservations' %}">
+                                 <i class="icon" data-bs-toggle="tooltip" title="Reservations" data-bs-placement="right"  style="color: white;"><i class="fa fa-file-text-o" aria-hidden="true"></i>
+
+                                </i>
+                                <span class="item-name"  style="color: white">Booking Management</span>
+                            </a>
+                        </li>
+                         <li class="nav-item">
+                            <a class="nav-link " aria-current="page" href="">
+                                <i class="icon" data-bs-toggle="tooltip" title="Reports" data-bs-placement="right"  style="color: white;">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-flag" viewBox="0 0 16 16">
+  <path d="M14.778.085A.5.5 0 0 1 15 .5V8a.5.5 0 0 1-.314.464L14.5 8l.186.464-.003.001-.006.003-.023.009a12.435 12.435 0 0 1-.397.15c-.264.095-.631.223-1.047.35-.816.252-1.879.523-2.71.523-.847 0-1.548-.28-2.158-.525l-.028-.01C7.68 8.71 7.14 8.5 6.5 8.5c-.7 0-1.638.23-2.437.477A19.626 19.626 0 0 0 3 9.342V15.5a.5.5 0 0 1-1 0V.5a.5.5 0 0 1 1 0v.282c.226-.079.496-.17.79-.26C4.606.272 5.67 0 6.5 0c.84 0 1.524.277 2.121.519l.043.018C9.286.788 9.828 1 10.5 1c.7 0 1.638-.23 2.437-.477a19.587 19.587 0 0 0 1.349-.476l.019-.007.004-.002h.001M14 1.221c-.22.078-.48.167-.766.255-.81.252-1.872.523-2.734.523-.886 0-1.592-.286-2.203-.534l-.008-.003C7.662 1.21 7.139 1 6.5 1c-.669 0-1.606.229-2.415.478A21.294 21.294 0 0 0 3 1.845v6.433c.22-.078.48-.167.766-.255C4.576 7.77 5.638 7.5 6.5 7.5c.847 0 1.548.28 2.158.525l.028.01C9.32 8.29 9.86 8.5 10.5 8.5c.668 0 1.606-.229 2.415-.478A21.317 21.317 0 0 0 14 7.655V1.222z"/>
+</svg>
+                                </i>
+                                <span class="item-name"  style="color: white">Reports</span>
+                            </a>
+                        </li>
+                         <li class="nav-item">
+                            <a class="nav-link " aria-current="page" href="{% url 'manageuser' %}">
+                                 <i class="icon" data-bs-toggle="tooltip" title="Manage user" data-bs-placement="right"  style="color: white;">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-rolodex" viewBox="0 0 16 16">
+  <path d="M8 9.05a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z"/>
+  <path d="M1 1a1 1 0 0 0-1 1v11a1 1 0 0 0 1 1h.5a.5.5 0 0 0 .5-.5.5.5 0 0 1 1 0 .5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5.5.5 0 0 1 1 0 .5.5 0 0 0 .5.5h.5a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1H6.707L6 1.293A1 1 0 0 0 5.293 1H1Zm0 1h4.293L6 2.707A1 1 0 0 0 6.707 3H15v10h-.085a1.5 1.5 0 0 0-2.4-.63C11.885 11.223 10.554 10 8 10c-2.555 0-3.886 1.224-4.514 2.37a1.5 1.5 0 0 0-2.4.63H1V2Z"/>
+</svg>
+                                </i>
+                                <span class="item-name"  style="color: white">Manage Users</span>
+                            </a>
+                        </li>
+
+                         <li class="nav-item">
+                            <a class="nav-link " aria-current="page" href="{% url 'admin_staff_view' %}">
+                                <i class="icon" data-bs-toggle="tooltip" title="Administration Staff" data-bs-placement="right"  style="color: white;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-people-fill" viewBox="0 0 16 16">
+  <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7Zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm-5.784 6A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216ZM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z"/>
+</svg>
+                                </i>
+                                <span class="item-name"  style="color: white">Administration Staff</span>
+                            </a>
+                        </li>
+                         <li class="nav-item">
+                            <a class="nav-link " aria-current="page" href="{% url 'food_service' %}">
+                                 <i class="icon" data-bs-toggle="tooltip" title="Food Service" data-bs-placement="right"  style="color: white;"><i class="fa fa-cutlery" aria-hidden="true"></i>
+
+                                </i>
+                                <span class="item-name"  style="color: white">Food Service</span>
+                            </a>
+                        </li>
+                         <li class="nav-item">
+                            <a class="nav-link " aria-current="page" href="{% url 'security' %}">
+                                 <i class="icon" data-bs-toggle="tooltip" title="Security and Emergency" data-bs-placement="right"  style="color: white;">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-shield-shaded" viewBox="0 0 16 16">
+  <path fill-rule="evenodd" d="M8 14.933a.615.615 0 0 0 .1-.025c.076-.023.174-.061.294-.118.24-.113.547-.29.893-.533a10.726 10.726 0 0 0 2.287-2.233c1.527-1.997 2.807-5.031 2.253-9.188a.48.48 0 0 0-.328-.39c-.651-.213-1.75-.56-2.837-.855C9.552 1.29 8.531 1.067 8 1.067v13.866zM5.072.56C6.157.265 7.31 0 8 0s1.843.265 2.928.56c1.11.3 2.229.655 2.887.87a1.54 1.54 0 0 1 1.044 1.262c.596 4.477-.787 7.795-2.465 9.99a11.775 11.775 0 0 1-2.517 2.453 7.159 7.159 0 0 1-1.048.625c-.28.132-.581.24-.829.24s-.548-.108-.829-.24a7.158 7.158 0 0 1-1.048-.625 11.777 11.777 0 0 1-2.517-2.453C1.928 10.487.545 7.169 1.141 2.692A1.54 1.54 0 0 1 2.185 1.43 62.456 62.456 0 0 1 5.072.56z"/>
+</svg>
+                                </i>
+                                             <span class="item-name"  style="color: white">Security  and Emergency </span>
+                            </a>
+                        </li>
+                         <li class="nav-item">
+                            <a class="nav-link " aria-current="page" href="">
+                                <i class="icon" data-bs-toggle="tooltip" title="Pricing" data-bs-placement="right"  style="color: white;">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cash" viewBox="0 0 16 16">
+  <path d="M8 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/>
+  <path d="M0 4a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V4zm3 0a2 2 0 0 1-2 2v4a2 2 0 0 1 2 2h10a2 2 0 0 1 2-2V6a2 2 0 0 1-2-2H3z"/>
+</svg>
+                                </i>
+                                <span class="item-name"  style="color: white">Pricing</span>
+                            </a>
+                        </li>
+                                        <li class="nav-item">
+                            <a class="nav-link " aria-current="page" href="{% url 'settings_view' %}">
+                                <i class="icon" data-bs-toggle="tooltip" title="settings" data-bs-placement="right"  style="color: white;">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gear" viewBox="0 0 16 16">
+  <path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492zM5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0z"/>
+  <path d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52l-.094-.319zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115l.094-.319z"/>
+</svg>
+                                </i>
+                                <span class="item-name"  style="color: white">Settings</span>
+                            </a>
+                        </li>
+                         <li class="nav-item">
+                              <a href="javascript:{document.getElementById('logout').submit()}"  class="nav-link text-white">
+                                   <form action="{% url 'logout' %}" method="post" id="logout">
+                           {% csrf_token %}
+                           <input type="hidden">
+                         </form>
+                                <i class="icon" data-bs-toggle="tooltip" title="Log Out" data-bs-placement="right"  style="color: white;">
+                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-left" viewBox="0 0 16 16">
+  <path fill-rule="evenodd" d="M6 12.5a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v2a.5.5 0 0 1-1 0v-2A1.5 1.5 0 0 1 6.5 2h8A1.5 1.5 0 0 1 16 3.5v9a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 5 12.5v-2a.5.5 0 0 1 1 0z"/>
+  <path fill-rule="evenodd" d="M.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L1.707 7.5H10.5a.5.5 0 0 1 0 1H1.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3z"/>
+</svg>
+                                </i>
+                                <span class="item-name"  style="color: white">Logout</span>
+                            </a>
+                        </li>
+
+
+
+                            </ul>
+                        </li>
+
+
+
+
+                            </ul>
+                        </li>
+                    </ul>
+
+                    <!-- Sidebar Menu End -->        </div>
+            </div>
+            <div class="sidebar-footer"></div>
+        </aside>
+        <main class="main-content">
+            <div class="position-relative  iq-banner ">
+            <!--Nav Start-->
+
+                <nav class="nav navbar navbar-expand-xl navbar-light iq-navbar">
+                   <div class="container-fluid navbar-inner">
+                      <a href="index.html" class="navbar-brand">
+
+                         <!--Logo start-->
+                         <div class="logo-main" >
+                          <img src="/static/assets/images/logo-intro_2-1.png" style="color: white; height: 40px;width: 60px;margin-right: 3px;">
+                         </div>
+                         <!--logo End-->         <h4 class="logo-title d-block d-xl-none" data-setting="">Hotel</h4>
+                      </a>
+                      <div class="sidebar-toggle" data-toggle="sidebar" data-active="true">
+                         <i class="icon d-flex">
+                            <svg class="icon-20" width="20" viewBox="0 0 24 24">
+                               <path fill="currentColor" d="M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z" />
+                            </svg>
+                         </i>
+                      </div>
+                      <div class="d-flex align-items-center justify-content-between product-offcanvas">
+                         <div class="breadcrumb-title border-end me-3 pe-3 d-none d-xl-block">
+                            <small class="mb-0 text-capitalize"></small>
+                         </div>
+                          <div class="offcanvas offcanvas-end shadow-none iq-product-menu-responsive" tabindex="-1" id="offcanvasBottom">
+                            <div class="offcanvas-body">
+                               <ul class="iq-nav-menu list-unstyled">
+                                  <li class="nav-item ">
+
+                                     <ul class="iq-header-sub-menu list-unstyled collapse" id="homeData">
+                                        <li class=""><a class=" " href="">Dashboard</a></li>
+                                        <li class="nav-item"><a class=" " href="analytics-dashboard.html">Analytics</a></li>
+                                        <li class="nav-item"><a class=" " href="crypto-dashboard.html">Crypto</a></li>
+                                        <li class="nav-item">
+                                           <a class="" data-bs-toggle="collapse" href="#menuStyles" role="button" aria-expanded="false" aria-controls="menuStyles">
+                                              Menu Style
+                                              <i class="right-icon">
+                                                 <svg class="icon-20" width="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M8.5 5L15.5 12L8.5 19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                 </svg>
+                                              </i>
+                                           </a>
+                                           <ul aria-expanded="false" class="iq-header-sub-menu left list-unstyled collapse" id="menuStyles">
+                                              <li class="nav-item"><a class=" " href="index-horizontal.html">Horizontal Dashboard</a></li>
+                                              <li class="nav-item"><a class=" " href="index-dual-compact.html">Dual Compact</a></li>
+                                              <li class="nav-item"><a class=" " href="index-boxed.html">Boxed Horizontal</a></li>
+                                           </ul>
+                                        </li>
+                                     </ul>
+                                  </li>
+
+
+                                     </ul>
+                                  </li>
+                               </ul>
+                            </div>
+                         </div>
+                      </div>
+                      <div class="d-flex align-items-center">
+                         <button id="navbar-toggle" class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon">
+                            <span class="navbar-toggler-bar bar1 mt-1"></span>
+                            <span class="navbar-toggler-bar bar2"></span>
+                            <span class="navbar-toggler-bar bar3"></span>
+                            </span>
+                         </button>
+                      </div>
+                      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                         <ul class="mb-2 navbar-nav ms-auto align-items-center navbar-list mb-lg-0 ">
+                            <li class="nav-item dropdown">
+                               <a href="#"  class="nav-link" id="search-drop" data-bs-toggle="dropdown" >
+                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546" height="2" rx="1" transform="rotate(45 17.0365 15.1223)" fill="currentColor"></rect>
+                                        <path d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z" fill="currentColor"></path>
+                                     </svg>
+                               </a>
+                               <ul class="p-0 sub-drop dropdown-menu dropdown-menu-end" aria-labelledby="search-drop">
+                                  <li class="">
+                                     <div class="p-3 card-header justify-content-between border-bottom rounded-top">
+                                        <div class="header-title">
+                                           <div class="iq-search-bar device-search  position-relative">
+                                                 <form action="#" class="searchbox">
+                                                    <input type="text" class="text search-input form-control bg-soft-primary" placeholder="Search here...">
+                                                    <a class="" href="javascript:void(0);">
+                                                       <span class="material-symbols-outlined">search</span>
+                                                    </a>
+                                                 </form>
+                                           </div>
+                                        </div>
+                                     </div>
+                                     <div class="p-0 card-body all-notification">
+                                        <div class="d-flex align-items-center border-bottom search-hover py-2 px-3">
+                                              <div class="flex-shrink-0">
+                                                 <img src="../assets/images/avatars/01.png" class="align-self-center img-fluid avatar-50 rounded-pill" alt="#">
+                                              </div>
+                                              <div class="d-flex flex-column ms-3 w-100">
+                                                 <a href="javascript:void(0);" class="h5">Paige Turner</a>
+                                                 <span>Paige001</span>
+                                              </div>
+                                        </div>
+                                        <div class="d-flex align-items-center border-bottom search-hover py-2 px-3">
+                                           <div class="flex-shrink-0">
+                                              <img src="../assets/images/avatars/02.png" class="align-self-center img-fluid avatar-50 rounded-pill" alt="#">
+                                           </div>
+                                           <div class="d-flex flex-column ms-3 w-100">
+                                              <a href="javascript:void(0);" class="h5">Monty Carlo</a>
+                                              <span>Carlo.m</span>
+                                           </div>
+                                        </div>
+                                        <div class="d-flex align-items-center search-hover py-2 px-3 border-bottom">
+                                           <div class="flex-shrink-0">
+                                              <img src="../assets/images/avatars/03.png" class="align-self-center img-fluid avatar-50 rounded-pill" alt="#">
+                                           </div>
+                                           <div class="d-flex flex-column ms-3 w-100">
+                                              <a href="javascript:void(0);" class="h5">Paul Molive</a>
+                                              <span>Paul.45</span>
+                                           </div>
+                                        </div>
+                                        <div class="d-flex align-items-center border-bottom search-hover py-2 px-3">
+                                           <div class="flex-shrink-0">
+                                              <img src="../assets/images/avatars/04.png" class="align-self-center img-fluid avatar-50 rounded-pill" alt="#">
+                                           </div>
+                                           <div class="d-flex flex-column ms-3 w-100">
+                                              <a href="javascript:void(0);" class="h5">Monty Carlo</a>
+                                              <span>Carlo.m</span>
+                                           </div>
+                                        </div>
+                                     </div>
+                                  </li>
+                               </ul>
+                            </li>
+
+                            <li class="nav-item dropdown">
+                               <a href="#"  class="nav-link" id="notification-drop" data-bs-toggle="dropdown" >
+                                  <svg class="icon-24" width="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                     <path d="M19.7695 11.6453C19.039 10.7923 18.7071 10.0531 18.7071 8.79716V8.37013C18.7071 6.73354 18.3304 5.67907 17.5115 4.62459C16.2493 2.98699 14.1244 2 12.0442 2H11.9558C9.91935 2 7.86106 2.94167 6.577 4.5128C5.71333 5.58842 5.29293 6.68822 5.29293 8.37013V8.79716C5.29293 10.0531 4.98284 10.7923 4.23049 11.6453C3.67691 12.2738 3.5 13.0815 3.5 13.9557C3.5 14.8309 3.78723 15.6598 4.36367 16.3336C5.11602 17.1413 6.17846 17.6569 7.26375 17.7466C8.83505 17.9258 10.4063 17.9933 12.0005 17.9933C13.5937 17.9933 15.165 17.8805 16.7372 17.7466C17.8215 17.6569 18.884 17.1413 19.6363 16.3336C20.2118 15.6598 20.5 14.8309 20.5 13.9557C20.5 13.0815 20.3231 12.2738 19.7695 11.6453Z" fill="currentColor"></path>
+                                     <path opacity="0.4" d="M14.0088 19.2283C13.5088 19.1215 10.4627 19.1215 9.96275 19.2283C9.53539 19.327 9.07324 19.5566 9.07324 20.0602C9.09809 20.5406 9.37935 20.9646 9.76895 21.2335L9.76795 21.2345C10.2718 21.6273 10.8632 21.877 11.4824 21.9667C11.8123 22.012 12.1482 22.01 12.4901 21.9667C13.1083 21.877 13.6997 21.6273 14.2036 21.2345L14.2026 21.2335C14.5922 20.9646 14.8734 20.5406 14.8983 20.0602C14.8983 19.5566 14.4361 19.327 14.0088 19.2283Z" fill="currentColor"></path>
+                                  </svg>
+                                  <span class="bg-danger dots"></span>
+                               </a>
+                               <ul class="p-0 sub-drop dropdown-menu dropdown-menu-end" aria-labelledby="notification-drop">
+                                     <li class="">
+                                        <div class="p-3 card-header d-flex justify-content-between bg-primary rounded-top">
+                                              <div class="header-title">
+                                              <h5 class="mb-0 text-white">All Notifications</h5>
+                                           </div>
+                                        </div>
+                                     <div class="p-0 card-body all-notification">
+                                        <a href="#" class="iq-sub-card">
+                                           <div class="d-flex align-items-center">
+                                              <img class="p-1 avatar-40 rounded-pill bg-soft-primary" src="../assets/images/shapes/01.png" alt="" loading="lazy">
+                                              <div class="ms-3 w-100">
+                                                 <h6 class="mb-0 ">Emma Watson Bni</h6>
+                                                 <div class="d-flex justify-content-between align-items-center">
+                                                    <p class="mb-0">95 MB</p>
+                                                    <small class="float-end font-size-12">Just Now</small>
+                                                 </div>
+                                              </div>
+                                           </div>
+                                        </a>
+                                        <a href="#" class="iq-sub-card">
+                                           <div class="d-flex align-items-center">
+                                              <div  >
+                                                 <img class="p-1 avatar-40 rounded-pill bg-soft-primary" src="../assets/images/shapes/02.png" alt="" loading="lazy">
+                                              </div>
+                                                 <div class="ms-3 w-100">
+                                                    <h6 class="mb-0 ">New customer is join</h6>
+                                                    <div class="d-flex justify-content-between align-items-center">
+                                                       <p class="mb-0">Cyst Bni</p>
+                                                       <small class="float-end font-size-12">5 days ago</small>
+                                                    </div>
+                                                 </div>
+                                           </div>
+                                        </a>
+                                        <a href="#" class="iq-sub-card">
+                                           <div class="d-flex align-items-center">
+                                              <img class="p-1 avatar-40 rounded-pill bg-soft-primary" src="../assets/images/shapes/03.png" alt="" loading="lazy">
+                                              <div class="ms-3 w-100">
+                                                 <h6 class="mb-0 ">Two customer is left</h6>
+                                                 <div class="d-flex justify-content-between align-items-center">
+                                                    <p class="mb-0">Cyst Bni</p>
+                                                    <small class="float-end font-size-12">2 days ago</small>
+                                                 </div>
+                                              </div>
+                                           </div>
+                                        </a>
+                                        <a href="#" class="iq-sub-card">
+                                           <div class="d-flex align-items-center">
+                                              <img class="p-1 avatar-40 rounded-pill bg-soft-primary" src="../assets/images/shapes/04.png" alt="" loading="lazy">
+                                              <div class="w-100 ms-3">
+                                                 <h6 class="mb-0 ">New Mail from Fenny</h6>
+                                                 <div class="d-flex justify-content-between align-items-center">
+                                                    <p class="mb-0">Cyst Bni</p>
+                                                    <small class="float-end font-size-12">3 days ago</small>
+                                                 </div>
+                                              </div>
+                                           </div>
+                                        </a>
+                                     </div>
+                                  </li>
+                               </ul>
+                            </li>
+
+                             <li class="nav-item iq-full-screen d-none  d-xl-block border-end" id="fullscreen-item">
+                               <a href="#"  class="nav-link pe-3" id="btnFullscreen" data-bs-toggle="dropdown" >
+                                  <span class="btn-inner">
+                                    <svg class="normal-screen icon-24" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M18.5528 5.99656L13.8595 10.8961" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                        <path d="M14.8016 5.97618L18.5524 5.99629L18.5176 9.96906" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                        <path d="M5.8574 18.896L10.5507 13.9964" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                        <path d="M9.60852 18.9164L5.85775 18.8963L5.89258 14.9235" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                     </svg>
+                                     <svg class="full-normal-screen icon-32 d-none" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M13.7542 10.1932L18.1867 5.79319" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                        <path d="M17.2976 10.212L13.7547 10.1934L13.7871 6.62518" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                        <path d="M10.4224 13.5726L5.82149 18.1398" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                        <path d="M6.74391 13.5535L10.4209 13.5723L10.3867 17.2755" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                     </svg>
+                                  </span>
+                               </a>
+                            </li>
+                            <li class="nav-item dropdown">
+                               <a class="py-0 nav-link d-flex align-items-center ps-3" href="#" id="profile-setting" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                   <img src="/static/assets/images/avatars/01.png" alt="User-Profile" class="theme-color-default-img img-fluid avatar avatar-50 avatar-rounded" loading="lazy">
+
+                                  <div class="caption ms-3 d-none d-md-block ">
+                                     <h6 class="mb-0 caption-title">Raj Shekar</h6>
+                                     <p class="mb-0 caption-sub-title">Founder</p>
+                                  </div>
+                               </a>
+                               <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profile-setting">
+                                  <li><a class="dropdown-item" href="app/user-profile.html">Profile</a></li>
+                                  <li><a class="dropdown-item" href="app/user-privacy-setting.html">Privacy Setting</a></li>
+                                  <li><hr class="dropdown-divider"></li>
+                                  <li><a class="dropdown-item" href="auth/sign-in.html">Logout</a></li>
+                               </ul>
+                            </li>
+                         </ul>
+                      </div>
+                   </div>
+                </nav>
+{% block content %}
+
+{% endblock %}
+            <!-- Footer Section Start -->
+           <footer class="footer"   >
+                <div class="footer-body" style="margin-top: 250px; ">
+                    <ul class="left-panel list-inline mb-0 p-0">
+                        <li class="list-inline-item"><a href="javascript:void(0);" style="color: #2185f4;">Privacy Policy</a></li>
+                        <li class="list-inline-item"><a href="javascript:void(0);" style="color: #2185f4;">Terms of Use</a></li>
+                    </ul>
+                    <div class="right-panel">
+                        ©<script>2022</script> <span data-setting="">Hotel Raj</span>, Made with
+                        <span class="text-gray">
+                            <svg class="icon-16" width="15" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd" d="M15.85 2.50065C16.481 2.50065 17.111 2.58965 17.71 2.79065C21.401 3.99065 22.731 8.04065 21.62 11.5806C20.99 13.3896 19.96 15.0406 18.611 16.3896C16.68 18.2596 14.561 19.9196 12.28 21.3496L12.03 21.5006L11.77 21.3396C9.48102 19.9196 7.35002 18.2596 5.40102 16.3796C4.06102 15.0306 3.03002 13.3896 2.39002 11.5806C1.26002 8.04065 2.59002 3.99065 6.32102 2.76965C6.61102 2.66965 6.91002 2.59965 7.21002 2.56065H7.33002C7.61102 2.51965 7.89002 2.50065 8.17002 2.50065H8.28002C8.91002 2.51965 9.52002 2.62965 10.111 2.83065H10.17C10.21 2.84965 10.24 2.87065 10.26 2.88965C10.481 2.96065 10.69 3.04065 10.89 3.15065L11.27 3.32065C11.3618 3.36962 11.4649 3.44445 11.554 3.50912C11.6104 3.55009 11.6612 3.58699 11.7 3.61065C11.7163 3.62028 11.7329 3.62996 11.7496 3.63972C11.8354 3.68977 11.9247 3.74191 12 3.79965C13.111 2.95065 14.46 2.49065 15.85 2.50065ZM18.51 9.70065C18.92 9.68965 19.27 9.36065 19.3 8.93965V8.82065C19.33 7.41965 18.481 6.15065 17.19 5.66065C16.78 5.51965 16.33 5.74065 16.18 6.16065C16.04 6.58065 16.26 7.04065 16.68 7.18965C17.321 7.42965 17.75 8.06065 17.75 8.75965V8.79065C17.731 9.01965 17.8 9.24065 17.94 9.41065C18.08 9.58065 18.29 9.67965 18.51 9.70065Z" fill="currentColor"></path>
+                            </svg>
+                        </span> by <a href="https://iqonic.design/" target="_blank" style="color: #2185f4;">Ramana Soft</a>.
+                    </div>
+                </div>
+            </footer>
+            <!-- Footer Section End -->
+</main>
+
+<!-- Wrapper End-->
+<!-- Live Customizer start -->
+<!-- Setting offcanvas start here -->
+
+<!-- Settings sidebar end here -->
+
+<!-- Live Customizer end -->
+
+<!-- Library Bundle Script -->
+<script src="/static/assets/js/core/libs.min.js"></script>
+<!-- Plugin Scripts -->
+
+
+<!-- Slider-tab Script -->
+<script src="/static/assets/js/plugins/slider-tabs.js"></script>
+
+
+<!-- Lodash Utility -->
+<script src="/static/assets/vendor/lodash/lodash.min.js"></script>
+<!-- Utilities Functions -->
+<script src="/static/assets/js/iqonic-script/utility.min.js"></script>
+<!-- Settings Script -->
+<script src="/static/assets/js/iqonic-script/setting.min.js"></script>
+<!-- Settings Init Script -->
+<script src="/static/assets/js/setting-init.js"></script>
+<!-- External Library Bundle Script -->
+<script src="/static/assets/js/core/external.min.js"></script>
+<!-- Widgetchart Script -->
+<script defer src="/static/assets/js/charts/widgetchartsf700.js?v=1.0.1"></script>
+<!-- Dashboard Script -->
+<script defer src="/static/assets/js/charts/dashboardf700.js?v=1.0.1"></script>
+<!-- qompacui Script -->
+<script defer src="/static/assets/js/qompac-uif700.js?v=1.0.1"></script>
+<script defer src="/static/assets/js/sidebarf700.js?v=1.0.1"></script>
+<style>
+    /* Set the color property to black for all text within the elements */
+    .card, label, input, span, textarea, th, td, button {
+      color: black;
+    }
+</style>
+<style>
+
+</style>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        // When the Dashboard link is clicked
+        $('#dashboard-link').on('click', function() {
+            // Remove the 'active' class from all other links
+            $('.nav-link').removeClass('active');
+            // Add 'active' class to the clicked Dashboard link
+            $(this).addClass('active');
+        });
+    });
+</script>
+<style>
+    .nav-link.active {
+        color:  #161d2b !important;
+    }
+</style>
+
+<style>
+    .nav-item .nav-link:hover .item-name,
+    .nav-item .nav-link:focus .item-name {
+        color: white !important;
+    }
+    .nav-item .nav-link:hover,
+    .nav-item .nav-link:focus {
+        background-color: #161d2b !important;
+    }
+</style>
+
+<style>
+    .sidebar .sidebar-list .nav-item .nav-link .item-name {
+        color:;
+    }
+
+    .navbar .nav-item .nav-link {
+        color: !important;
+    }
+    .navbar .nav-item .nav-link:hover {
+        background-color: white !important;
+        color: #161d2b !important;
+    }
+</style>
+<style>
+    /*!
+* Version: 1.0.0
+* Qompac Ui
+* Author: iqonic.design
+* Design and Developed by: iqonic.design
+* NOTE: This file contains the styling for Template.
+*
+*/[dir=rtl] .me-0{margin-right:0 !important}[dir=rtl] .ms-0{margin-left:0 !important}[dir=rtl] .pe-0{padding-right:0 !important}[dir=rtl] .ps-0{padding-left:0 !important}[dir=rtl] .me-1{margin-right:0 !important}[dir=rtl] .ms-1{margin-left:0 !important}[dir=rtl] .pe-1{padding-right:0 !important}[dir=rtl] .ps-1{padding-left:0 !important}[dir=rtl] .me-2{margin-right:0 !important}[dir=rtl] .ms-2{margin-left:0 !important}[dir=rtl] .pe-2{padding-right:0 !important}[dir=rtl] .ps-2{padding-left:0 !important}[dir=rtl] .me-3{margin-right:0 !important}[dir=rtl] .ms-3{margin-left:0 !important}[dir=rtl] .pe-3{padding-right:0 !important}[dir=rtl] .ps-3{padding-left:0 !important}[dir=rtl] .me-4{margin-right:0 !important}[dir=rtl] .ms-4{margin-left:0 !important}[dir=rtl] .pe-4{padding-right:0 !important}[dir=rtl] .ps-4{padding-left:0 !important}[dir=rtl] .me-5{margin-right:0 !important}[dir=rtl] .ms-5{margin-left:0 !important}[dir=rtl] .pe-5{padding-right:0 !important}[dir=rtl] .ps-5{padding-left:0 !important}@media(min-width: 576px){[dir=rtl] .me-sm-0{margin-right:0 !important}[dir=rtl] .ms-sm-0{margin-left:0 !important}[dir=rtl] .pe-sm-0{padding-right:0 !important}[dir=rtl] .ps-sm-0{padding-left:0 !important}[dir=rtl] .me-sm-1{margin-right:0 !important}[dir=rtl] .ms-sm-1{margin-left:0 !important}[dir=rtl] .pe-sm-1{padding-right:0 !important}[dir=rtl] .ps-sm-1{padding-left:0 !important}[dir=rtl] .me-sm-2{margin-right:0 !important}[dir=rtl] .ms-sm-2{margin-left:0 !important}[dir=rtl] .pe-sm-2{padding-right:0 !important}[dir=rtl] .ps-sm-2{padding-left:0 !important}[dir=rtl] .me-sm-3{margin-right:0 !important}[dir=rtl] .ms-sm-3{margin-left:0 !important}[dir=rtl] .pe-sm-3{padding-right:0 !important}[dir=rtl] .ps-sm-3{padding-left:0 !important}[dir=rtl] .me-sm-4{margin-right:0 !important}[dir=rtl] .ms-sm-4{margin-left:0 !important}[dir=rtl] .pe-sm-4{padding-right:0 !important}[dir=rtl] .ps-sm-4{padding-left:0 !important}[dir=rtl] .me-sm-5{margin-right:0 !important}[dir=rtl] .ms-sm-5{margin-left:0 !important}[dir=rtl] .pe-sm-5{padding-right:0 !important}[dir=rtl] .ps-sm-5{padding-left:0 !important}}@media(min-width: 768px){[dir=rtl] .me-md-0{margin-right:0 !important}[dir=rtl] .ms-md-0{margin-left:0 !important}[dir=rtl] .pe-md-0{padding-right:0 !important}[dir=rtl] .ps-md-0{padding-left:0 !important}[dir=rtl] .me-md-1{margin-right:0 !important}[dir=rtl] .ms-md-1{margin-left:0 !important}[dir=rtl] .pe-md-1{padding-right:0 !important}[dir=rtl] .ps-md-1{padding-left:0 !important}[dir=rtl] .me-md-2{margin-right:0 !important}[dir=rtl] .ms-md-2{margin-left:0 !important}[dir=rtl] .pe-md-2{padding-right:0 !important}[dir=rtl] .ps-md-2{padding-left:0 !important}[dir=rtl] .me-md-3{margin-right:0 !important}[dir=rtl] .ms-md-3{margin-left:0 !important}[dir=rtl] .pe-md-3{padding-right:0 !important}[dir=rtl] .ps-md-3{padding-left:0 !important}[dir=rtl] .me-md-4{margin-right:0 !important}[dir=rtl] .ms-md-4{margin-left:0 !important}[dir=rtl] .pe-md-4{padding-right:0 !important}[dir=rtl] .ps-md-4{padding-left:0 !important}[dir=rtl] .me-md-5{margin-right:0 !important}[dir=rtl] .ms-md-5{margin-left:0 !important}[dir=rtl] .pe-md-5{padding-right:0 !important}[dir=rtl] .ps-md-5{padding-left:0 !important}}@media(min-width: 992px){[dir=rtl] .me-lg-0{margin-right:0 !important}[dir=rtl] .ms-lg-0{margin-left:0 !important}[dir=rtl] .pe-lg-0{padding-right:0 !important}[dir=rtl] .ps-lg-0{padding-left:0 !important}[dir=rtl] .me-lg-1{margin-right:0 !important}[dir=rtl] .ms-lg-1{margin-left:0 !important}[dir=rtl] .pe-lg-1{padding-right:0 !important}[dir=rtl] .ps-lg-1{padding-left:0 !important}[dir=rtl] .me-lg-2{margin-right:0 !important}[dir=rtl] .ms-lg-2{margin-left:0 !important}[dir=rtl] .pe-lg-2{padding-right:0 !important}[dir=rtl] .ps-lg-2{padding-left:0 !important}[dir=rtl] .me-lg-3{margin-right:0 !important}[dir=rtl] .ms-lg-3{margin-left:0 !important}[dir=rtl] .pe-lg-3{padding-right:0 !important}[dir=rtl] .ps-lg-3{padding-left:0 !important}[dir=rtl] .me-lg-4{margin-right:0 !important}[dir=rtl] .ms-lg-4{margin-left:0 !important}[dir=rtl] .pe-lg-4{padding-right:0 !important}[dir=rtl] .ps-lg-4{padding-left:0 !important}[dir=rtl] .me-lg-5{margin-right:0 !important}[dir=rtl] .ms-lg-5{margin-left:0 !important}[dir=rtl] .pe-lg-5{padding-right:0 !important}[dir=rtl] .ps-lg-5{padding-left:0 !important}}@media(min-width: 1200px){[dir=rtl] .me-xl-0{margin-right:0 !important}[dir=rtl] .ms-xl-0{margin-left:0 !important}[dir=rtl] .pe-xl-0{padding-right:0 !important}[dir=rtl] .ps-xl-0{padding-left:0 !important}[dir=rtl] .me-xl-1{margin-right:0 !important}[dir=rtl] .ms-xl-1{margin-left:0 !important}[dir=rtl] .pe-xl-1{padding-right:0 !important}[dir=rtl] .ps-xl-1{padding-left:0 !important}[dir=rtl] .me-xl-2{margin-right:0 !important}[dir=rtl] .ms-xl-2{margin-left:0 !important}[dir=rtl] .pe-xl-2{padding-right:0 !important}[dir=rtl] .ps-xl-2{padding-left:0 !important}[dir=rtl] .me-xl-3{margin-right:0 !important}[dir=rtl] .ms-xl-3{margin-left:0 !important}[dir=rtl] .pe-xl-3{padding-right:0 !important}[dir=rtl] .ps-xl-3{padding-left:0 !important}[dir=rtl] .me-xl-4{margin-right:0 !important}[dir=rtl] .ms-xl-4{margin-left:0 !important}[dir=rtl] .pe-xl-4{padding-right:0 !important}[dir=rtl] .ps-xl-4{padding-left:0 !important}[dir=rtl] .me-xl-5{margin-right:0 !important}[dir=rtl] .ms-xl-5{margin-left:0 !important}[dir=rtl] .pe-xl-5{padding-right:0 !important}[dir=rtl] .ps-xl-5{padding-left:0 !important}}@media(min-width: 1400px){[dir=rtl] .me-xxl-0{margin-right:0 !important}[dir=rtl] .ms-xxl-0{margin-left:0 !important}[dir=rtl] .pe-xxl-0{padding-right:0 !important}[dir=rtl] .ps-xxl-0{padding-left:0 !important}[dir=rtl] .me-xxl-1{margin-right:0 !important}[dir=rtl] .ms-xxl-1{margin-left:0 !important}[dir=rtl] .pe-xxl-1{padding-right:0 !important}[dir=rtl] .ps-xxl-1{padding-left:0 !important}[dir=rtl] .me-xxl-2{margin-right:0 !important}[dir=rtl] .ms-xxl-2{margin-left:0 !important}[dir=rtl] .pe-xxl-2{padding-right:0 !important}[dir=rtl] .ps-xxl-2{padding-left:0 !important}[dir=rtl] .me-xxl-3{margin-right:0 !important}[dir=rtl] .ms-xxl-3{margin-left:0 !important}[dir=rtl] .pe-xxl-3{padding-right:0 !important}[dir=rtl] .ps-xxl-3{padding-left:0 !important}[dir=rtl] .me-xxl-4{margin-right:0 !important}[dir=rtl] .ms-xxl-4{margin-left:0 !important}[dir=rtl] .pe-xxl-4{padding-right:0 !important}[dir=rtl] .ps-xxl-4{padding-left:0 !important}[dir=rtl] .me-xxl-5{margin-right:0 !important}[dir=rtl] .ms-xxl-5{margin-left:0 !important}[dir=rtl] .pe-xxl-5{padding-right:0 !important}[dir=rtl] .ps-xxl-5{padding-left:0 !important}}[dir=rtl] .float-start{float:right !important}[dir=rtl] .float-end{float:left !important}[dir=rtl] .float-none{float:none !important}[dir=rtl] .me-0{margin-left:0 !important}[dir=rtl] .me-1{margin-left:.25rem !important}[dir=rtl] .me-2{margin-left:.5rem !important}[dir=rtl] .me-3{margin-left:1rem !important}[dir=rtl] .me-4{margin-left:1.5rem !important}[dir=rtl] .me-5{margin-left:2rem !important}[dir=rtl] .me-auto{margin-left:auto !important}[dir=rtl] .ms-0{margin-right:0 !important}[dir=rtl] .ms-1{margin-right:.25rem !important}[dir=rtl] .ms-2{margin-right:.5rem !important}[dir=rtl] .ms-3{margin-right:1rem !important}[dir=rtl] .ms-4{margin-right:1.5rem !important}[dir=rtl] .ms-5{margin-right:2rem !important}[dir=rtl] .ms-auto{margin-right:auto !important}[dir=rtl] .pe-0{padding-left:0 !important}[dir=rtl] .pe-1{padding-left:.25rem !important}[dir=rtl] .pe-2{padding-left:.5rem !important}[dir=rtl] .pe-3{padding-left:1rem !important}[dir=rtl] .pe-4{padding-left:1.5rem !important}[dir=rtl] .pe-5{padding-left:2rem !important}[dir=rtl] .ps-0{padding-right:0 !important}[dir=rtl] .ps-1{padding-right:.25rem !important}[dir=rtl] .ps-2{padding-right:.5rem !important}[dir=rtl] .ps-3{padding-right:1rem !important}[dir=rtl] .ps-4{padding-right:1.5rem !important}[dir=rtl] .ps-5{padding-right:2rem !important}[dir=rtl] .text-start{text-align:right !important}[dir=rtl] .text-end{text-align:left !important}[dir=rtl] .text-center{text-align:center !important}@media(min-width: 576px){[dir=rtl] .float-sm-start{float:right !important}[dir=rtl] .float-sm-end{float:left !important}[dir=rtl] .float-sm-none{float:none !important}[dir=rtl] .me-sm-0{margin-left:0 !important}[dir=rtl] .me-sm-1{margin-left:.25rem !important}[dir=rtl] .me-sm-2{margin-left:.5rem !important}[dir=rtl] .me-sm-3{margin-left:1rem !important}[dir=rtl] .me-sm-4{margin-left:1.5rem !important}[dir=rtl] .me-sm-5{margin-left:2rem !important}[dir=rtl] .me-sm-auto{margin-left:auto !important}[dir=rtl] .ms-sm-0{margin-right:0 !important}[dir=rtl] .ms-sm-1{margin-right:.25rem !important}[dir=rtl] .ms-sm-2{margin-right:.5rem !important}[dir=rtl] .ms-sm-3{margin-right:1rem !important}[dir=rtl] .ms-sm-4{margin-right:1.5rem !important}[dir=rtl] .ms-sm-5{margin-right:2rem !important}[dir=rtl] .ms-sm-auto{margin-right:auto !important}[dir=rtl] .pe-sm-0{padding-left:0 !important}[dir=rtl] .pe-sm-1{padding-left:.25rem !important}[dir=rtl] .pe-sm-2{padding-left:.5rem !important}[dir=rtl] .pe-sm-3{padding-left:1rem !important}[dir=rtl] .pe-sm-4{padding-left:1.5rem !important}[dir=rtl] .pe-sm-5{padding-left:2rem !important}[dir=rtl] .ps-sm-0{padding-right:0 !important}[dir=rtl] .ps-sm-1{padding-right:.25rem !important}[dir=rtl] .ps-sm-2{padding-right:.5rem !important}[dir=rtl] .ps-sm-3{padding-right:1rem !important}[dir=rtl] .ps-sm-4{padding-right:1.5rem !important}[dir=rtl] .ps-sm-5{padding-right:2rem !important}[dir=rtl] .text-sm-start{text-align:right !important}[dir=rtl] .text-sm-end{text-align:left !important}[dir=rtl] .text-sm-center{text-align:center !important}}@media(min-width: 768px){[dir=rtl] .float-md-start{float:right !important}[dir=rtl] .float-md-end{float:left !important}[dir=rtl] .float-md-none{float:none !important}[dir=rtl] .me-md-0{margin-left:0 !important}[dir=rtl] .me-md-1{margin-left:.25rem !important}[dir=rtl] .me-md-2{margin-left:.5rem !important}[dir=rtl] .me-md-3{margin-left:1rem !important}[dir=rtl] .me-md-4{margin-left:1.5rem !important}[dir=rtl] .me-md-5{margin-left:2rem !important}[dir=rtl] .me-md-auto{margin-left:auto !important}[dir=rtl] .ms-md-0{margin-right:0 !important}[dir=rtl] .ms-md-1{margin-right:.25rem !important}[dir=rtl] .ms-md-2{margin-right:.5rem !important}[dir=rtl] .ms-md-3{margin-right:1rem !important}[dir=rtl] .ms-md-4{margin-right:1.5rem !important}[dir=rtl] .ms-md-5{margin-right:2rem !important}[dir=rtl] .ms-md-auto{margin-right:auto !important}[dir=rtl] .pe-md-0{padding-left:0 !important}[dir=rtl] .pe-md-1{padding-left:.25rem !important}[dir=rtl] .pe-md-2{padding-left:.5rem !important}[dir=rtl] .pe-md-3{padding-left:1rem !important}[dir=rtl] .pe-md-4{padding-left:1.5rem !important}[dir=rtl] .pe-md-5{padding-left:2rem !important}[dir=rtl] .ps-md-0{padding-right:0 !important}[dir=rtl] .ps-md-1{padding-right:.25rem !important}[dir=rtl] .ps-md-2{padding-right:.5rem !important}[dir=rtl] .ps-md-3{padding-right:1rem !important}[dir=rtl] .ps-md-4{padding-right:1.5rem !important}[dir=rtl] .ps-md-5{padding-right:2rem !important}[dir=rtl] .text-md-start{text-align:right !important}[dir=rtl] .text-md-end{text-align:left !important}[dir=rtl] .text-md-center{text-align:center !important}}@media(min-width: 992px){[dir=rtl] .float-lg-start{float:right !important}[dir=rtl] .float-lg-end{float:left !important}[dir=rtl] .float-lg-none{float:none !important}[dir=rtl] .me-lg-0{margin-left:0 !important}[dir=rtl] .me-lg-1{margin-left:.25rem !important}[dir=rtl] .me-lg-2{margin-left:.5rem !important}[dir=rtl] .me-lg-3{margin-left:1rem !important}[dir=rtl] .me-lg-4{margin-left:1.5rem !important}[dir=rtl] .me-lg-5{margin-left:2rem !important}[dir=rtl] .me-lg-auto{margin-left:auto !important}[dir=rtl] .ms-lg-0{margin-right:0 !important}[dir=rtl] .ms-lg-1{margin-right:.25rem !important}[dir=rtl] .ms-lg-2{margin-right:.5rem !important}[dir=rtl] .ms-lg-3{margin-right:1rem !important}[dir=rtl] .ms-lg-4{margin-right:1.5rem !important}[dir=rtl] .ms-lg-5{margin-right:2rem !important}[dir=rtl] .ms-lg-auto{margin-right:auto !important}[dir=rtl] .pe-lg-0{padding-left:0 !important}[dir=rtl] .pe-lg-1{padding-left:.25rem !important}[dir=rtl] .pe-lg-2{padding-left:.5rem !important}[dir=rtl] .pe-lg-3{padding-left:1rem !important}[dir=rtl] .pe-lg-4{padding-left:1.5rem !important}[dir=rtl] .pe-lg-5{padding-left:2rem !important}[dir=rtl] .ps-lg-0{padding-right:0 !important}[dir=rtl] .ps-lg-1{padding-right:.25rem !important}[dir=rtl] .ps-lg-2{padding-right:.5rem !important}[dir=rtl] .ps-lg-3{padding-right:1rem !important}[dir=rtl] .ps-lg-4{padding-right:1.5rem !important}[dir=rtl] .ps-lg-5{padding-right:2rem !important}[dir=rtl] .text-lg-start{text-align:right !important}[dir=rtl] .text-lg-end{text-align:left !important}[dir=rtl] .text-lg-center{text-align:center !important}}@media(min-width: 1200px){[dir=rtl] .float-xl-start{float:right !important}[dir=rtl] .float-xl-end{float:left !important}[dir=rtl] .float-xl-none{float:none !important}[dir=rtl] .me-xl-0{margin-left:0 !important}[dir=rtl] .me-xl-1{margin-left:.25rem !important}[dir=rtl] .me-xl-2{margin-left:.5rem !important}[dir=rtl] .me-xl-3{margin-left:1rem !important}[dir=rtl] .me-xl-4{margin-left:1.5rem !important}[dir=rtl] .me-xl-5{margin-left:2rem !important}[dir=rtl] .me-xl-auto{margin-left:auto !important}[dir=rtl] .ms-xl-0{margin-right:0 !important}[dir=rtl] .ms-xl-1{margin-right:.25rem !important}[dir=rtl] .ms-xl-2{margin-right:.5rem !important}[dir=rtl] .ms-xl-3{margin-right:1rem !important}[dir=rtl] .ms-xl-4{margin-right:1.5rem !important}[dir=rtl] .ms-xl-5{margin-right:2rem !important}[dir=rtl] .ms-xl-auto{margin-right:auto !important}[dir=rtl] .pe-xl-0{padding-left:0 !important}[dir=rtl] .pe-xl-1{padding-left:.25rem !important}[dir=rtl] .pe-xl-2{padding-left:.5rem !important}[dir=rtl] .pe-xl-3{padding-left:1rem !important}[dir=rtl] .pe-xl-4{padding-left:1.5rem !important}[dir=rtl] .pe-xl-5{padding-left:2rem !important}[dir=rtl] .ps-xl-0{padding-right:0 !important}[dir=rtl] .ps-xl-1{padding-right:.25rem !important}[dir=rtl] .ps-xl-2{padding-right:.5rem !important}[dir=rtl] .ps-xl-3{padding-right:1rem !important}[dir=rtl] .ps-xl-4{padding-right:1.5rem !important}[dir=rtl] .ps-xl-5{padding-right:2rem !important}[dir=rtl] .text-xl-start{text-align:right !important}[dir=rtl] .text-xl-end{text-align:left !important}[dir=rtl] .text-xl-center{text-align:center !important}}@media(min-width: 1400px){[dir=rtl] .float-xxl-start{float:right !important}[dir=rtl] .float-xxl-end{float:left !important}[dir=rtl] .float-xxl-none{float:none !important}[dir=rtl] .me-xxl-0{margin-left:0 !important}[dir=rtl] .me-xxl-1{margin-left:.25rem !important}[dir=rtl] .me-xxl-2{margin-left:.5rem !important}[dir=rtl] .me-xxl-3{margin-left:1rem !important}[dir=rtl] .me-xxl-4{margin-left:1.5rem !important}[dir=rtl] .me-xxl-5{margin-left:2rem !important}[dir=rtl] .me-xxl-auto{margin-left:auto !important}[dir=rtl] .ms-xxl-0{margin-right:0 !important}[dir=rtl] .ms-xxl-1{margin-right:.25rem !important}[dir=rtl] .ms-xxl-2{margin-right:.5rem !important}[dir=rtl] .ms-xxl-3{margin-right:1rem !important}[dir=rtl] .ms-xxl-4{margin-right:1.5rem !important}[dir=rtl] .ms-xxl-5{margin-right:2rem !important}[dir=rtl] .ms-xxl-auto{margin-right:auto !important}[dir=rtl] .pe-xxl-0{padding-left:0 !important}[dir=rtl] .pe-xxl-1{padding-left:.25rem !important}[dir=rtl] .pe-xxl-2{padding-left:.5rem !important}[dir=rtl] .pe-xxl-3{padding-left:1rem !important}[dir=rtl] .pe-xxl-4{padding-left:1.5rem !important}[dir=rtl] .pe-xxl-5{padding-left:2rem !important}[dir=rtl] .ps-xxl-0{padding-right:0 !important}[dir=rtl] .ps-xxl-1{padding-right:.25rem !important}[dir=rtl] .ps-xxl-2{padding-right:.5rem !important}[dir=rtl] .ps-xxl-3{padding-right:1rem !important}[dir=rtl] .ps-xxl-4{padding-right:1.5rem !important}[dir=rtl] .ps-xxl-5{padding-right:2rem !important}[dir=rtl] .text-xxl-start{text-align:right !important}[dir=rtl] .text-xxl-end{text-align:left !important}[dir=rtl] .text-xxl-center{text-align:center !important}}[dir=rtl] .sidebar+.main-content{margin-right:var(--sidebar-width);margin-left:auto}@media(max-width: 1199.98px){[dir=rtl] .sidebar-default.sidebar-mini.sidebar-boxed+.main-content,[dir=rtl] .sidebar-default.sidebar-boxed+.main-content,[dir=rtl] .sidebar-default.sidebar-mini+.main-content,[dir=rtl] .sidebar-default+.main-content{margin-right:0;margin-left:unset}}[dir=rtl] .sidebar-base .sidebar-list .navbar-nav .nav-item .nav-link .right-icon{-webkit-transform:rotate(180deg);-ms-transform:rotate(180deg);transform:rotate(180deg)}[dir=rtl] .sidebar-base .sidebar-list .navbar-nav .nav-item .nav-link.active .right-icon{-webkit-transform:rotate(90deg);-ms-transform:rotate(90deg);transform:rotate(90deg)}[dir=rtl] .sidebar-base .sidebar-list .navbar-nav .nav-item .nav-link[aria-expanded=true] .right-icon{-webkit-transform:rotate(90deg);-ms-transform:rotate(90deg);transform:rotate(90deg)}[dir=rtl] .sidebar-base .sidebar-list .navbar-nav .nav-item .nav-link:not(.disabled) span{margin-right:1rem;margin-left:unset}[dir=rtl] .sidebar-base:not(.sidebar-mini) .navbar-nav .nav-item:not(.static-item){padding-left:unset;padding-right:1rem}[dir=rtl] .sidebar-base.navs-pill:not(.sidebar-mini) .navbar-nav .nav-item:not(.static-item),[dir=rtl] .sidebar-base.navs-rounded:not(.sidebar-mini) .navbar-nav .nav-item:not(.static-item){padding-right:unset}[dir=rtl] .sidebar-base .data-scrollbar .scrollbar-track-y{left:0;right:unset}[dir=rtl] .sidebar .sidebar-toggle{left:-12px;right:unset;-webkit-transform:rotate(180deg);-ms-transform:rotate(180deg);transform:rotate(180deg)}[dir=rtl] .sidebar .navbar-brand{margin-left:1rem;margin-right:unset}[dir=rtl] .sidebar .navbar-brand .logo-title{margin-left:unset;margin-right:1rem}[dir=rtl] .sidebar.sidebar-glass{border-left:1px solid;border-right:unset}[dir=rtl] .navs-pill .sidebar-body{padding-left:1rem;padding-right:unset}[dir=rtl] .sidebar.navs-rounded .sidebar-body .nav-item .nav-link{-webkit-border-top-left-radius:.25rem;border-top-left-radius:.25rem;-webkit-border-bottom-left-radius:.25rem;border-bottom-left-radius:.25rem;-webkit-border-top-right-radius:unset;border-top-right-radius:unset;-webkit-border-bottom-right-radius:unset;border-bottom-right-radius:unset}[dir=rtl] .sidebar.navs-pill .sidebar-body .nav-item .nav-link{-webkit-border-top-left-radius:50rem !important;border-top-left-radius:50rem !important;-webkit-border-bottom-left-radius:50rem !important;border-bottom-left-radius:50rem !important;-webkit-border-top-right-radius:unset !important;border-top-right-radius:unset !important;-webkit-border-bottom-right-radius:unset !important;border-bottom-right-radius:unset !important}[dir=rtl] .navbar-nav{padding-right:0;padding-left:unset}[dir=rtl] .navbar-expand-lg .navbar-nav{margin-right:auto;margin-left:unset !important}[dir=rtl] .nav .search-input{direction:ltr;text-align:right}[dir=rtl] .nav .search-input.input-group .input-group-text{-webkit-border-radius:0px .25rem .25rem 0px !important;border-radius:0px .25rem .25rem 0px !important}[dir=rtl] .nav .search-input.input-group .form-control{-webkit-border-radius:.25rem 0px 0px .25rem !important;border-radius:.25rem 0px 0px .25rem !important}[dir=rtl] .nav .navbar-brand{margin-right:2rem;margin-left:unset}[dir=rtl] .nav .navbar-brand .logo-title{margin-left:unset;margin-right:1rem}[dir=rtl] .nav .sidebar-toggle{right:20px;left:auto;top:auto;line-height:15px;-webkit-transform:rotate(180deg);-ms-transform:rotate(180deg);transform:rotate(180deg)}[dir=rtl] .tab-bottom-bordered.iq-custom-tab-border .nav-tabs .nav-link:nth-child(1){padding-right:unset;padding-left:1rem}[dir=rtl] .sidebar-profile-card .sidebar-profile-action .btn-action:not(:first-child){margin-right:1rem}[dir=rtl] .sidebar-mini .sidebar-profile-card .sidebar-profile-action .btn-action:not(:first-child){margin-right:0;margin-bottom:.75rem}[dir=rtl] .navbar .nav-item .nav-link .right-icon{-webkit-transform:rotate(180deg);-ms-transform:rotate(180deg);transform:rotate(180deg)}[dir=rtl] .navbar-nav{padding-right:0;padding-left:unset}[dir=rtl] .ms-auto{margin-left:unset !important}[dir=rtl] .sidebar.sidebar-mini+.main-content{-webkit-transition:var(--sidebar-transition);-o-transition:var(--sidebar-transition);transition:var(--sidebar-transition);-webkit-transition-duration:var(--sidebar-transition-duration);-o-transition-duration:var(--sidebar-transition-duration);transition-duration:var(--sidebar-transition-duration);-webkit-transition-timing-function:var(--sidebar-transition-function-ease);-o-transition-timing-function:var(--sidebar-transition-function-ease);transition-timing-function:var(--sidebar-transition-function-ease);--sidebar-width: 4.8rem;margin-right:var(--sidebar-width);margin-left:unset}[dir=rtl] .sidebar.sidebar-mini.sidebar-hover.sidebar-transparent:hover+.main-content{margin-right:var(--sidebar-width);margin-left:unset}[dir=rtl] .sidebar.sidebar-mini.sidebar-base .nav-item:not(.static-item){padding-left:unset}[dir=rtl] .sidebar.sidebar-mini .sidebar-list .navbar-nav .nav-item .nav-link:not(.disabled) i.sidenav-mini-icon{margin-right:.25rem;margin-left:unset}[dir=rtl] .sidebar.sidebar-mini.navs-full-width.sidebar-base:not(.sidebar-hover:hover) .navbar-nav .nav-item:not(.static-item) .nav-link{padding:.625rem 1.5rem .625rem 1rem}[dir=rtl] .sidebar.sidebar-mini.sidebar-base:not(.sidebar-hover:hover) .nav-item .nav-link:not(.static-item) span{-webkit-transform:translateX(100%) scale(0);-ms-transform:translateX(100%) scale(0);transform:translateX(100%) scale(0);opacity:0}[dir=rtl] .sidebar.sidebar-mini .navbar-brand .logo-title{-webkit-transform:translateX(100%) scale(0);-ms-transform:translateX(100%) scale(0);transform:translateX(100%) scale(0);opacity:0}[dir=rtl] .sidebar-hover:hover .sidebar-list .static-item{text-align:right}@media(max-width: 1199.98px){[dir=rtl] .sidebar.sidebar-base.sidebar-mini{-webkit-transform:translateX(100%);-ms-transform:translateX(100%);transform:translateX(100%)}[dir=rtl] .sidebar.sidebar-base.sidebar-mini .sidebar-header a.navbar-brand{-webkit-transform:translate(100%);-ms-transform:translate(100%);transform:translate(100%)}[dir=rtl] .sidebar.sidebar-base.sidebar-mini+.main-content{margin-right:0;margin-left:unset}}@media(max-width: 1199.98px){[dir=rtl] .sidebar .sidebar-toggle{left:18px}}[dir=rtl] .sidebar-base .sidebar-body{padding-left:1rem;padding-right:unset}[dir=rtl] .sidebar-base.sidebar-mini .sidebar-body{padding-right:1rem}[dir=rtl] .sidebar-base.navs-pill .sidebar-body,[dir=rtl] .sidebar-base.navs-rounded .sidebar-body{padding-right:unset}[dir=rtl] .sidebar-hover:hover.navs-rounded-all .navbar-nav .nav-item:not(.static-item),[dir=rtl] .sidebar-hover:hover.navs-pill-all .navbar-nav .nav-item:not(.static-item){padding-left:unset}[dir=rtl] .sidebar-hover:hover .logo-title{-webkit-transform:translateX(0%);-ms-transform:translateX(0%);transform:translateX(0%);opacity:1}[dir=rtl] .sidebar-hover:hover .sidebar-list .navbar-nav .nav-item .nav-link:not(.disabled) span{-webkit-transform:translateX(0%);-ms-transform:translateX(0%);transform:translateX(0%);opacity:1}[dir=rtl] .sidebar-base.navs-full-width .sidebar-body{padding:0}[dir=rtl] .sidebar-base.navs-full-width:not(.sidebar-mini) .navbar-nav .nav-item:not(.static-item){padding:0}[dir=rtl] .sidebar-base.navs-full-width:not(.sidebar-mini) .navbar-nav .nav-item:not(.static-item) .sub-nav .nav-item .nav-link{padding-right:2rem;padding-left:1rem}[dir=rtl] .search-input .form-control{padding-right:1rem;padding-left:3rem}[dir=rtl] .search-input .iq-header-search-icon{right:unset;left:1rem}@media(min-width: 1200px){[dir=rtl] .iq-nav-menu li .nav-link.active::after{right:0}[dir=rtl] .iq-nav-menu li .iq-ecomm-collapse .nav-item>.nav-link:hover{padding-right:1.5rem;padding-left:1.25rem}[dir=rtl] .iq-nav-menu li>ul ul{right:100%;left:unset !important}[dir=rtl] .iq-nav-menu li .iq-header-sub-menu .nav-item>.nav-link:hover{padding-right:1.5rem;padding-left:1.25rem}}@media(max-width: 991.98px){[dir=rtl] .iq-navbar .navbar-collapse .navbar-nav.navbar-list:not(.offcanvas-collapse).navbar-nav{float:left}[dir=rtl] .iq-navbar .navbar-collapse .navbar-nav.navbar-list:not(.offcanvas-collapse).navbar-nav li{padding:0rem 0rem .5rem 1.5rem}}[dir=rtl] .sidebar-default.left-bordered .navbar-nav:not(.sub-nav)>.nav-item.active,[dir=rtl] .sidebar-default.left-bordered .navbar-nav:not(.sub-nav)>.nav-item:not(.static-item){position:relative}[dir=rtl] .sidebar-default.left-bordered .navbar-nav:not(.sub-nav)>.nav-item.active::before,[dir=rtl] .sidebar-default.left-bordered .navbar-nav:not(.sub-nav)>.nav-item:not(.static-item)::before{left:unset !important;right:0;-webkit-border-top-left-radius:.25rem;border-top-left-radius:.25rem;-webkit-border-bottom-left-radius:.25rem;border-bottom-left-radius:.25rem}[dir=rtl] .sidebar-default.left-bordered.sidebar-mini .navbar-nav:not(.sub-nav)>.nav-item.active,[dir=rtl] .sidebar-default.left-bordered.sidebar-mini .navbar-nav:not(.sub-nav)>.nav-item:not(.static-item){position:relative}[dir=rtl] .sidebar-default.left-bordered.sidebar-mini .navbar-nav:not(.sub-nav)>.nav-item.active::before,[dir=rtl] .sidebar-default.left-bordered.sidebar-mini .navbar-nav:not(.sub-nav)>.nav-item:not(.static-item)::before{right:-35%}[dir=rtl] .btn{-webkit-border-radius:.25rem;border-radius:.25rem}[dir=rtl] .btn-sm{-webkit-border-radius:.125rem;border-radius:.125rem}[dir=rtl] .btn-lg{-webkit-border-radius:.5rem;border-radius:.5rem}[dir=rtl] .iq-custom-badge{margin-left:1rem;margin-right:unset}[dir=rtl] .iq-custom-badge:last-child{margin-left:0;margin-right:unset}[dir=rtl] .iq-custom-badge .iq-cancel-btn{left:-0.5rem;right:unset}[dir=rtl] .btn.btn-fixed-end{left:0;right:auto;-webkit-border-top-left-radius:0;border-top-left-radius:0;-webkit-border-bottom-left-radius:0;border-bottom-left-radius:0}[dir=rtl] .btn.btn-fixed-start{right:0;left:auto;-webkit-border-top-right-radius:0;border-top-right-radius:0;-webkit-border-bottom-right-radius:0;border-bottom-right-radius:0}[dir=rtl] .btn.btn-fixed-top{top:0;-webkit-border-top-left-radius:0;border-top-left-radius:0;-webkit-border-top-right-radius:0;border-top-right-radius:0}[dir=rtl] .btn.btn-fixed-bottom{bottom:0;-webkit-border-bottom-left-radius:0;border-bottom-left-radius:0;-webkit-border-bottom-right-radius:0;border-bottom-right-radius:0}[dir=rtl] .btn.btn-download{left:-6rem;right:unset;-webkit-transform:rotate(90deg) translate(50%, -10%);-ms-transform:rotate(90deg) translate(50%, -10%);transform:rotate(90deg) translate(50%, -10%);-webkit-transform-origin:100% 0% 0;-ms-transform-origin:100% 0% 0;transform-origin:100% 0% 0}[dir=rtl] .card-slide .card-slie-arrow{left:unset;right:42px}[dir=rtl] .upload-icone{right:69px;left:auto}[dir=rtl] .profile-media:before{left:auto;right:9px}[dir=rtl] .credit-card-widget .card-header::before{left:auto;right:-3.125rem}[dir=rtl] .credit-card-widget .card-header::after{left:-3.125rem;right:auto}[dir=rtl] .credit-card-widget .primary-gradient-card .master-card-content .master-card-2{margin-left:unset;margin-right:-2rem}[dir=rtl] .comment-attagement{position:absolute;left:0;right:41rem;font-size:1.25rem}[dir=rtl] .progress-widget .progress-detail{margin-right:1.5rem;margin-left:unset}[dir=rtl] .iq-ribbon-effect{right:2rem;left:unset}[dir=rtl] .iq-ribbon-effect>span{-webkit-transform:rotate(0deg);-ms-transform:rotate(0deg);transform:rotate(0deg)}[dir=rtl] .btn-group{direction:ltr}[dir=rtl] .modal-header .btn-close{margin:-0.625rem auto -0.625rem -0.625rem}[dir=rtl] .input-group:not(.has-validation)>:not(:last-child):not(.dropdown-toggle):not(.dropdown-menu),[dir=rtl] .input-group:not(.has-validation)>.dropdown-toggle:nth-last-child(n+3){-webkit-border-radius:0 .25rem .25rem 0;border-radius:0 .25rem .25rem 0}[dir=rtl] .input-group>:not(:first-child):not(.dropdown-menu):not(.valid-tooltip):not(.valid-feedback):not(.invalid-tooltip):not(.invalid-feedback){margin-right:-1px;margin-left:unset;-webkit-border-radius:.25rem 0 0 .25rem;border-radius:.25rem 0 0 .25rem}[dir=rtl] .input-group.has-validation>:nth-last-child(n+3):not(.dropdown-toggle):not(.dropdown-menu),[dir=rtl] .input-group.has-validation>.dropdown-toggle:nth-last-child(n+4){-webkit-border-radius:0 .25rem .25rem 0;border-radius:0 .25rem .25rem 0}[dir=rtl] .form-check{padding-left:unset;padding-right:1.5em}[dir=rtl] .form-check .form-check-input{float:right;margin-left:unset;margin-right:-1.5em}[dir=rtl] .form-control{direction:ltr;text-align:right}[dir=rtl] .form-switch{padding-right:2.5em}[dir=rtl] .form-switch .form-check-input{margin-right:-2.5em}[dir=rtl] .select2-container--default .select2-selection--multiple .select2-selection__choice{float:right}[dir=rtl] .select2-container .select2-search--inline{float:right}[dir=rtl] .form-check-inline{margin-left:1rem;margin-right:unset}[dir=rtl] .form-switch.form-switch.form-check-inline{padding-right:2.5em;padding-left:unset}[dir=rtl] .form-check.form-switch.form-check-inline .form-check-input{margin-right:.5em;margin-left:.5em}[dir=rtl] .iq-comingsoon-form button{left:0px;right:unset}[dir=rtl] .border-end{border-left:1px solid #eee !important;border-right:unset !important}[dir=rtl] .border-start{border-right:1px solid #eee !important;border-left:unset !important}[dir=rtl] .list-unstyled,[dir=rtl] .list-inline{padding-right:0}[dir=rtl] .dropdown-item{text-align:right}[dir=rtl] .dropdown-toggle::after{margin-left:unset;margin-right:.255em}[dir=rtl] .dropdown-menu-end[data-bs-popper]{right:auto;left:0}[dir=rtl] .iq-timeline0::before{left:auto;right:20px}[dir=rtl] .iq-timeline0 ul li:nth-child(odd){float:right;text-align:right;padding:0 60px 0 0}[dir=rtl] .iq-timeline0 ul li:nth-child(odd) .timeline-dots{right:12px;left:auto}[dir=rtl] .iq-timeline0 ul li:nth-child(odd) .timeline-dots.timeline-dot1{right:12px;left:auto}[dir=rtl] .iq-timeline0 ul li:nth-child(even){float:right;text-align:right;padding:0 60px 0 0}[dir=rtl] .iq-timeline0 ul li:nth-child(even) .timeline-dots{right:12px;left:auto}[dir=rtl] .iq-timeline0 ul li:nth-child(even) .timeline-dots.timeline-dot1{right:12px;left:auto}[dir=rtl] .iq-timeline0 ul li .timeline-dots1{left:auto;right:0}[dir=rtl] .custom-table-effect .table tbody tr:after{right:0;-webkit-border-top-left-radius:.25rem;border-top-left-radius:.25rem;-webkit-border-bottom-left-radius:.25rem;border-bottom-left-radius:.25rem;-webkit-border-top-right-radius:unset;border-top-right-radius:unset;-webkit-border-bottom-right-radius:unset;border-bottom-right-radius:unset}[dir=rtl] .sign-bg{right:0;left:0}[dir=rtl] .sign-bg.sign-bg-right{left:0;right:auto}[dir=rtl] .card .card-body .iq-media-group-1 .iq-media-1:first-child{margin-left:-1.25rem}[dir=rtl] .visa-card-widget .master-card-content .master-card-2{margin-right:-2rem;opacity:.7}[dir=rtl] .iq-single-card{-webkit-border-radius:.5rem 0 0 .5rem;border-radius:.5rem 0 0 .5rem}
+/*# sourceMappingURL=maps/rtl.min.css.map */
+
+</style>
+<script>
+    // JavaScript function to go back to the previous page
+    function goBack() {
+        window.history.back();
+    }
+</script>
+<script>
+                $(document).ready(function(){
+                $('#example').DataTable();
+                });
+            </script>
+            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+<script src="https://cdn.lordicon.com/lordicon.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</body>
+
+
+</html>

@@ -1,0 +1,531 @@
+{% extends 'user_base.html' %}
+
+{% block content %}
+  <div id="overlayy" class="overlayy"></div>
+
+    <!-- Sign In Popup -->
+    <div id="signinPopup" class="signin-popup">
+      <div class="popup-header">
+        <h2>Sign-In</h2>
+        <span
+          class="close-btn"
+          onclick="closeSignInPopup()"
+          style="color: black"
+          >&#10006;</span
+        >
+      </div>
+
+      <label for="username" style="color: black"
+        >Username:&nbsp;<span class="required" style="color: red"
+          >*</span
+        ></label
+      >
+      <input
+        type="text"
+        id="username"
+        placeholder="Enter your username"
+        required
+      />
+      <br />
+
+      <label for="password" style="color: black"
+        >Password:&nbsp;<span class="required" style="color: red"
+          >*</span
+        ></label
+      >
+      <div style="position: relative">
+        <input
+          type="password"
+          id="password"
+          placeholder="Enter your password"
+          style="padding-right: 30px"
+        />
+        <span
+          onclick="togglePasswordVisibility()"
+          style="
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+            cursor: pointer;
+          "
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            width="24"
+            height="24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path
+              d="M22 12s-4-6-10-6S2 12 2 12s4 6 10 6 10-6 10-6zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8z"
+            />
+            <circle cx="12" cy="12" r="3" />
+          </svg>
+        </span>
+      </div>
+      <!-- A -->
+      <p>
+        <b>Login through</b> &nbsp;<a
+          href="#"
+          id="openPopup"
+          style="color: blue"
+          >OTP</a
+        >
+      </p>
+
+      <div class="custom-overlay">
+        <div class="custom-popup">
+          <span
+            class="close-btn"
+            onclick="closeSignInPopup()"
+            style="color: black"
+            >&#10006;</span
+          >
+
+          <h3>OTP Verification</h3>
+          <br />
+          <label for="customMobileNumber" style="text-align: left"
+            >Enter mobile number:</label
+          >
+          <input
+            type="text"
+            id="customMobileNumber"
+            pattern="\d{10}"
+            placeholder="Enter 10-digit number"
+            required
+            oninput="validateMobileNumber(this)"
+          />
+          <div id="mobileNumberError" style="color: red; display: none">
+            Please enter a 10-digit number.
+          </div>
+          <!-- <div class="custom-popup"> -->
+          <br />
+          <br />
+          <div>
+            <div>
+              <div style="text-align: center">
+                <label for="customOtp1" style="display: block; text-align: left"
+                  >OTP:</label
+                >
+              </div>
+              <div style="text-align: left">
+                <input
+                  type="text"
+                  id="customOtp1"
+                  maxlength="1"
+                  pattern="\d"
+                  required
+                  oninput="validateOtpField(this)"
+                  style="width: 1.5em; display: inline-block"
+                />
+                &nbsp;&nbsp;&nbsp;
+                <input
+                  type="text"
+                  id="customOtp2"
+                  maxlength="1"
+                  pattern="\d"
+                  required
+                  oninput="validateOtpField(this)"
+                  style="width: 1.5em; display: inline-block"
+                />
+                &nbsp;&nbsp;&nbsp;
+                <input
+                  type="text"
+                  id="customOtp3"
+                  maxlength="1"
+                  pattern="\d"
+                  required
+                  oninput="validateOtpField(this)"
+                  style="width: 1.5em; display: inline-block"
+                />
+                &nbsp;&nbsp;&nbsp;
+                <input
+                  type="text"
+                  id="customOtp4"
+                  maxlength="1"
+                  pattern="\d"
+                  required
+                  oninput="validateOtpField(this)"
+                  style="width: 1.5em; display: inline-block"
+                />
+                <div id="otpError" style="color: red; display: none">
+                  Please enter numeric values.
+                </div>
+              </div>
+            </div>
+          </div>
+          <br />
+
+          <!-- <button onclick="submitSignIn()" style="margin-left: 90px; width: 260px">
+        Sign In
+      </button> -->
+          <button
+            id="submit"
+            style="width: 260px; background-color: #9d5b2a"
+            onclick="submitForm()"
+          >
+            Submit
+          </button>
+          <!-- </div> -->
+        </div>
+      </div>
+      <!-- A -->
+
+      <p style="text-align: center; margin-bottom: 10px">
+        Don't have an account?
+        <a href="signup.html" onclick="openSignUpPopup()" style="color: blue"
+          >Sign Up</a
+        >
+      </p>
+
+      <button
+        onclick="submitSignIn()"
+        style="
+          margin-left: 90px;
+          width: 260px;
+          padding: 10px;
+          background-color: #9d5b2a;
+          color: #fff;
+          border: none;
+          cursor: pointer;
+        "
+        onmouseover="this.style.backgroundColor='#9d5b2a'; this.style.color='black';"
+        onmouseout="this.style.backgroundColor='#9d5b2a'; this.style.color='#fff';"
+      >
+        Sign In
+      </button>
+    </div>
+    <!-- 3 -->
+    <!-- main header -->
+
+    <div
+      class="banner-header section-padding valign bg-img bg-fixed bg-position-bottom"
+      data-overlay-dark="5"
+      data-background="/static/userassets/img/slider/5.jpg"
+    >
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12 caption text-center">
+            <h1>My Account</h1>
+          </div>
+        </div>
+      </div>
+      <!-- button scroll -->
+      <a href="#" data-scroll-nav="1" class="mouse smoothscroll">
+        <span class="mouse-icon"> <span class="mouse-wheel"></span> </span>
+      </a>
+    </div>
+    <!-- Contact -->
+    <section class="contact section-padding" data-scroll-index="1">
+      <!-- template_new -->
+      <div class="container bootstrap snippets bootdey">
+        <div class="row ng-scope">
+          <div class="col-md-4">
+            <div class="panel panel-default" style="border-radius: 16px">
+              <div class="panel-body text-center">
+                <div class="pv-lg">
+                  <label
+                    for="upload"
+                    class="upload-label"
+                    style="margin-top: 10px"
+                  >
+                    <img
+                      class="center-block img-responsive img-circle img-thumbnail thumb96"
+                      src="https://bootdey.com/img/Content/avatar/avatar1.png"
+                      alt="Contact"
+                      id="avatar-img"
+                    />
+                    <div class="pencil-icon">
+                      <i class="fa fa-pencil" aria-hidden="true"></i>
+                    </div>
+                  </label>
+                  <input
+                    type="file"
+                    id="upload"
+                    accept="image/*"
+                    style="display: none"
+                  />
+                </div>
+                <h3 class="m0 text-bold">Audrey Hunt</h3>
+                <div class="mv-lg"></div>
+                <div class="text-center">
+                  <a
+                    class="btn btn-primary"
+                    href=""
+                    style="
+                      background-color: #deb942;
+                      margin-top: -5px;
+                      color: #fff;
+                      margin-bottom: 10px;
+                    "
+                    >Premium-member</a
+                  >
+                  <br />
+                </div>
+              </div>
+            </div>
+            <!-- <div
+              class="panel panel-default hidden-xs hidden-sm"
+              style="border-radius: 16px"
+            >
+              <div class="panel-heading">
+                <div class="panel-title text-center">Recent Bookings</div>
+              </div>
+              <div class="panel-body" style="margin-left: 5px">
+                <div class="media">
+                  <div class="media-left media-middle">
+                    <a href="#"
+                      ><img
+                        class="media-object img-circle img-thumbnail thumb48"
+                        src="/Hotel Application User Design 10/logo-intro_2-1.png"
+                        alt="Contact"
+                    /></a>
+                  </div>
+                  <div class="media-body pt-sm">
+                    <div class="text-bold">
+                      <span style="display: inline-block; margin-right: 5px"
+                        >Raj Hotel- Bali</span
+                      >
+                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                      <span class="text-sm text-muted">Last week</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="media">
+                  <div class="media-left media-middle">
+                    <a href="#"
+                      ><img
+                        class="media-object img-circle img-thumbnail thumb48"
+                        src="https://bootdey.com/img/Content/avatar/avatar3.png"
+                        alt="Contact"
+                    /></a>
+                  </div>
+                  <div class="media-body pt-sm">
+                    <div class="text-bold">
+                      Luis Vasquez
+                      <div class="text-sm text-muted">2h ago</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="media">
+                  <div class="media-left media-middle">
+                    <a href="#"
+                      ><img
+                        class="media-object img-circle img-thumbnail thumb48"
+                        src="https://bootdey.com/img/Content/avatar/avatar4.png"
+                        alt="Contact"
+                    /></a>
+                  </div>
+                  <div class="media-body pt-sm">
+                    <div class="text-bold">
+                      Duane Mckinney
+                      <div class="text-sm text-muted">yesterday</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div> -->
+          </div>
+          <div class="col-md-8">
+            <div class="panel panel-default" style="border-radius: 16px">
+              <div class="panel-body">
+                <div class="pull-right">
+                  <div class="btn-group dropdown" uib-dropdown="dropdown"></div>
+                </div>
+                <div class="h4 text-center">My profile</div>
+                <br />
+                <br />
+                <div class="row pv-lg">
+                  <div class="col-lg-2"></div>
+                  <div class="col-lg-8">
+                    <form class="form-horizontal ng-pristine ng-valid">
+                      <div class="form-group">
+                        <label
+                          class="col-sm-2 control-label"
+                          for="inputContact1"
+                          ><b>Name</b></label
+                        >
+                        <div class="col-sm-10">
+                          <input
+                            class="form-control"
+                            id="inputContact1"
+                            type="text"
+                            placeholder=""
+                            value="Audrey Hunt"
+                          />
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label
+                          class="col-sm-2 control-label"
+                          for="inputContact2"
+                          ><b>Email</b></label
+                        >
+                        <div class="col-sm-10">
+                          <input
+                            class="form-control"
+                            id="inputContact2"
+                            type="email"
+                            value="mail@example.com"
+                          />
+                        </div>
+                      </div>
+
+                      <div class="form-group">
+                        <label
+                          class="col-sm-2 control-label"
+                          for="inputContact4"
+                          ><b>Mobile</b></label
+                        >
+                        <div class="col-sm-10">
+                          <input
+                            class="form-control"
+                            id="inputContact4"
+                            type="text"
+                            value="7207588666"
+                          />
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-sm-2 control-label" for="inputGender"
+                          ><b>Gender</b></label
+                        >
+                        <div class="col-sm-10">
+                          <select class="form-control" id="inputGender">
+                            <option value="male" selected>Male</option>
+                            <option value="female">Female</option>
+                            <option value="others">Others</option>
+                          </select>
+                        </div>
+                      </div>
+
+                      <div class="form-group">
+                        <label class="col-sm-2 control-label" for="inputAge"
+                          ><b>Age</b></label
+                        >
+                        <div class="col-sm-10">
+                          <input
+                            class="form-control"
+                            id="inputAge"
+                            type="number"
+                            value="32"
+                          />
+                        </div>
+                      </div>
+
+                      <div class="form-group">
+                        <label class="col-sm-2 control-label" for="inputCard"
+                          ><b>Credit Card</b></label
+                        >
+                        <div class="col-sm-10">
+                          <input
+                            class="form-control"
+                            id="inputCard"
+                            type="text"
+                            value="XXXX XXXX XXXX 7777"
+                          />
+                        </div>
+                      </div>
+
+                      <div class="form-group">
+                        <label
+                          class="col-sm-2 control-label"
+                          for="inputContact6"
+                          ><b>Address</b></label
+                        >
+                        <div class="col-sm-10">
+                          <textarea
+                            class="form-control"
+                            id="inputContact6"
+                            rows="4"
+                          >
+1234 Begampet,Hyderabad - 500001,Telangana, India.
+                            </textarea
+                          >
+                        </div>
+                      </div>
+
+                      <div class="form-group">
+                        <label
+                          class="col-sm-2 control-label"
+                          for="inputNationality"
+                          ><b>Nationality</b></label
+                        >
+                        <div class="col-sm-10">
+                          <select class="form-control" id="inputNationality">
+                            <option value="india" selected>India</option>
+                            <option value="usa">Indonesia</option>
+                            <option value="uk">UAE</option>
+                            <option value="uk">Australia</option>
+                          </select>
+                        </div>
+                      </div>
+
+                      <div class="form-group">
+                        <label class="col-sm-2 control-label" for="inputFiles"
+                          ><b>Upload Files</b></label
+                        >
+                        <div class="col-sm-10">
+                          <div class="input-group">
+                            <input
+                              class="form-control"
+                              id="inputFiles"
+                              type="file"
+                              multiple
+                            />
+                            <span class="input-group-btn">
+                              <button
+                                type="button"
+                                class="btn btn-link"
+                                id="clearFiles"
+                                style="
+                                  font-size: 24px;
+                                  margin-top: -2px;
+                                  color: #6c757d;
+                                "
+                              >
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </span>
+                          </div>
+                          <small class="form-text text-muted pull-right"
+                            >Selected:
+                            <span id="fileCount">0</span> files</small
+                          >
+                        </div>
+                      </div>
+
+                      <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                          <button
+                            class="btn btn-info"
+                            type="submit"
+                            style="color: white; background-color: #9d5b2a"
+                          >
+                            Log out
+                          </button>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- template_new -->
+    </section>
+{% endblock %}

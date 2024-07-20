@@ -1,0 +1,830 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<ol class="breadcrumb" >
+    <li class="breadcrumb-item " style="margin-left: 78%;" >
+        <a href="{% url 'dashboard' %}">Dashboard</a>
+    </li>
+    <li class="breadcrumb-item active" >
+        Branch Management
+    </li>
+
+</ol>
+
+
+<div class="card" style="margin-right: 40px;margin-left: 30px;">
+    <div class="card-body">
+        <div class="card-header" style="background-color: #161d2b;color:white;">
+
+            <span style="color: "><h4 style="color:white;"> Add Branches</h4></span>
+        </div>
+        <br>
+        <br>
+        <form action="{% url 'addbm' %}" method="post" onsubmit="return validateForm()">
+            <div class="row">
+
+
+                {% csrf_token %}
+
+
+
+                <div class="col-12 col-md-4">
+                    <label for="imageUpload"><b>Branch Images (JPG, PNG, JPEG only)</b> &nbsp;<b
+                            style="color: red;">*</b></label>
+                    <input accept=".jpg, .jpeg, .png" class="form-control" autocomplete="off" id="branch_image" name="branch_image"
+                           placeholder="Enter The Branch Image" required title="Enter JPG, PNG, JPEG only" type="file">
+                    <span id="errorMessageImages" style="color: red; display: none;">Error message goes here</span>
+                </div>
+
+<div class="col-md-4">
+                    <label for="roomNumber" style="margin-top: 2px;" class="form-action"><b>Total Number of Rooms</b> &nbsp;<b style="color: red;">*</b></label>
+                    <input type="number" id="roomNumber" class="form-control" autocomplete="off" name="room_numbers" placeholder="Enter Total Number of Rooms" oninput="validateRoomNumber()" min="1" max="999" pattern="[1-9][0-9]{0,2}">
+                    <span id="roomNumberError" class="error" style="color: red;"></span>
+                </div>
+
+
+
+                <div class="col-md-4">
+                    <label for="phoneNumber"><b>Phone number</b>&nbsp;<b style="color: red;">*</b></label>
+                    <input type="tel" class="form-control" id="phoneNumber" autocomplete="off" placeholder="Enter Mobile Number" name="contact_by_mobile" pattern="[6-9][0-9]{9}" required title="Enter 10 numbers starting with 6-9">
+                    <div id="phoneError" style="color: red; display: none;"></div>
+                </div>
+
+                <div class="col-md-4" style="margin-top: 10px;">
+                    <label for="emailid" class="form-label"><b>Email Id</b>&nbsp;<b style="color: red;">*</b></label>
+                    <input type="email" class="form-control" id="emailid" autocomplete="off" placeholder="Enter Email Id" name="contact_by_mail" required pattern=".+@gmail\.com" required
+                              >
+                    <span id="emailError" style="color: red;"></span>
+                </div>
+
+                <div class="col-12 col-md-4 mb-3" style="margin-top: 10px;">
+                    <label for="country"><b>Country</b>&nbsp;<b style="color: red;">*</b></label>
+                    <input class="form-control" id="country" name="country" autocomplete="off" required type="text" placeholder="Enter The Country" oninput="validateCountry()">
+                    <span id="countryerror" style="color: red; display: none;">Please enter a valid country name</span>
+                </div>
+
+
+                <div class="col-md-4" style="margin-top: 10px;">
+                    <label for="state" class="form-label"><b>State</b>  &nbsp;<b style="color: red;">*</b></label>
+                    <input type="text" id="state" class="form-control" autocomplete="off" placeholder="Enter State Name" name="state" oninput="validateState()" required>
+                    <span id="state-error" style="color: red;"></span></div>
+
+                    <div class="col-md-4">
+                        <label for="Branchlocation" class="form-label"><b>City</b> &nbsp;<b style="color: red;">*</b></label>
+                        <input type="text" id="Branchlocation" name="Branchlocation" class="form-control" autocomplete="off" placeholder="Enter City Name" oninput="validateCity()" required>
+                        <span id="cityErrorMessage" style="color: red;"></span>
+                    </div>
+
+
+
+
+                    <div class="col-md-4">
+                        <label for="city" class="form-label"><b>Branch Name</b>  &nbsp;<b style="color: red;">*</b></label>
+                        <input type="text" id="city" class="form-control" autocomplete="off" name="city" placeholder="Enter Branch Name" oninput="validateCity()" required>
+                        <span id="errorcity" style="color: red;"></span>
+                        <p id="amenitiesError" style="color: red; display: none;">Please enter valid Branch Name (only letters, 3-30 characters)</p>{% if error_message_bm %}
+                        <div style="color:#c03221;" role="alert">
+                            {{ error_message_bm }}
+
+                        </div>
+                        {% endif %}
+                    </div>
+
+
+
+
+                    <div class="col-md-4">
+                        <label for="pincode" class="form-label"><b>PIN Code</b> &nbsp;<b style="color: red;">*</b></label>
+                        <input type="number" id="pincode" class="form-control" autocomplete="off" placeholder="Enter  PIN Code" name="pincode" oninput="validatePincode()" required>
+                        <span id="pincode-error" style="color: red;"></span>
+                    </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-12 mb-3">
+                    <label for="address" style="margin-top: 10px;"><b>Address</b></label>
+                    <textarea class="form-control" id="address" name="address" autocomplete="off"  rows="4" placeholder="Enter The Address"  maxlength="200"></textarea>
+                    <span id="charCount" style="color: #555; font-size: 12px;"></span>
+                    <span id="errorMessageAddress" class="error" style="color: red;"></span>
+                </div>
+            </div>
+
+            <div align="center" class="row justify-content-center">
+                <div class="col-8 col-md-4 mb-3">
+                    <button class="btn btn-outline-dark" style="background-color:#161d2b" type="submit" ><span class="text-white"
+                            >Submit</span></button>
+
+
+                    <button class="btn btn-outline-dark" style="background-color:#626875;" type="reset"><span
+                            style="color: white">Clear</span></button>
+                </div>
+            </div>
+
+        </form></div></div>
+
+        <!---delete popup---->
+        {% for j in bb_a %}
+        <div aria-hidden="true" aria-labelledby="deleteModalLabel" class="modal fade"
+             id="deleteData-{{forloop.counter}}"
+             tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button aria-label="Close" class="btn-close" data-bs-dismiss="modal"
+                                id="NotificationModalbtn-close"
+                                type="button"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mt-2 text-center">
+                            <lord-icon
+                                    colors="primary:#c71f16"
+                                    src="https://cdn.lordicon.com/skkahier.json"
+                                    style="width:150px;height:100px"
+                                    trigger="hover">
+                            </lord-icon>
+                            <h4>Are you sure ?</h4>
+                            <p class="text-muted mx-4 mb-0">Are you sure you want to remove this <b style="color: red;">{{j.city}}</b> Branch Record ?</p>
+                        </div>
+
+                        <div class="d-flex gap-2 justify-content-center mt-4 mb-2">
+                            <a class="btn btn-outline-danger text-white" style="background-color: #d11d26;" href="{% url 'deletebm' j.pk %}">Delete</a>
+                    <button type="button" class="btn btn-outline-dark text-white" style="background-color: #626875;" data-bs-dismiss="modal">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <br>
+        </div>
+        {% endfor %}
+    </div>
+    <!----- edit popup---->
+    {% for b in bb_a %}
+    <div aria-hidden="true" style="margin-top: 10px;" aria-labelledby="formModalLabel" class="modal fade" id="editData-{{forloop.counter}}"
+         style="margin-top:-120px;" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <form action="{% url 'updatebm' b.id %}" method="POST">
+                    {% csrf_token %}
+                    <div class="modal-header" style="background: #161d2b;">
+                        <h5 class="modal-title" id="formModalLabel" style="color: white">Edit </h5>
+                        <button aria-label="Close" class="btn-close bg-white" data-bs-dismiss="modal" type="button"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="your-submit-url" method="post">
+                            <div class="row">
+
+                                <div class="col-12 col-md-4">
+                                    <label for="imageUpload"><b>Branch Images (JPG, PNG, JPEG only)</b> &nbsp;<b
+                                            style="color: red;">*</b></label>
+                                    <input accept=".jpg, .jpeg, .png" class="form-control" autocomplete="off" id="branch_image" name="branch_image"
+                                           placeholder="Enter The Branch Image" required title="Enter JPG, PNG, JPEG only" type="file">
+                                    <span id="errorMessageImages" style="color: red; display: none;">Error message goes here</span>
+                                </div>
+
+
+                                <div class="col-md-4">
+                                    <label for="roomNumber" style="margin-top: 2px;" class="form-action"><b>Total Number of Rooms</b> &nbsp;<b style="color: red;">*</b></label>
+                                    <input type="number" id="roomNumber" class="form-control" autocomplete="off" name="room_numbers" value="{{b.room_numbers}}" autocomplete="off" placeholder="Enter Total Number of Rooms" oninput="validateRoomNumber()">
+                                    <span id="roomNumberError" class="error" style="color: red;"></span>
+                                </div>
+
+
+
+                                <div class="col-md-4" style="margin-top: 10px;">
+                                    <label for="phoneNumber"><b>Phone number</b>&nbsp;<b style="color: red;">*</b></label>
+                                    <input type="tel" class="form-control" id="phoneNumber" autocomplete="off" placeholder="Enter Mobile Number" name="contact_by_mobile" value="{{b.contact_by_mobile}}" pattern="[6-9][0-9]{9}" required title="Enter 10 numbers starting with 6-9">
+                                    <div id="phoneError" style="color: red; display: none;"></div>
+                                </div>
+
+                                <div class="col-md-4" style="margin-top: 10px;">
+                                    <label for="emailid" class="form-label"><b>Email Id</b>&nbsp;<b style="color: red;">*</b></label>
+                                    <input type="email" class="form-control" id="emailid" autocomplete="off" placeholder="Enter Email Id" name="contact_by_mail" value="{{b.contact_by_mail}}" required pattern=".+@gmail\.com" required
+                              >
+                                    <span id="emailError" style="color: red;"></span>
+                                </div>
+
+                                <div class="col-12 col-md-4 mb-3" style="margin-top: 10px;">
+                                    <label for="country"><b>Country</b>&nbsp;<b style="color: red;">*</b></label>
+                                    <input class="form-control" id="country" name="country" value="{{b.country}}" autocomplete="off" required type="text" placeholder="Enter The Country" oninput="validateCountry()">
+                                    <span id="countryerror" style="color: red; display: none;">Please enter a valid country name</span>
+                                </div>
+
+
+
+
+
+
+                                <div class="col-md-4">
+                                    <label for="state" class="form-label"><b>State</b>  &nbsp;<b style="color: red;">*</b></label>
+                                    <input type="text" id="state" class="form-control" autocomplete="off" placeholder="Enter State Name" name="state" value="{{b.state}}" oninput="validateState()" required>
+                                    <span id="state-error" style="color: red;"></span></div>
+
+                                    <div class="col-md-4">
+                                        <label for="Branchlocation" class="form-label"><b>City</b> &nbsp;<b style="color: red;">*</b></label>
+                                        <input type="text" id="Branchlocation" name="Branchlocation" value="{{b.Branchlocation}}" class="form-control" autocomplete="off" placeholder="Enter City Name" oninput="validateCity()" required>
+                                        <span id="cityErrorMessage" style="color: red;"></span>
+                                    </div>
+
+
+
+
+                                    <div class="col-md-4">
+                                        <label for="city" class="form-label"><b>Branch Name</b>  &nbsp;<b style="color: red;">*</b></label>
+                                        <input type="text" id="city" class="form-control" autocomplete="off" name="city" value="{{b.city}}" placeholder="Enter Branch Name" oninput="validateCity()" required>
+                                        <span id="errorcity" style="color: red;"></span>
+                                        <p id="amenitiesError" style="color: red; display: none;">Please enter valid Branch Name (only letters, 3-30 characters)</p>{% if error_message_bm %}
+                                        <div style="color:#c03221;" role="alert">
+                                            {{ error_message_bm }}
+
+                                        </div>
+                                        {% endif %}
+                                    </div>
+
+
+
+
+                                    <div class="col-md-4">
+                                        <label for="pincode" class="form-label"><b>PIN Code</b> &nbsp;<b style="color: red;">*</b></label>
+                                        <input type="number" id="pincode" class="form-control" autocomplete="off" placeholder="Enter  PIN Code" name="pincode" value="{{b.pincode}}" oninput="validatePincode()" required>
+                                        <span id="pincode-error" style="color: red;"></span>
+                                    </div>
+                            </div>
+
+
+                            <div class="row">
+                                <div class="col-12 mb-3">
+                                    <label for="address" style="margin-top: 10px;"><b>Address</b>&nbsp;<b style="color: red;">*</b></label>
+                                    <textarea class="form-control" id="address" name="address" autocomplete="off" required rows="4" placeholder="Enter The Address" oninput="updateAddressInfo()" maxlength="200">{{b.address}}</textarea>
+                                    <span id="charCount" style="color: #555; font-size: 12px;"></span>
+                                    <span id="errorMessageAddress" class="error" style="color: red;"></span>
+                                </div>
+                            </div>
+
+                    <div class="row justify-content-center">
+                        <div class="modal-footer d-flex justify-content-center align-items-center text-center">
+                            <button class="btn btn-outline-dark" style="background-color:#161d2b" type="submit"><span class="text-white">Submit</span></button>
+                            <button class="btn btn-outline-dark" style="background-color:#626875;" type="reset"><span style="color: white;">Clear</span></button>
+                        </div>
+                    </div>
+
+
+                </form>
+            </div>
+        </div>
+    </div></div>
+    {% endfor %}
+
+
+
+
+<div class="card" style="margin-right: 40px; margin-left: 30px;">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table mb-0" data-toggle="data-table" id="datatable">
+
+
+                <thead>
+                <tr style="background:#161d2b ">
+                    <th class="sort" data-sort="name" style="color: white; text-align: center;">S.no</span></th>
+                    <th class="sort" data-sort="name" style="color: white; text-align: center;">Hotel Name</span></th>
+                    <th class="sort" data-sort="name" style="color: white; text-align: center;">Branch Image</span></th>
+                    <th class="sort" data-sort="name" style="color: white; text-align: center;">Room Number
+                        </span></th>
+                    <th class="sort" data-sort="name" style="color: white; text-align: center;"> Contact By Mobile</span></th>
+                    <th class="sort" data-sort="name" style="color: white; text-align: center;">Contact By Mail-id</span></th>
+                    <th class="sort" data-sort="name" style="color: white; text-align: center;"></span>Created At</th>
+                    <th class="sort" data-sort="name" style="color: white; text-align: center;">Address</span></th>
+                    <th class="sort" data-sort="name" style="color: white; text-align: center;">Status</th>
+                    <th class="sort" data-sort="name" style="color: white; text-align: center;">Actions</span></th>
+
+                </tr>
+                </thead>
+
+
+                <tbody align="center" class="list form-check-all">
+                {% for a in bb_a %}
+                <tr>
+
+                    <td scope="row">{{ forloop.counter }}</td>
+                    <td class="text-center">{{ a.city }}</td>
+                    <td class="text-center"><img class="rounded-rectangle" height="50px;" src="{{ a.branch_image.url}}"
+                                          width="50px;"></td>
+                    <td class="text-center">{{ a.room_numbers }}</td>
+                    <td class="text-center">{{ a.contact_by_mobile }}</td>
+                    <td class="text-center">{{ a.contact_by_mail }}</td>
+
+                    <td class="text-center">{{ a.created_at }}</td>
+
+                    <td class="text-center">{{ a.address }}</td>
+                    <td> <form action="{% url 'togglestatusbm' a.id %}" method="post">
+                        {% csrf_token %}
+                        <button style="border: none; background: none; padding: 0; margin: 0; cursor: pointer;"
+                         class="{% if a.status %}text-danger{% else %}text-success{% endif %}" type="submit">
+                            {% if a.status %}Inactive{% else %}Active{% endif %}
+                        </button>
+                    </form>
+                                                    </td>
+
+
+                    <td>
+                        <button class="btn btn-outline-dark text-white" data-bs-target="#editData-{{forloop.counter}}" data-bs-toggle="modal"
+                                style="background-color: #161d2b;" type="button"><span
+                                style="color: white"><svg class="bi bi-pencil-square" fill="currentColor" height="16"
+                                                          viewBox="0 0 16 16" width="16"
+                                                          xmlns="http://www.w3.org/2000/svg">
+  <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+  <path d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"
+        fill-rule="evenodd"/>
+</svg></span></button>
+                        <button class="btn btn-outline-danger text-white" style="background-color: #d11d26;" data-bs-target="#deleteData-{{forloop.counter}}"
+                                data-bs-toggle="modal"
+                                type="button">
+                            <svg class="bi bi-trash3" fill="currentColor" height="16" viewBox="0 0 16 16"
+                                 width="16" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"/>
+                            </svg>
+                        </button>
+                </tr>
+                {% endfor %}
+
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+</div>
+</div>
+<script>
+    $(document).ready(function(){
+    $('#example').DataTable();
+    });
+</script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+
+
+<style>
+    .nav-item .nav-link:hover .item-name,
+    .nav-item .nav-link:focus .item-name {
+        color: white !important;
+    }
+    .nav-item .nav-link:hover,
+    .nav-item .nav-link:focus {
+        background-color: #2185f4 !important;
+    }
+</style>
+<style>
+    <style>
+    .sidebar .sidebar-list .nav-item .nav-link .item-name {
+        color:;
+    }
+
+    .navbar .nav-item .nav-link {
+        color: !important;
+    }
+    .navbar .nav-item .nav-link:hover {
+        background-color: white !important;
+        color: #2185f4 !important;
+    }
+</style>
+<script>
+    document.getElementById('image').addEventListener('change', function() {
+    var file = this.value;
+    var errorMsgImages = document.getElementById('errorMessageImages');
+    var validExtensions = ['.jpg', '.jpeg', '.png'];
+    var fileExt = file.substring(file.lastIndexOf('.')).toLowerCase();
+
+    if (!validExtensions.includes(fileExt)) {
+        errorMsgImages.style.display = 'block';
+        errorMsgImages.innerText = 'Please upload a file with JPG, PNG, or JPEG extension.';
+    } else {
+        errorMsgImages.style.display = 'none';
+    }
+});
+
+</script>
+<script>
+    document.getElementById('branch_name').addEventListener('input', function() {
+        var name = this.value;
+        var errorMsgName = document.getElementById('errorMessageName');
+
+        if (!/^[A-Za-z ]{3,30}$/.test(name)) {
+            errorMsgName.style.display = 'block';
+        } else {
+            errorMsgName.style.display = 'none';
+        }
+    });
+</script>
+<script>
+    document.getElementById('branch_location').addEventListener('input', function() {
+    var link = this.value;
+    var errorMsgLocation = document.getElementById('errorMessageLocation');
+
+    if (!/^https?:\/\/.+/.test(link)) {
+        errorMsgLocation.style.display = 'block';
+    } else {
+        errorMsgLocation.style.display = 'none';
+    }
+});
+
+</script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css" rel="stylesheet"
+      type="text/css">
+<script charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js" type="text/javascript"></script>
+<script>
+    $(document).ready(function() {
+        $('#example').DataTable({
+            "ordering": false  // Disable sorting
+        });
+    });
+</script>
+<script>
+    document.getElementById('image').addEventListener('change', function() {
+    var file = this.value;
+    var errorMsgImages = document.getElementById('errorMessageImages');
+    var validExtensions = ['.jpg', '.jpeg', '.png'];
+    var fileExt = file.substring(file.lastIndexOf('.')).toLowerCase();
+
+    if (!validExtensions.includes(fileExt)) {
+        errorMsgImages.style.display = 'block';
+        errorMsgImages.innerText = 'Please upload a file with JPG, PNG, or JPEG extension.';
+    } else {
+        errorMsgImages.style.display = 'none';
+    }
+});
+
+</script>
+<script>
+    document.getElementById('branch_name').addEventListener('input', function() {
+        var name = this.value;
+        var errorMsgName = document.getElementById('errorMessageName');
+
+        if (!/^[A-Za-z ]{3,30}$/.test(name)) {
+            errorMsgName.style.display = 'block';
+        } else {
+            errorMsgName.style.display = 'none';
+        }
+    });
+</script>
+<script>
+    document.getElementById('branch_location').addEventListener('input', function() {
+    var link = this.value;
+    var errorMsgLocation = document.getElementById('errorMessageLocation');
+
+    if (!/^https?:\/\/.+/.test(link)) {
+        errorMsgLocation.style.display = 'block';
+    } else {
+        errorMsgLocation.style.display = 'none';
+    }
+});
+
+</script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css" rel="stylesheet"
+      type="text/css">
+<script charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js" type="text/javascript"></script>
+<script>
+    $(document).ready(function() {
+        $('#example').DataTable({
+            "ordering": false  // Disable sorting
+        });
+    });
+</script>
+<!----form validations-->
+
+<script>
+    function validatePhoneNumber() {
+        var phoneNumberInput = document.getElementById("phoneNumber");
+        var phoneError = document.getElementById("phoneError");
+
+        // Check if the input matches the pattern
+        if (!/^[6-9]\d{9}$/.test(phoneNumberInput.value)) {
+            phoneError.innerHTML = "Please enter a valid phone number starting with a number between 6 and 9.";
+            phoneError.style.display = "block";
+        } else {
+            phoneError.style.display = "none";
+        }
+    }
+</script>
+<script>
+    var emailInput = document.getElementById('emailid');
+    var emailError = document.getElementById('emailError');
+
+    // Regular expression for basic email validation
+    var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    emailInput.addEventListener('input', function () {
+        if (!emailRegex.test(emailInput.value)) {
+            emailError.textContent = 'Invalid email format. Please enter a valid email address.';
+        } else {
+            emailError.textContent = ''; // Clear the error message if the email is valid
+        }
+    });
+
+    document.getElementById('myForm').addEventListener('submit', function (event) {
+        if (!emailRegex.test(emailInput.value)) {
+            event.preventDefault(); // Prevent form submission
+            emailError.textContent = 'Invalid email format. Please enter a valid email address.';
+        } else {
+            emailError.textContent = ''; // Clear the error message if the email is valid
+        }
+    });
+</script>
+<script>
+    function validateCountry() {
+        var countryInput = document.getElementById("country");
+        var errorSpan = document.getElementById("countryerror");
+
+        // Regular expression to allow only letters (no special characters)
+        var lettersOnly = /^[A-Za-z\s]+$/;
+
+        if (
+            !countryInput.value.match(lettersOnly) ||
+            !isFirstLetterCapital(countryInput.value) ||
+            countryInput.value.length < 3 ||
+            countryInput.value.length > 30
+        ) {
+            // Display error message if conditions are not met
+            errorSpan.style.display = "inline";
+        } else {
+            // Hide error message if input is valid
+            errorSpan.style.display = "none";
+        }
+    }
+
+    function isFirstLetterCapital(value) {
+        // Check if the first letter is capitalized
+        return /^[A-Z]/.test(value);
+    }
+</script>
+
+
+<script>
+    function validateState() {
+        var stateInput = document.getElementById('state');
+        var stateError = document.getElementById('state-error');
+
+        // Regular expression to check for letters with the first letter capitalized, spaces, and hyphens
+        var stateRegex = /^[A-Z][a-zA-Z\s\-]*$/;
+
+        // Check if the field is empty
+        if (stateInput.value.trim() === '') {
+            stateError.textContent = 'State is required.';
+        } else if (!stateRegex.test(stateInput.value) || stateInput.value.length < 3 || stateInput.value.length > 30) {
+            // Display error message if conditions are not met
+            stateError.textContent = 'Please enter a valid state with the first letter capitalized and between 3 to 30 characters.';
+        } else {
+            stateError.textContent = ''; // Clear the error message if state is valid
+        }
+    }
+</script>
+
+
+
+
+<script>
+    function validateCity() {
+        var cityInput = document.getElementById('city');
+        var cityError = document.getElementById('errorcity');
+
+        // Regular expression to check for letters with the first letter capitalized, spaces, and hyphens
+        var cityRegex = /^[A-Z][a-zA-Z\s\-]*$/;
+
+        // Check if the field is empty
+        if (cityInput.value.trim() === '') {
+            cityError.textContent = 'City is required.';
+        } else if (!cityRegex.test(cityInput.value) || cityInput.value.length < 3 || cityInput.value.length > 30) {
+            // Display error message if conditions are not met
+            cityError.textContent = 'Please enter a valid Branch Name with the first letter capitalized and between 3 to 30 characters.';
+        } else {
+            cityError.textContent = ''; // Clear the error message if city is valid
+        }
+    }
+</script>
+
+
+
+<script>
+  function validatePincode() {
+    var pincodeInput = document.getElementById('pincode');
+    var pincodeError = document.getElementById('pincode-error');
+
+    // Regular expression to check for numeric input
+    var pincodeRegex = /^\d+$/;
+
+    if (!pincodeRegex.test(pincodeInput.value)) {
+      pincodeError.textContent = 'Please enter a valid numeric PIN code.';
+    } else {
+      pincodeError.textContent = ''; // Clear the error message if the PIN code is valid
+    }
+
+    // Check if the field is empty
+    if (pincodeInput.value.trim() === '') {
+      pincodeError.textContent = 'PIN code is required.';
+    }
+
+    // Check if the PIN code is within a specific range (adjust as needed)
+    var minPincode = 100000;
+    var maxPincode = 999999;
+    var enteredPincode = parseInt(pincodeInput.value, 10);
+
+    if (enteredPincode < minPincode || enteredPincode > maxPincode) {
+      pincodeError.textContent = 'Please enter a PIN code within the valid range.';
+    }
+  }
+</script>
+
+<script>
+    function updateAddressInfo() {
+        var addressInput = document.getElementById('address');
+        var charCountSpan = document.getElementById('charCount');
+        var errorMessageSpan = document.getElementById('errorMessageAddress');
+
+        // Your custom validation logic
+        var isValid = /^[a-zA-Z0-9\s]+$/.test(addressInput.value);
+
+        if (isValid) {
+            errorMessageSpan.innerText = '';
+        } else {
+            errorMessageSpan.innerText = 'Please enter valid characters.';
+        }
+
+        // Update character count
+        charCountSpan.innerText = addressInput.value.length + ' characters';
+    }
+</script>
+
+<script>
+    function validateHotelName() {
+      var hotelNameInput = document.getElementById('hotel_name');
+      var hotelNameError = document.getElementById('hotelNameError');
+      var regex = /^[A-Z][a-zA-Z ]{2,29}$/; // First letter capital, no special characters, 3 to 30 characters
+
+      if (!regex.test(hotelNameInput.value)) {
+        hotelNameError.textContent = 'Hotel name should start with a capital letter, contain no special characters, and be between 3 and 30 characters.';
+        hotelNameInput.setCustomValidity('Invalid input');
+      } else {
+        hotelNameError.textContent = '';
+        hotelNameInput.setCustomValidity('');
+      }
+    }
+
+    // Optional: If you want to prevent form submission on invalid input
+    document.getElementById('hotelForm').addEventListener('submit', function(event) {
+      var hotelNameInput = document.getElementById('hotel_name');
+      if (!hotelNameInput.checkValidity()) {
+        validateHotelName(); // Display error message if the field is invalid
+        event.preventDefault(); // Prevent form submission
+      }
+    });
+  </script>
+  <!---========================================================Edit Validations================================================================----->
+  <!---========================================================================================================================================----->
+  <!---========================================================================================================================================----->
+
+
+
+<!----form validations-->
+
+<script>
+    function validatePhoneNumber() {
+        var phoneNumberInput = document.getElementById("phoneNumber");
+        var phoneError = document.getElementById("phoneError");
+
+        // Check if the input matches the pattern
+        if (!/^[6-9]\d{9}$/.test(phoneNumberInput.value)) {
+            phoneError.innerHTML = "Please enter a valid phone number starting with a number between 6 and 9.";
+            phoneError.style.display = "block";
+        } else {
+            phoneError.style.display = "none";
+        }
+    }
+</script>
+
+<script>
+    var emailInput = document.getElementById('emailid');
+    var emailError = document.getElementById('emailError');
+
+    // Regular expression for basic email validation
+    var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    emailInput.addEventListener('input', function () {
+        if (!emailRegex.test(emailInput.value)) {
+            emailError.textContent = 'Invalid email format. Please enter a valid email address.';
+        } else {
+            emailError.textContent = ''; // Clear the error message if the email is valid
+        }
+    });
+
+    document.getElementById('myForm').addEventListener('submit', function (event) {
+        if (!emailRegex.test(emailInput.value)) {
+            event.preventDefault(); // Prevent form submission
+            emailError.textContent = 'Invalid email format. Please enter a valid email address.';
+        } else {
+            emailError.textContent = ''; // Clear the error message if the email is valid
+        }
+    });
+</script>
+
+
+<script>
+    function validateRoomNumber11() {
+        // Get the input element
+        var roomNumberInput = document.getElementById('roomNumbers');
+        // Get the error message element
+        var roomNumberError11 = document.getElementById('roomNumberError11');
+
+        // Get the value from the input
+        var roomNumberValue = roomNumberInput.value;
+
+        // Validate if the input is a number and within the specified range
+        if (/^\d{1,3}$/.test(roomNumberValue)) {
+            // Clear the error message if the input is valid
+            roomNumberError11.textContent = '';
+        } else {
+            // Display an error message if the input is invalid
+            roomNumberError11.textContent = 'Please enter a valid room number (1-3 digits).';
+        }
+    }
+</script>
+
+<script>
+    function validateMobileNumber() {
+        // Get the input element
+        var mobileNumberInput = document.getElementById('contact_by_mobile11');
+        // Get the error message element
+        var mobileNumberError = document.getElementById('mobileNumberError');
+
+        // Get the value from the input
+        var mobileNumberValue = mobileNumberInput.value;
+
+        // Validate if the input is a 10-digit number starting with a digit between 6 and 9
+        if (/^[6-9]\d{9}$/.test(mobileNumberValue)) {
+            // Clear the error message if the input is valid
+            mobileNumberError.textContent = '';
+        } else {
+            // Display an error message if the input is invalid
+            mobileNumberError.textContent = 'Please enter a valid 10-digit mobile number starting with a digit between 6 and 9.';
+        }
+    }
+</script>
+
+
+
+
+
+<script>
+    function validateEmailAddress() {
+        // Get the input element
+        var emailInput = document.getElementById('contact_by_mail11');
+        // Get the error message element
+        var emailError = document.getElementById('emailError123');
+
+        // Get the value from the input
+        var emailValue = emailInput.value;
+
+        // Validate if the input is a valid email address
+        if (/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(emailValue)) {
+            // Clear the error message if the input is valid
+            emailError.textContent = '';
+        } else {
+            // Display an error message if the input is invalid
+            emailError.textContent = 'Please enter a valid email address.';
+        }
+    }
+</script>
+<script>
+    function validateCity() {
+        var cityInput = document.getElementById("Branchlocation").value.trim();
+        var cityRegExp = /^[A-Z][a-zA-Z ]{2,29}$/; // Capital first letter, 3-30 characters, only letters and spaces
+
+        var errorSpan = document.getElementById("cityErrorMessage");
+        var errorMessage = "Please enter a valid City (only letters, 3-30 characters)";
+
+        if (!cityRegExp.test(cityInput)) {
+            errorSpan.innerHTML = errorMessage;
+        } else {
+            errorSpan.innerHTML = "";
+        }
+    }
+</script>
+
+<script>
+    function validateRoomNumber() {
+    var roomNumberInput = document.getElementById("roomNumber");
+    var roomNumberError = document.getElementById("roomNumberError");
+
+    if (roomNumberInput.value < 1 || roomNumberInput.value > 999) {
+        roomNumberError.textContent = "Please enter a number between 1 and 999.";
+    } else {
+        roomNumberError.textContent = "";
+    }
+}
+
+</script>
+
+{% endblock %}

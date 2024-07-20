@@ -1,0 +1,505 @@
+{% extends 'base.html' %}
+{% block content %}
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+<div class="col-md-12" style="margin-top: 30px; margin-left: 30px;">
+    <div class="row">
+
+        <div class="col-xl-12 col-lg-8">
+            <div class="card" style="width: 96%;">
+                <div class="card-header  text-white text"
+                     style="background-color: #161d2b; width: 98%; margin-left: 1%; margin-top: 10px;">
+
+                    <h4>
+                        <span style="color:white;">Add Hotel Profile</span></h4>
+                </div>
+                <div class="card-body">
+                    <div class="new-user-info">
+                        <form action="{% url 'addhp' %}" class="row g-3" method="POST"
+                              onsubmit="return validateForm()">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-md-4 mb-3">
+                                    <label class="form-label" style="margin-top: 25px;" for="Hotel_name"><b>Hotel Name</b>&nbsp;<b
+                                            style="color: red;">*</b></label>
+                                    <input class="form-control" pattern="[A-Za-z ]{2,30}" required id="Hotel_name" name="Hotel_name"
+                                           title="Enter characters only"
+                                           type="text" placeholder="Enter Hotel Name">
+
+                                </div>
+                                     <div class="col-md-4 mb-3">
+                                    <label class="form-label" style="margin-top: 25px;" for="username"><b>User Name</b>&nbsp;<b
+                                            style="color: red;">*</b></label>
+                                    <input class="form-control" pattern="[A-Za-z ]{2,30}" required
+                                           title="Enter characters only" id="username" name="username"
+                                           type="text" placeholder="Enter User Name">
+
+                                </div>
+
+                                <div class="col-md-4 mb-3">
+                                    <label class="form-label" for="Hotel_registration_number"
+                                           style="margin-top: 25px;"><b>Hotel Registration Number:</b> &nbsp;<b
+                                            style="color: red;">*</b></label>
+                                    <input class="form-control" id="Hotel_registration_number" name="Hotel_registration_number"
+                                           pattern="[0-9]{6}"
+                                           placeholder="Enter Hotel Register Number"
+                                           title="Please enter a valid 6-digit registration number."
+                                           type="tel"/>
+                                    <div id="error-message" style="color: red; display: none;">Please enter a valid
+                                        6-digit registration number.
+                                    </div>
+                                </div>
+
+
+
+                            </div>
+                            <div class="row">
+                                 <div class="col-md-4 form-group">
+                                    <label for="hotel_image" style="margin-top: 2px;"><b>Hotel Image</b> &nbsp;<b
+                                            style="color: red;">*</b></label>
+                                    <div class="input-group">
+                                        <input accept=".jpg, .jpeg, .png" class="form-control" id="hotel_image"
+                                               name="hotel_image" type="file"></div>
+                                    <span id="errorMessageImages" style="color: red; display: none;">Error message goes here</span>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label class="form-label" for="contact_by_mobile"><b>Contact By Mobile </b> &nbsp;<b
+                                            style="color: red;">*</b></label>
+                                    <input class="form-control" pattern="[6-9][0-9]{9}" required
+                                           title="Enter characters only" id="contact_by_mobile" name="contact_by_mobile"
+                                           type="text" placeholder="Enter Your Contact number ">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label class="form-label" for="contact_by_mail"><b>Contact By Mail-id </b> &nbsp;<b
+                                            style="color: red;">*</b></label>
+                                    <input class="form-control" pattern=".+@gmail\.com" required
+                                           title="Enter characters only" id="contact_by_mail" name="contact_by_mail"
+                                           type="text" placeholder="Enter Your Mail-id ">
+                                </div>
+
+
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-12">
+                                    <label class="form-label" for="About_us" style="margin-top: 23px;"><b>About Us </b>
+                                        &nbsp;<b style="color: red;">*</b></label>
+                                    <textarea class="form-control" cols="85" id="About_us" name="About_us"
+                                              rows="4" placeholder="Enter About Hotel " required></textarea>
+                                </div>
+                            </div>
+
+
+                    </div>
+                    <div class="row">
+
+                        <div class="form-group col-md-12">
+                            <label class="form-label" for="description"><b>Description </b>&nbsp;<b
+                                    style="color: red;">*</b></label>
+                            <textarea class="form-control" cols="85" id="description" name="description"
+                                      rows="4"placeholder="Enter Hotel Description " required></textarea>
+                        </div>
+                        <br>
+                        <!-- TIll here completed -->
+
+                        <div class="mt-4 text-center">
+                            <button class="btn btn-outline-primary" style="background-color:#2185F4;color: white;"
+                                    type="submit">
+                                Submit
+                            </button>
+                            <button class="btn btn-outline-primary" style="background-color:#2185f4" type="reset"><span
+                                    style="color: white">Clear</span></button>
+                        </div>
+                    </div>
+
+                    </form>
+
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+    <script>
+        $(document).ready(function() {
+            $('#check_options').select2();
+        });
+    </script>
+
+
+    <script>
+        function validateAge(input) {
+        const ageError = document.getElementById("age_error");
+        const ageValue = input.value.trim();
+
+
+        ageError.textContent = "";
+
+        if (ageValue === "") {
+        ageError.textContent = "Age is required.";
+        return;
+        }
+
+        // Check if the input is a number and within the specified range
+        if (isNaN(ageValue) || ageValue < 18 || ageValue > 99) {
+        ageError.textContent = "Please enter a valid age (between 18 and 99).";
+        input.value = "";
+        }
+        }
+    </script>
+
+
+    <script>
+        function validateAge(input) {
+        const ageError = document.getElementById("age_error");
+        const ageValue = input.value.trim();
+
+        // Reset any previous error messages
+        ageError.textContent = "";
+
+        if (ageValue === "") {
+        ageError.textContent = "rooms are required.";
+        return;
+        }
+
+        // Check if the input matches the pattern for exactly 2 digits
+        if (!/^\d{2}$/.test(ageValue) || ageValue < 18) {
+        ageError.textContent = "Please enter a valid age (2 digits and age >= 18).";
+        }
+        }
+    </script>
+    <script>
+        function validateFullName(input) {
+        const fullNameError = document.getElementById("full_name_error");
+        const fullNameValue = input.value.trim();
+
+        // Reset any previous error messages
+        fullNameError.textContent = "";
+
+        if (fullNameValue === "") {
+        fullNameError.textContent = "Full Name is required.";
+        return;
+        }
+
+
+        if (!/^[A-Za-z ]{0,30}$/.test(fullNameValue)) {
+        fullNameError.textContent = "Full Name should contain 3 to 30 alphabets only.";
+        input.value = ""; // Clear the input field
+        }
+        }
+    </script>
+
+    <script>
+        // Get the input element
+        var mobileInput = document.getElementById("mobile");
+
+        // Add an input event listener
+        mobileInput.addEventListener("input", function() {
+         var errorMessage = document.getElementById("error-message");
+
+         // Check if the input matches the pattern
+         if (!mobileInput.checkValidity()) {
+             // Display the error message if the input is invalid
+             errorMessage.style.display = "block";
+         } else {
+             // Hide the error message if the input is valid
+             errorMessage.style.display = "none";
+         }
+        });
+    </script>
+
+    <script>
+        function validateMobileNumber(input) {
+        const mobnoError = document.getElementById("mobno_error");
+        const mobnoValue = input.value.trim();
+
+
+        mobnoError.textContent = "";
+
+        if (mobnoValue === "") {
+        mobnoError.textContent = "Mobile Number is required.";
+        return;
+        }
+
+
+        if (!/^[^a-zA-Z]{10,15}$/.test(mobnoValue)) {
+        mobnoError.textContent = "Please enter a valid mobile number (10 to 15 characters with no alphabets).";
+        input.value = "";
+        }
+        }
+    </script>
+    <style>
+        .nav-item .nav-link:hover .item-name,
+        .nav-item .nav-link:focus .item-name {
+          color: white !important;
+        }
+        .nav-item .nav-link:hover,
+        .nav-item .nav-link:focus {
+          background-color: #2185f4 !important;
+        }
+    </style>
+    <style>
+        <style>
+        .sidebar .sidebar-list .nav-item .nav-link .item-name {
+          color:;
+        }
+        .navbar .nav-item .nav-link {
+          color: !important;
+        }
+        .navbar .nav-item .nav-link:hover {
+          background-color: white !important;
+          color: #2185f4 !important;
+        }
+    </style>
+
+    <script>
+        function validateDate() {
+            var inputDate = document.getElementById('doj').value;
+            var currentDate = new Date().toISOString().split('T')[0];
+
+            if (inputDate > currentDate) {
+                alert("Date of Joining cannot exceed today's date.");
+            } else {
+                // Proceed with form submission or other actions
+                alert("Validation successful! Submitting the form.");
+
+            }
+        }
+    </script>
+
+
+    <script>
+        // Get the input element
+        var roomsInput = document.getElementById("add1");
+
+        // Add an input event listener
+        roomsInput.addEventListener("input", function() {
+         var errorMessage = document.getElementById("rooms-error-message");
+         var enteredValue = parseInt(roomsInput.value, 10);
+
+         // Check if the entered value is a valid number within the specified range
+         if (isNaN(enteredValue) || enteredValue < 1 || enteredValue > 999) {
+             // Display the error message if the value is not valid
+             errorMessage.style.display = "block";
+         } else {
+             // Hide the error message if the value is valid
+             errorMessage.style.display = "none";
+         }
+        });
+    </script>
+
+    <script>
+        // Get the input element
+        var mobileInput = document.getElementById("mobile");
+
+        // Add an input event listener
+        <script>
+
+
+        var serviceNumberInput = document.getElementById("hotelServiceNumber");
+        var serviceNumberError = document.getElementById("serviceNumberError");
+
+
+        serviceNumberInput.addEventListener("input", function() {
+          // Check if the input matches the pattern
+          if (!serviceNumberInput.checkValidity()) {
+              // Display the error message if the input is invalid
+              serviceNumberError.style.display = "block";
+          } else {
+              // Hide the error message if the input is valid
+              serviceNumberError.style.display = "none";
+          }
+        });
+    </script>
+
+    <script>
+        function clearFileInput(inputId) {
+          var fileInput = document.getElementById(inputId);
+          fileInput.value = ""; // Reset the file input
+        }
+    </script>
+
+    <script>
+        function validateHotelServiceNumber(input) {
+          var serviceNumberError = document.getElementById("serviceNumberError");
+          var serviceNumberPattern = /^[0-9]{10}$/;
+
+          if (!serviceNumberPattern.test(input.value)) {
+              // Display the error message if the input is not a valid 10-digit number
+              serviceNumberError.style.display = "block";
+          } else {
+              // Hide the error message if the input is valid
+              serviceNumberError.style.display = "none";
+          }
+        }
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+        $(document).ready(function() {
+        // Clear files on button click
+        $('#clearFiles').click(function() {
+        $('#formFile').val('');
+        });
+
+        // Validate file types
+        $('#formFile').change(function() {
+        var allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
+        var inputFiles = $('#formFile')[0].files;
+
+        for (var i = 0; i < inputFiles.length; i++) {
+          if (!allowedExtensions.test(inputFiles[i].name)) {
+            $('#errorMessageImages').text('Invalid file type. Please select JPG, JPEG, or PNG files only.');
+            $('#errorMessageImages').show();
+            $('#formFile').val(''); // Clear the file input
+            return;
+          }
+        }
+
+        // Hide error message if all files are valid
+        $('#errorMessageImages').hide();
+        });
+        });
+    </script>
+
+    <script>
+        function validateForm() {
+            // Reset previous error messages
+            document.getElementById("branchLocationError").innerHTML = "";
+
+            // Get the selected value from the Branch Location dropdown
+            var branchLocation = document.getElementById("branchLocation").value;
+
+            // Validate Branch Location
+            if (branchLocation === "") {
+                document.getElementById("branchLocationError").innerHTML = "Please select a branch location.";
+                return false;
+            }
+
+            // Add additional validation for other fields if needed
+
+            // If all validations pass, allow form submission
+            return true;
+        }
+    </script>
+
+
+    <script>
+        function validateForm() {
+            // Reset previous error messages
+            document.getElementById("error-message").style.display = "none";
+            document.getElementById("rooms-error-message").style.display = "none";
+            document.getElementById("roomTypeError").innerHTML = "";
+            document.getElementById("servicesError").innerHTML = "";
+            document.getElementById("errorMessageImages").style.display = "none";
+
+            // Get values from the form fields
+            var registrationNumber = document.getElementById("mobile").value;
+            var numberOfRooms = document.getElementById("add1").value;
+            var hotelType = document.getElementById("hotel_type").value;
+            var hotelContact = document.getElementById("Hotel_contact").value;
+            var branchAddress = document.getElementById("add1").value;
+            var branchDescription = document.getElementById("add1").value;
+            var amenitiesCheckboxes = document.querySelectorAll('.Amenities-checkbox:checked');
+            var uploadedImages = document.getElementById("formFile").files;
+
+            // Validate each field
+            if (registrationNumber === "" || isNaN(registrationNumber) || registrationNumber.length !== 6) {
+                document.getElementById("error-message").style.display = "block";
+                return false;
+            }
+
+            if (numberOfRooms === "" || isNaN(numberOfRooms) || numberOfRooms < 1 || numberOfRooms > 999) {
+                document.getElementById("rooms-error-message").style.display = "block";
+                return false;
+            }
+
+            if (hotelType === "Select Type of Hotel") {
+                document.getElementById("roomTypeError").innerHTML = "Select a type of hotel.";
+                return false;
+            }
+
+            if (hotelContact === "Select Type of Hotel") {
+                document.getElementById("roomTypeError").innerHTML = "Select a hotel contact.";
+                return false;
+            }
+
+            if (branchAddress === "") {
+                // Add additional validation as needed
+                return false;
+            }
+
+            if (branchDescription === "") {
+                // Add additional validation as needed
+                return false;
+            }
+
+            if (amenitiesCheckboxes.length === 0) {
+                document.getElementById("servicesError").innerHTML = "Select at least one amenity.";
+                return false;
+            }
+
+            if (uploadedImages.length === 0) {
+                document.getElementById("errorMessageImages").style.display = "block";
+                return false;
+            }
+
+            // If all validations pass, allow form submission
+            return true;
+        }
+
+        // Function to clear file input
+        document.getElementById('clearFiles').addEventListener('click', function() {
+            document.getElementById('formFile').value = null;
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var branchDescription = document.getElementById('add1');
+            var errorMessageBranchDescription = document.getElementById('errorMessageBranchDescription');
+
+            branchDescription.addEventListener('input', validateBranchDescription);
+
+            function validateBranchDescription() {
+                var descriptionValue = branchDescription.value;
+
+                // Check for special characters excluding space, -, %, (, ), !, .,
+                var specialCharsRegex = /[^A-Za-z0-9\s\-%!()!.]/;
+
+                if (specialCharsRegex.test(descriptionValue)) {
+                    errorMessageBranchDescription.textContent = 'Special characters are not allowed except (space, -, %, (, ), !, .)';
+                } else {
+                    errorMessageBranchDescription.textContent = '';
+                }
+            }
+        });
+    </script>
+
+
+    <!-- Include jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+    <!-- Include DataTables CSS and JS -->
+
+    <script charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"
+            type="text/javascript"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css" rel="stylesheet"
+          type="text/css">
+
+    <script charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"
+            type="text/javascript"></script>
+    <script>
+        $(document).ready(function() {
+            $('#example').DataTable({
+                "ordering": false  // Disable sorting
+            });
+        });
+    </script>
+
+
+    {% endblock %}

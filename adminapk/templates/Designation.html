@@ -1,0 +1,321 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<ol class="breadcrumb" >
+    <li class="breadcrumb-item " style="margin-left: 65%;" >
+        <a href="{% url 'dashboard' %}">Dashboard</a>
+    </li>
+    <li class="breadcrumb-item " >
+        <a href="{% url 'settings_view' %}">Settings</a>
+    </li>
+    <li class="breadcrumb-item active" >
+        Designation
+    </li>
+
+</ol>
+
+             <div class="card" style="margin-right: 40px;margin-left: 30px;">
+                <div class="card-body">
+                    <div class="card-header" style="background-color: #161d2b;color:white;">
+
+                         <span style="color: "><h4 style="color:white"> Add Designation</h4></span>
+                                    </div>
+                                    <br>
+                                    <br>
+      <form method="post" action="{% url 'addemp' %}" onsubmit="return validateForm()">
+               {% csrf_token %}
+    <div class="row">
+        <div class="col-md-6">
+            <label for="designation"><b> Designation</b> &nbsp;<b style="color: red;">*</b></label>
+            <input type="text" class="form-control" autocomplete="off" id="designation" name="designation" pattern="[A-Za-z ]{2,30}" required placeholder="Enter Designation">
+            <p id="employeeDesignationError" style="color: red; display: none;">Please enter a valid employee designation (only letters, 2-30 characters)</p>
+        </div>
+
+
+
+        <div class="col-md-6">
+        <label for="department"><b>Department</b> &nbsp;<b style="color: red;">*</b></label>
+        <select class="form-select" id="department" name="department"  required>
+            <option selected disabled>Select Department</option>
+            {% for a in department %}
+                <option value="{{ a.pk }}">{{ a.department }}</option>
+            {% endfor %}
+            <!-- Add more room types as needed -->
+        </select>
+        <p id="departmentError" style="color: red; display: none;">Please select a department.</p>
+    </div>
+
+
+
+</div>
+
+
+    <div align="center" class="row">
+                            <div class="col-xl-12">
+                                <br>
+                                <button class="btn btn-outline-dark" style="background-color:#161d2b" type="submit"><span class="text-white">Submit</span></button>
+                            <button class="btn btn-outline-dark" style="background-color:#626875;" type="reset"><span style="color: white;">Clear</span></button>
+                            </div>
+                        </div>
+
+</form>
+<!---delete popup---->
+                    {% for x in emp_a %}
+       <div class="modal fade" id="deleteData-{{forloop.counter}}" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+           <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header" >
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="NotificationModalbtn-close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mt-2 text-center">
+<lord-icon
+    src="https://cdn.lordicon.com/skkahier.json"
+    trigger="hover"
+    colors="primary:#c71f16"
+    style="width:150px;height:100px">
+</lord-icon>
+                        <h4>Are you sure ?</h4>
+                        <p class="text-muted mx-4 mb-0">Are you sure you want to remove <b style="color: red;">{{x.designation}}</b> Designation ?</p>
+                    </div>
+
+                <div class="d-flex gap-2 justify-content-center mt-4 mb-2">
+                    <a class="btn btn-outline-danger text-white" style="background-color: #d11d26;" href="{% url 'deleteemp' x.pk %}">Delete</a>
+                    <button type="button" class="btn btn-outline-dark text-white" style="background-color: #626875;" data-bs-dismiss="modal">Cancel</button>
+                </div>
+                </div>
+            </div>
+      </div>
+         <br>
+               <br>
+    </div>
+                    {% endfor %}
+<!---edit popup--->
+{% for y in emp_a %}
+<div class="modal fade" id="editData-{{forloop.counter}}" tabindex="-1" aria-labelledby="employeeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-md">
+    <div class="modal-content">
+      <div class="modal-header" style="background: #161d2b">
+                <h5 class="modal-title text-white"  id="formModalLabel" style="color: white">Edit </h5>
+        <button type="button" class="btn-close bg-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+          <form method="POST" action="{% url 'updateemp' y.id %}">
+                {% csrf_token %}
+          <div class="row">
+            <div class="col-md-6">
+              <label for="designation"> <b>Designation</b></label>
+              <input type="text" class="form-control" autocomplete="off" id="designation" name="designation" pattern="[A-Za-z ]{2,30}" required title="Enter characters only" value="{{y.designation}}">
+            </div>
+            <div class="col-md-6">
+              <label for="department"><b>Department</b></label>
+              <select class="form-select" id="department" name="department">
+                <option value="{{ y.department }}">{{ y.department }}</option>
+                {% for a in department %}
+                <option value="{{ a.pk }}">{{ a.department }}</option>
+                {% endfor %}
+                <!-- Add more room types as needed -->
+            </select>
+            </div>
+            <br>
+          </div>
+          <br>
+          <div class="row" align="center">
+            <div class="modal-footer d-flex justify-content-center align-items-center text-center">
+                <button class="btn btn-outline-dark" style="background-color:#161d2b" type="submit"><span class="text-white">Submit</span></button>
+                <button class="btn btn-outline-dark" style="background-color:#626875;" type="reset"><span style="color: white;">Clear</span></button>
+</div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+                     {% endfor %}
+<br>
+
+    </div>
+
+
+
+            </div>
+
+            <div class="card" style="margin-right: 40px; margin-left: 30px;">
+    <div class="card-body">
+        <div class="table-responsive">
+                <table class="table mb-0" data-toggle="data-table" id="datatable">
+
+                <thead>
+                    <tr style="background:  #161d2b;">
+                       <th   style="color: white; text-align: center;">S.no</th>
+<th  style="color: white; text-align: center;">Designation</th>
+<th  style="color: white; text-align: center;">Department</th>
+<th  style="color: white; text-align: center;">Branch</th>
+<th  style="color: white; text-align: center;">Status</th>
+<th  style="color: white; text-align: center;">Actions</th>
+
+                    </tr>
+                </thead>
+
+                     <tbody class="list form-check-all" align="center">
+                     {% for e in emp_a %}
+                                <tr>
+
+                                    <td >{{ forloop.counter }}</td>
+                                    <td >{{ e.designation }}</td>
+                                    <td >{{ e.department }}</td>
+                                    <td >{{ e.created_at }}</td>
+                                    <td> <form action="{% url 'togglestatusemp' e.id %}" method="post">
+                                        {% csrf_token %}
+                                        <button style="border: none; background: none; padding: 0; margin: 0; cursor: pointer;"
+                                         class=" {% if e.status %}text-danger{% else %}text-success{% endif %}" type="submit">
+                                            {% if e.status %}Inactive{% else %}Active{% endif %}
+                                        </button>
+                                    </form>
+                                                                    </td>
+
+
+                                   <td><button type="button" class="btn btn-outline-dark text-white" data-bs-toggle="modal" data-bs-target="#editData-{{forloop.counter}}" style="background-color : #161d2b;"><span style="color: white"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+    <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+    <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+  </svg></span></button>
+
+                                    <button type="button" class="btn btn-outline-danger text-white" style="background-color: #d11d26;" data-bs-toggle="modal" data-bs-target="#deleteData-{{forloop.counter}}"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
+  <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"/>
+</svg></button>
+                                   </td>
+                                </tr>
+{% endfor %}
+                            </tbody>
+
+
+
+            </table>
+        </div>
+    </div>
+</div>
+
+
+        </div>
+            </div>
+ <script>
+                $(document).ready(function(){
+                $('#example').DataTable();
+                });
+            </script>
+            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+            <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+            <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+        <style>
+  /* Set the color property to black for all text within the elements */
+  .card,.modal-body, label, input, span, textarea, th, td, button {
+    color: black;]
+
+
+  }
+</style>
+        <style>
+    .nav-item .nav-link:hover .item-name,
+    .nav-item .nav-link:focus .item-name {
+        color: white !important;
+    }
+    .nav-item .nav-link:hover,
+    .nav-item .nav-link:focus {
+        background-color: #2185f4 !important;
+    }
+</style>
+<style >
+    <style>
+    .sidebar .sidebar-list .nav-item .nav-link .item-name {
+        color:;
+    }
+
+    .navbar .nav-item .nav-link {
+        color: !important;
+    }
+    .navbar .nav-item .nav-link:hover {
+        background-color: white !important;
+        color: #2185f4 !important;
+    }
+</style>
+
+   <style>
+       .dataTables_paginate .paginate_button.current {
+    background-color: blue;
+    color: white; /* Text color */
+}
+
+.dataTables_paginate .paginate_button {
+    background-color: blue;
+    color: white; /* Text color */
+}
+        }
+    </style>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+            <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+   <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css" rel="stylesheet"
+          type="text/css">
+
+<script>
+    $(document).ready(function() {
+        $('#example').DataTable({
+            "ordering": false  // Disable sorting
+        });
+    });
+</script>
+<script>
+    var designationInput = document.getElementById('designation');
+    var designationError = document.getElementById('employeeDesignationError');
+
+    designationInput.addEventListener('input', function() {
+        validateDesignation();
+    });
+
+    function validateDesignation() {
+        var inputValue = designationInput.value.trim();
+
+        // Check if the input follows the specified pattern with the first letter as capital
+        var validFormat = /^[A-Z][a-zA-Z ]{1,29}$/.test(inputValue);
+
+        if (!validFormat) {
+            designationError.style.display = 'block';
+        } else {
+            designationError.style.display = 'none';
+        }
+    }
+
+    function validateForm() {
+        validateDesignation(); // Validate the designation field
+
+        // Check if there are any error messages
+        if (designationError.style.display === 'block') {
+            // Return false to prevent form submission
+            return false;
+        }
+
+        // Additional validation logic for other fields can be added here
+
+        // Return true if all validations pass
+        return true;
+    }
+</script>
+<script>
+    function validateForm() {
+        var departmentSelect = document.getElementById('department');
+        var departmentError = document.getElementById('departmentError');
+
+        // Check if the selected value is the default (disabled) option
+        if (departmentSelect.value === '') {
+            departmentError.textContent = 'Please select a department.';
+            departmentError.style.display = 'block';
+            return false; // Return false to prevent form submission
+        } else {
+            departmentError.style.display = 'none';
+            return true; // Continue with form submission
+        }
+    }
+</script>
+{% endblock %}
